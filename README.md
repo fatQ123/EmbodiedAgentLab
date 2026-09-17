@@ -68,7 +68,7 @@ EmbodiedAgentLab/                 # 具身智能体实验室仓库
 
 ## 路线与验收
 
-完整计划见 [docs/roadmap.md](docs/roadmap.md)。开源项目的具体学习方法见 [docs/open-source-study.md](docs/open-source-study.md)。系统边界与演进方式见 [docs/architecture.md](docs/architecture.md)。
+完整计划见 [docs/roadmap.md](docs/roadmap.md)。开源项目的通用学习方法见 [docs/open-source-study.md](docs/open-source-study.md)，第一次完整实战见 [第 2 周 ROS 2 官方示例实验](docs/labs/week02-ros2-examples.md)。系统边界与演进方式见 [docs/architecture.md](docs/architecture.md)。
 
 ## 工作方式
 
