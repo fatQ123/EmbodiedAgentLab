@@ -14,7 +14,14 @@ class DoctorTest(unittest.TestCase):
         """确认首版至少覆盖软件、ROS 2 与设备检查。"""
 
         names = {result.name for result in collect_checks()}
-        expected = {"操作系统", "Python 版本", "Git 版本控制工具", "ROS 2 发行版", "串口设备"}
+        expected = {
+            "操作系统",
+            "Python 版本",
+            "Git 版本控制工具",
+            "Conda 环境",
+            "ROS 2 发行版",
+            "串口设备",
+        }
         self.assertTrue(expected <= names)
 
     def test_main_returns_success(self) -> None:

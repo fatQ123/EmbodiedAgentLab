@@ -5,7 +5,7 @@ __pycache__/
 build/
 dist/
 
-# 本地虚拟环境
+# 可能由编辑器临时建立的 Python（编程语言）虚拟环境；正式环境由 Conda 管理
 .venv/
 
 # 测试与覆盖率缓存

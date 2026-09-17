@@ -21,14 +21,14 @@
 ## 当前可运行内容
 
 ```bash
-# 创建隔离的 Python（编程语言）环境
-python3 -m venv .venv
+# 根据配置创建 Conda（环境与包管理器）环境
+conda env create -f environment.yml
 
-# 激活环境
-source .venv/bin/activate
+# 激活项目环境
+conda activate embodied-agent-lab
 
-# 安装项目与开发依赖
-python -m pip install -e '.[dev]'
+# 以可编辑方式安装项目；修改源码后无需重复安装
+python -m pip install --editable .
 
 # 运行环境诊断命令
 embodiedlab doctor
@@ -37,7 +37,14 @@ embodiedlab doctor
 python -m unittest discover -s tests
 ```
 
-也可以执行 `./scripts/setup.sh（自动创建环境并安装依赖的脚本）` 完成前三步。
+以后配置发生变化时，执行以下命令同步环境：
+
+```bash
+# 更新已有环境，并移除配置文件中不再需要的依赖
+conda env update --name embodied-agent-lab --file environment.yml --prune
+```
+
+也可以执行 `./scripts/setup.sh（自动创建或更新 Conda 环境并安装项目的脚本）` 完成环境准备。
 
 ## 当前目录
 
@@ -53,6 +60,7 @@ EmbodiedAgentLab/                 # 具身智能体实验室仓库
 │   └── doctor.py                 # 环境诊断命令行工具
 ├── tests/                        # 自动化测试
 ├── LICENSE                       # MIT（宽松开源许可）文本
+├── environment.yml               # Conda（环境与包管理器）环境配置
 └── pyproject.toml                # Python（编程语言）项目配置
 ```
 
@@ -60,7 +68,7 @@ EmbodiedAgentLab/                 # 具身智能体实验室仓库
 
 ## 路线与验收
 
-完整计划见 [docs/roadmap.md](docs/roadmap.md)。系统边界与演进方式见 [docs/architecture.md](docs/architecture.md)。
+完整计划见 [docs/roadmap.md](docs/roadmap.md)。开源项目的具体学习方法见 [docs/open-source-study.md](docs/open-source-study.md)。系统边界与演进方式见 [docs/architecture.md](docs/architecture.md)。
 
 ## 工作方式
 

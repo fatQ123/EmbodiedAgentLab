@@ -30,6 +30,11 @@ def collect_checks() -> list[CheckResult]:
             shutil.which("git") or "未找到可执行文件",
         ),
         CheckResult(
+            "Conda 环境",
+            "正常" if os.getenv("CONDA_DEFAULT_ENV") else "警告",
+            os.getenv("CONDA_DEFAULT_ENV", "当前终端未激活 Conda 环境"),
+        ),
+        CheckResult(
             "ROS 2 发行版",
             "正常" if os.getenv("ROS_DISTRO") else "警告",
             os.getenv("ROS_DISTRO", "未设置 ROS_DISTRO 环境变量"),

@@ -1,0 +1,12 @@
+# EmbodiedAgentLab（具身智能体实验室）的 Conda（环境与包管理器）配置。
+name: embodied-agent-lab
+
+# 优先从 conda-forge（社区维护的软件源）安装通用依赖。
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  # Python（编程语言）版本与 ROS 2 Jazzy（机器人操作系统第二代）常用版本保持一致。
+  - python=3.12
+  - pip
