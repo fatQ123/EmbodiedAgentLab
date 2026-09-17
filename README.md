@@ -1,6 +1,6 @@
 # EmbodiedAgentLab（具身智能体实验室）
 
-一个以项目驱动方式学习并构建“机器人大小脑”的长期工程：用 `ROS 2（机器人操作系统第二代）`、`MoveIt 2（机械臂运动规划框架）`、`ros2_control（机器人控制框架）`、视觉感知、`LLM Agent（大语言模型智能体）` 与机器人学习，完成可诊断、可恢复、可评测的机械臂系统。
+一个以项目驱动方式学习并构建“机器人大小脑”的长期工程：用 `ROS 2（机器人操作系统第二代）`、`RViz（机器人可视化工具）`、`Gazebo（物理仿真器）`、`MoveIt 2（机械臂运动规划框架）`、`ros2_control（机器人控制框架）`、视觉感知、`LLM Agent（大语言模型智能体）` 与机器人学习，完成可诊断、可恢复、可评测的机械臂系统。第 1.0 版采用仿真优先路线，不要求真实机器人硬件。
 
 > 当前阶段：`v0.1（第 0.1 版）` 工程骨架与环境诊断工具。
 
@@ -68,7 +68,7 @@ EmbodiedAgentLab/                 # 具身智能体实验室仓库
 
 ## 路线与验收
 
-完整计划见 [docs/roadmap.md](docs/roadmap.md)。开源项目的通用学习方法见 [docs/open-source-study.md](docs/open-source-study.md)，第一次完整实战见 [第 2 周 ROS 2 官方示例实验](docs/labs/week02-ros2-examples.md)。系统边界与演进方式见 [docs/architecture.md](docs/architecture.md)。
+完整计划见 [docs/roadmap.md](docs/roadmap.md)，无硬件情况下的逐周工具与验收见 [仿真与机器人可视化路线](docs/simulation-first-track.md)。开源项目的通用学习方法见 [docs/open-source-study.md](docs/open-source-study.md)，第一次完整实战见 [第 2 周 ROS 2 官方示例实验](docs/labs/week02-ros2-examples.md)。系统边界与演进方式见 [docs/architecture.md](docs/architecture.md)。
 
 ## 工作方式
 
