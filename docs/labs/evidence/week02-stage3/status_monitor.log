@@ -1,0 +1,12 @@
+[INFO] [1789817419.289045155] [status_monitor]: 监控器已启动：话题=/sensor_state，超时=3.00 秒
+[WARN] [1789817422.275883265] [status_monitor]: 传感器消息超时：已 3.00 秒没有有效消息
+[INFO] [1789817426.047963843] [status_monitor]: 收到任务结果：task_id=1，success=False，sensor_seq=None，没有有效传感器数据：尚未收到格式合法的读数
+[INFO] [1789817429.253168611] [status_monitor]: 传感器消息已恢复
+[INFO] [1789817429.253504268] [status_monitor]: 收到传感器：seq=5，value=4.0
+[INFO] [1789817429.753243821] [status_monitor]: 收到传感器：seq=6，value=5.0
+[INFO] [1789817430.253101685] [status_monitor]: 收到传感器：seq=7，value=6.0
+[INFO] [1789817430.753184438] [status_monitor]: 收到传感器：seq=8，value=7.0
+[INFO] [1789817431.253126601] [status_monitor]: 收到传感器：seq=9，value=8.0
+[INFO] [1789817431.753057730] [status_monitor]: 收到传感器：seq=10，value=9.0
+[INFO] [1789817432.029056698] [status_monitor]: 收到任务结果：task_id=2，success=True，sensor_seq=10，检查通过：seq=10，value=9.0
+[INFO] [1789817432.253239659] [status_monitor]: 收到传感器：seq=11，value=10.0

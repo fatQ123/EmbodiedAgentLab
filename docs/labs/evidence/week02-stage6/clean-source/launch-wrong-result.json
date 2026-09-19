@@ -1,0 +1,21 @@
+{
+  "launch_args": [
+    "ros2",
+    "launch",
+    "embodied_comm",
+    "three_nodes.launch.py",
+    "publish_rate:=5.0",
+    "timeout_sec:=1.5",
+    "executor_sensor_topic:=/sensor_state_wrong"
+  ],
+  "parameters": {
+    "publish_rate": 5.0,
+    "timeout_sec": 1.5
+  },
+  "sensor_subscribers": [
+    "status_monitor"
+  ],
+  "service_success": false,
+  "service_message": "没有有效传感器数据：尚未收到格式合法的读数",
+  "monitor_received_task": true
+}

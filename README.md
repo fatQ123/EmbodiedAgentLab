@@ -2,7 +2,7 @@
 
 一个以项目驱动方式学习并构建“机器人大小脑”的长期工程：用 `ROS 2（机器人操作系统第二代）`、`RViz（机器人可视化工具）`、`Gazebo（物理仿真器）`、`MoveIt 2（机械臂运动规划框架）`、`ros2_control（机器人控制框架）`、视觉感知、`LLM Agent（大语言模型智能体）` 与机器人学习，完成可诊断、可恢复、可评测的机械臂系统。第 1.0 版采用仿真优先路线，不要求真实机器人硬件。
 
-> 当前阶段：`v0.1（第 0.1 版）` 工程骨架与环境诊断工具。
+> 当前阶段：`v0.2` 三节点模拟系统、Trigger 服务、一键启动，以及 Python/C++ 发布订阅对照。
 
 ## 项目目标
 
@@ -36,6 +36,36 @@ embodiedlab doctor
 # 运行自动化测试
 python -m unittest discover -s tests
 ```
+
+## v0.2：三节点模拟系统
+
+需要 Ubuntu 24.04、ROS 2 Jazzy、colcon 和 C++ 工具链。系统依赖包括 `ros-jazzy-rclpy`、`ros-jazzy-rclcpp`、`ros-jazzy-std-msgs`、`ros-jazzy-std-srvs`、`ros-jazzy-launch-ros`、`ros-jazzy-ros2launch`、`ros-jazzy-ament-cmake-gtest`、`python3-pytest`、`libjsoncpp-dev`；截图实验另需 `ros-jazzy-rqt-graph` 和 Graphviz。ROS 依赖通过系统包管理器准备，不用 pip 安装 rclpy。
+
+```bash
+conda activate embodied-agent-lab
+source /opt/ros/jazzy/setup.bash
+cd ros2_ws
+colcon build --packages-select embodied_comm embodied_comm_cpp \
+  --cmake-args -DPython3_EXECUTABLE=/usr/bin/python3
+source install/setup.bash
+ros2 launch embodied_comm three_nodes.launch.py
+```
+
+另一个终端加载相同环境和工作空间，等执行器显示最新读数后调用：
+
+```bash
+ros2 service call /execute_task std_srvs/srv/Trigger "{}"
+```
+
+传感器持续发布 `/sensor_state`，执行器按请求检查缓存读数并发布 `/task_status`，监控器显示结果和传感器超时。默认读数有效范围为 0～100；`publish_rate` 范围为 0.1～100 Hz。无数据时服务返回失败。尚未检查数据新鲜度，停止传感器后旧缓存仍可能通过任务检查。
+
+```bash
+# 运行两个包的测试（先加载 install/setup.bash）
+colcon test --packages-select embodied_comm embodied_comm_cpp
+colcon test-result --verbose
+```
+
+[完整 v0.2 验收与复现记录](docs/labs/week02-stage6.md)包含阶段①～⑤证据、双语言对照、限制和版本信息。
 
 ## 诊断命令与输出协议
 
@@ -111,7 +141,10 @@ EmbodiedAgentLab/                 # 具身智能体实验室仓库
 ├── src/embodied_agent_lab/       # Python（编程语言）源代码
 │   ├── __init__.py               # 软件包入口
 │   └── doctor.py                 # 环境诊断命令行工具
-├── tests/                        # 自动化测试
+├── ros2_ws/src/                  # ROS 2 独立源码
+│   ├── embodied_comm/            # Python 三节点、服务、Launch 与测试
+│   └── embodied_comm_cpp/        # C++ 发布订阅对照与 GoogleTest
+├── tests/                        # 环境诊断自动化测试
 ├── LICENSE                       # MIT（宽松开源许可）文本
 ├── environment.yml               # Conda（环境与包管理器）环境配置
 └── pyproject.toml                # Python（编程语言）项目配置
@@ -121,7 +154,7 @@ EmbodiedAgentLab/                 # 具身智能体实验室仓库
 
 ## 路线与验收
 
-完整计划见 [docs/roadmap.md](docs/roadmap.md)，无硬件情况下的逐周工具与验收见 [仿真与机器人可视化路线](docs/simulation-first-track.md)。开源项目的通用学习方法见 [docs/open-source-study.md](docs/open-source-study.md)，第一次完整实战见 [第 2 周 ROS 2 官方示例实验](docs/labs/week02-ros2-examples.md)。系统边界与演进方式见 [docs/architecture.md](docs/architecture.md)。
+完整计划见 [docs/roadmap.md](docs/roadmap.md)，无硬件情况下的逐周工具与验收见 [仿真与机器人可视化路线](docs/simulation-first-track.md)。开源项目的通用学习方法见 [docs/open-source-study.md](docs/open-source-study.md)，第一次完整实战见 [第 2 周 ROS 2 官方示例实验](docs/labs/week02-ros2-examples.md)。主项目第 2 周的开发前检查与文件计划见 [三节点系统实施清单](docs/labs/week02-three-node-system.md)。系统边界与演进方式见 [docs/architecture.md](docs/architecture.md)。
 
 ## 工作方式
 

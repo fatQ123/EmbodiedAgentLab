@@ -1,0 +1,17 @@
+[INFO] [1789810106.931083592] [status_monitor]: 监控器已启动：话题=/sensor_state，超时=3.00 秒
+[INFO] [1789810107.427320940] [status_monitor]: 收到传感器：seq=1，value=0.0
+[INFO] [1789810107.927249424] [status_monitor]: 收到传感器：seq=2，value=1.0
+[INFO] [1789810108.427424313] [status_monitor]: 收到传感器：seq=3，value=2.0
+[INFO] [1789810108.927252725] [status_monitor]: 收到传感器：seq=4，value=3.0
+[INFO] [1789810109.427327822] [status_monitor]: 收到传感器：seq=5，value=4.0
+[INFO] [1789810109.927252135] [status_monitor]: 收到传感器：seq=6，value=5.0
+[INFO] [1789810110.427082661] [status_monitor]: 收到传感器：seq=7，value=6.0
+[INFO] [1789810110.927091002] [status_monitor]: 收到传感器：seq=8，value=7.0
+[INFO] [1789810111.427120722] [status_monitor]: 收到传感器：seq=9，value=8.0
+[INFO] [1789810111.927375540] [status_monitor]: 收到传感器：seq=10，value=9.0
+[INFO] [1789810112.427145953] [status_monitor]: 收到传感器：seq=11，value=10.0
+[INFO] [1789810112.927366907] [status_monitor]: 收到传感器：seq=12，value=11.0
+[INFO] [1789810113.427249843] [status_monitor]: 收到传感器：seq=13，value=12.0
+[INFO] [1789810113.927346351] [status_monitor]: 收到传感器：seq=14，value=13.0
+[INFO] [1789810114.427159247] [status_monitor]: 收到传感器：seq=15，value=14.0
+[INFO] [1789810114.927108053] [status_monitor]: 收到传感器：seq=16，value=15.0

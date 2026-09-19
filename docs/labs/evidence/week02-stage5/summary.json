@@ -1,0 +1,35 @@
+{
+  "normal": {
+    "graph_edges_verified": 5,
+    "measured_rates_hz": [
+      "2.000",
+      "2.000"
+    ],
+    "service_response": "waiting for service to become available...\nrequester: making request: std_srvs.srv.Trigger_Request()\n\nresponse:\nstd_srvs.srv.Trigger_Response(success=True, message='检查通过：seq=49，value=48.0')",
+    "monitor_task_log": [
+      "[status_monitor-3] [INFO] [1789819361.197377312] [status_monitor]: 收到任务结果：task_id=1，success=True，sensor_seq=49，检查通过：seq=49，value=48.0"
+    ]
+  },
+  "wrong": {
+    "graph_edges_verified": 5,
+    "measured_rates_hz": [
+      "2.000",
+      "2.000"
+    ],
+    "service_response": "waiting for service to become available...\nrequester: making request: std_srvs.srv.Trigger_Request()\n\nresponse:\nstd_srvs.srv.Trigger_Response(success=False, message='没有有效传感器数据：尚未收到格式合法的读数')",
+    "monitor_task_log": [
+      "[status_monitor-3] [INFO] [1789819405.947793057] [status_monitor]: 收到任务结果：task_id=1，success=False，sensor_seq=None，没有有效传感器数据：尚未收到格式合法的读数"
+    ]
+  },
+  "repaired": {
+    "graph_edges_verified": 5,
+    "measured_rates_hz": [
+      "2.000",
+      "2.000"
+    ],
+    "service_response": "waiting for service to become available...\nrequester: making request: std_srvs.srv.Trigger_Request()\n\nresponse:\nstd_srvs.srv.Trigger_Response(success=True, message='检查通过：seq=49，value=48.0')",
+    "monitor_task_log": [
+      "[status_monitor-3] [INFO] [1789819444.499316779] [status_monitor]: 收到任务结果：task_id=1，success=True，sensor_seq=49，检查通过：seq=49，value=48.0"
+    ]
+  }
+}

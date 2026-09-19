@@ -1,0 +1,11 @@
+{
+  "command": [
+    "ros2",
+    "launch",
+    "embodied_comm",
+    "three_nodes.launch.py",
+    "executor_sensor_topic:=/sensor_state_wrong"
+  ],
+  "ROS_DOMAIN_ID": 187,
+  "case": "wrong"
+}

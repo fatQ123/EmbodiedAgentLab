@@ -1,0 +1,6 @@
+Starting >>> embodied_comm
+Starting >>> embodied_comm_cpp
+Finished <<< embodied_comm [1.61s]
+Finished <<< embodied_comm_cpp [10.4s]
+
+Summary: 2 packages finished [10.6s]

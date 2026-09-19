@@ -1,0 +1,6 @@
+waiting for service to become available...
+requester: making request: std_srvs.srv.Trigger_Request()
+
+response:
+std_srvs.srv.Trigger_Response(success=False, message='没有有效传感器数据：尚未收到格式合法的读数')
+

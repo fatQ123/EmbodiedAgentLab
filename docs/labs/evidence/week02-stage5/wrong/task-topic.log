@@ -1,0 +1,36 @@
+Type: std_msgs/msg/String
+
+Publisher count: 1
+
+Node name: task_executor
+Node namespace: /
+Topic type: std_msgs/msg/String
+Topic type hash: RIHS01_df668c740482bbd48fb39d76a70dfd4bd59db1288021743503259e948f6b1a18
+Endpoint type: PUBLISHER
+GID: 01.0f.84.cc.30.07.86.d2.00.00.00.00.00.00.14.03
+QoS profile:
+  Reliability: RELIABLE
+  History (Depth): UNKNOWN
+  Durability: VOLATILE
+  Lifespan: Infinite
+  Deadline: Infinite
+  Liveliness: AUTOMATIC
+  Liveliness lease duration: Infinite
+
+Subscription count: 1
+
+Node name: status_monitor
+Node namespace: /
+Topic type: std_msgs/msg/String
+Topic type hash: RIHS01_df668c740482bbd48fb39d76a70dfd4bd59db1288021743503259e948f6b1a18
+Endpoint type: SUBSCRIPTION
+GID: 01.0f.84.cc.31.07.cb.c5.00.00.00.00.00.00.14.04
+QoS profile:
+  Reliability: RELIABLE
+  History (Depth): UNKNOWN
+  Durability: VOLATILE
+  Lifespan: Infinite
+  Deadline: Infinite
+  Liveliness: AUTOMATIC
+  Liveliness lease duration: Infinite
+

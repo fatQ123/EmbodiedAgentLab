@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>embodied_comm_cpp</name>
+  <version>0.2.0</version>
+  <description>Python/C++ 发布订阅对照实验。</description>
+  <maintainer email="fatQ123@users.noreply.github.com">fatQ123</maintainer>
+  <license>MIT</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>rclcpp</depend>
+  <depend>rcl_interfaces</depend>
+  <depend>std_msgs</depend>
+  <depend>jsoncpp</depend>
+  <test_depend>ament_cmake_gtest</test_depend>
+  <export><build_type>ament_cmake</build_type></export>
+</package>

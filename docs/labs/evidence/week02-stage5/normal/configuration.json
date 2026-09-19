@@ -1,0 +1,10 @@
+{
+  "command": [
+    "ros2",
+    "launch",
+    "embodied_comm",
+    "three_nodes.launch.py"
+  ],
+  "ROS_DOMAIN_ID": 186,
+  "case": "normal"
+}

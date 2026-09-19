@@ -1,0 +1,67 @@
+{
+  "domain": 194,
+  "topic": "/sensor_state",
+  "type": "std_msgs/msg/String",
+  "cases": [
+    {
+      "phase": "normal",
+      "subscriber_topic": "/sensor_state",
+      "publisher_count": 1,
+      "subscriber_count_before_probe": 1,
+      "received_samples_at_probe": [
+        "{\"seq\": 15, \"value\": 14.0}",
+        "{\"seq\": 16, \"value\": 15.0}",
+        "{\"seq\": 17, \"value\": 16.0}",
+        "{\"seq\": 18, \"value\": 17.0}",
+        "{\"seq\": 19, \"value\": 18.0}",
+        "{\"seq\": 20, \"value\": 19.0}",
+        "{\"seq\": 21, \"value\": 20.0}",
+        "{\"seq\": 22, \"value\": 21.0}",
+        "{\"seq\": 23, \"value\": 22.0}",
+        "{\"seq\": 24, \"value\": 23.0}"
+      ],
+      "measured_hz": 4.995,
+      "subscriber_received": true
+    },
+    {
+      "phase": "wrong",
+      "subscriber_topic": "/sensor_state_wrong",
+      "publisher_count": 1,
+      "subscriber_count_before_probe": 1,
+      "received_samples_at_probe": [
+        "{\"seq\": 40, \"value\": 39.0}",
+        "{\"seq\": 41, \"value\": 40.0}",
+        "{\"seq\": 42, \"value\": 41.0}",
+        "{\"seq\": 43, \"value\": 42.0}",
+        "{\"seq\": 44, \"value\": 43.0}",
+        "{\"seq\": 45, \"value\": 44.0}",
+        "{\"seq\": 46, \"value\": 45.0}",
+        "{\"seq\": 47, \"value\": 46.0}",
+        "{\"seq\": 48, \"value\": 47.0}",
+        "{\"seq\": 49, \"value\": 48.0}"
+      ],
+      "measured_hz": 4.979,
+      "subscriber_received": false
+    },
+    {
+      "phase": "repaired",
+      "subscriber_topic": "/sensor_state",
+      "publisher_count": 1,
+      "subscriber_count_before_probe": 1,
+      "received_samples_at_probe": [
+        "{\"seq\": 68, \"value\": 67.0}",
+        "{\"seq\": 69, \"value\": 68.0}",
+        "{\"seq\": 70, \"value\": 69.0}",
+        "{\"seq\": 71, \"value\": 70.0}",
+        "{\"seq\": 72, \"value\": 71.0}",
+        "{\"seq\": 73, \"value\": 72.0}",
+        "{\"seq\": 74, \"value\": 73.0}",
+        "{\"seq\": 75, \"value\": 74.0}",
+        "{\"seq\": 76, \"value\": 75.0}",
+        "{\"seq\": 77, \"value\": 76.0}"
+      ],
+      "measured_hz": 5.014,
+      "subscriber_received": true
+    }
+  ]
+}

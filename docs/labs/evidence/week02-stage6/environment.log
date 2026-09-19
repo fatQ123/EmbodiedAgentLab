@@ -1,0 +1,20 @@
+[正常] 已找到 Conda：conda 26.7.2
+[正常] 当前 Conda 环境为 embodied-agent-lab。
+[正常] ROS 2 发行版为 jazzy。
+[正常] 已找到命令：ros2。
+[正常] 已找到命令：colcon。
+[正常] 当前 Python 可以导入 rclpy 与 std_msgs。
+[正常] 已找到官方示例，分支为 lab/jazzy-pub-sub，提交为 0700885。
+[通过] 实验环境检查全部通过。
+g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+Copyright (C) 2023 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+cmake version 3.28.3
+
+CMake suite maintained and supported by Kitware (kitware.com/cmake).
+/home/fatbro/software/miniforge3/envs/embodied-agent-lab/bin/python
+/usr/bin/colcon
+/opt/ros/jazzy
+/opt/ros/jazzy

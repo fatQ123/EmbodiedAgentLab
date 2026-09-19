@@ -1,0 +1,2 @@
+[INFO] [1789830630.586134487] [status_monitor]: C++ 监控器启动：话题=/sensor_state_wrong
+[INFO] [1789830633.168844611] [rclcpp]: signal_handler(SIGINT/SIGTERM)

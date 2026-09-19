@@ -1,0 +1,7 @@
+[INFO] [1789808227.252515283] [status_monitor]: 监控器已启动：话题=/sensor_state
+[INFO] [1789808227.743859585] [status_monitor]: 收到传感器：seq=1，value=0.0
+[INFO] [1789808228.243772671] [status_monitor]: 收到传感器：seq=2，value=1.0
+[INFO] [1789808228.743624714] [status_monitor]: 收到传感器：seq=3，value=2.0
+[INFO] [1789808229.243677555] [status_monitor]: 收到传感器：seq=4，value=3.0
+[INFO] [1789808229.743449768] [status_monitor]: 收到传感器：seq=5，value=4.0
+[INFO] [1789808230.243624973] [status_monitor]: 收到传感器：seq=6，value=5.0
