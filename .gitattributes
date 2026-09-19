@@ -1,0 +1,2 @@
+# 原始验收输出保留 ROS CLI 的空行、终端控制符与原始缩进。
+docs/labs/evidence/** -whitespace

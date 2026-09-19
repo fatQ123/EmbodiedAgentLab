@@ -1,0 +1,10 @@
+[INFO] [1789830621.456905504] [status_monitor]: C++ 监控器启动：话题=/sensor_state
+[INFO] [1789830622.963780450] [status_monitor]: 收到传感器：seq=48，value=47.0，累计=1
+[INFO] [1789830623.024369351] [status_monitor]: 收到传感器：seq=49，value=48.0，累计=2
+[INFO] [1789830623.224361770] [status_monitor]: 收到传感器：seq=50，value=49.0，累计=3
+[INFO] [1789830623.424444256] [status_monitor]: 收到传感器：seq=51，value=50.0，累计=4
+[INFO] [1789830623.624337461] [status_monitor]: 收到传感器：seq=52，value=51.0，累计=5
+[INFO] [1789830623.824381895] [status_monitor]: 收到传感器：seq=53，value=52.0，累计=6
+[INFO] [1789830624.024415180] [status_monitor]: 收到传感器：seq=54，value=53.0，累计=7
+[INFO] [1789830624.224378183] [status_monitor]: 收到传感器：seq=55，value=54.0，累计=8
+[INFO] [1789830624.225123437] [rclcpp]: signal_handler(SIGINT/SIGTERM)

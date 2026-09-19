@@ -719,6 +719,8 @@ git diff --check
 
 ## 9. 关闭参考代码，独立重写
 
+本节完成双语言发布订阅对照；完整 v0.2 的 Python 三节点、服务与 Launch 按 [三节点系统实施清单](week02-three-node-system.md) 分阶段扩展，同一个 `embodied_comm` 包不重复创建。跨语言实验统一采用清单约定的 JSON 消息格式，下文计数文本仅为格式示例。
+
 现在停止查看 `/home/fatbro/open-source-labs/ros2-examples（官方示例仓库）`。在主项目中保留 `embodied_comm（Python 具身通信软件包）` 这个已有计划名称，新增 `embodied_comm_cpp（C++ 具身通信软件包）`；每个包各实现一对节点，共四个可执行程序。先建立功能分支，再写代码：
 
 ```bash

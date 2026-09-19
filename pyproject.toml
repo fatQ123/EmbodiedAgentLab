@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "embodied-agent-lab"
-version = "0.1.0"
+version = "0.2.0"
 description = "以项目驱动方式构建可诊断、可恢复、可评测的具身机器人智能体"
 readme = "README.md"
 requires-python = ">=3.10"

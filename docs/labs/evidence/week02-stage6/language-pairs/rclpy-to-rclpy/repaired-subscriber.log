@@ -1,0 +1,11 @@
+[INFO] [1789830609.701789379] [status_monitor]: 监控器已启动：话题=/sensor_state，超时=3.00 秒
+[INFO] [1789830609.722071947] [status_monitor]: 收到传感器：seq=68，value=67.0
+[INFO] [1789830609.923449514] [status_monitor]: 收到传感器：seq=69，value=68.0
+[INFO] [1789830610.122543297] [status_monitor]: 收到传感器：seq=70，value=69.0
+[INFO] [1789830610.322876507] [status_monitor]: 收到传感器：seq=71，value=70.0
+[INFO] [1789830610.518935631] [status_monitor]: 收到传感器：seq=72，value=71.0
+[INFO] [1789830610.724630213] [status_monitor]: 收到传感器：seq=73，value=72.0
+[INFO] [1789830610.948629072] [status_monitor]: 收到传感器：seq=74，value=73.0
+[INFO] [1789830611.122151285] [status_monitor]: 收到传感器：seq=75，value=74.0
+[INFO] [1789830611.333640812] [status_monitor]: 收到传感器：seq=76，value=75.0
+[INFO] [1789830611.522680698] [status_monitor]: 收到传感器：seq=77，value=76.0

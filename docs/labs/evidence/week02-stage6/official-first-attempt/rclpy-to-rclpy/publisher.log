@@ -1,0 +1,35 @@
+[INFO] [1789830679.015805418] [minimal_publisher]: Publishing: "Hello World: 0"
+[INFO] [1789830679.501685049] [minimal_publisher]: Publishing: "Hello World: 1"
+[INFO] [1789830680.001573088] [minimal_publisher]: Publishing: "Hello World: 2"
+[INFO] [1789830680.501561838] [minimal_publisher]: Publishing: "Hello World: 3"
+[INFO] [1789830681.001836583] [minimal_publisher]: Publishing: "Hello World: 4"
+[INFO] [1789830681.501836042] [minimal_publisher]: Publishing: "Hello World: 5"
+[INFO] [1789830682.001818255] [minimal_publisher]: Publishing: "Hello World: 6"
+[INFO] [1789830682.501593048] [minimal_publisher]: Publishing: "Hello World: 7"
+[INFO] [1789830683.001805353] [minimal_publisher]: Publishing: "Hello World: 8"
+[INFO] [1789830683.501862603] [minimal_publisher]: Publishing: "Hello World: 9"
+[INFO] [1789830684.001593501] [minimal_publisher]: Publishing: "Hello World: 10"
+[INFO] [1789830684.501667670] [minimal_publisher]: Publishing: "Hello World: 11"
+[INFO] [1789830685.001986710] [minimal_publisher]: Publishing: "Hello World: 12"
+[INFO] [1789830685.501611588] [minimal_publisher]: Publishing: "Hello World: 13"
+[INFO] [1789830686.001671883] [minimal_publisher]: Publishing: "Hello World: 14"
+Traceback (most recent call last):
+  File "/tmp/embodied-official-stage6/install/examples_rclpy_minimal_publisher/lib/examples_rclpy_minimal_publisher/publisher_member_function", line 33, in <module>
+    sys.exit(load_entry_point('examples-rclpy-minimal-publisher', 'console_scripts', 'publisher_member_function')())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/embodied-official-stage6/build/examples_rclpy_minimal_publisher/examples_rclpy_minimal_publisher/publisher_member_function.py", line 43, in main
+    rclpy.spin(minimal_publisher)
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/__init__.py", line 247, in spin
+    executor.spin_once()
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/executors.py", line 926, in spin_once
+    self._spin_once_impl(timeout_sec)
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/executors.py", line 907, in _spin_once_impl
+    handler, entity, node = self.wait_for_ready_callbacks(
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/executors.py", line 877, in wait_for_ready_callbacks
+    return next(self._cb_iter)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/executors.py", line 781, in _wait_for_ready_callbacks
+    wait_set.wait(timeout_nsec)
+KeyboardInterrupt
+[ros2run]: Interrupt
