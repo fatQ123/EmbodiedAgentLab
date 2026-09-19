@@ -5,9 +5,10 @@ import json  # 验证输出是真正可解析的 JSON。
 import subprocess  # 验证实际进程的退出状态。
 import sys  # 使用运行测试的同一个 Python。
 import unittest
-from contextlib import redirect_stderr, redirect_stdout  # 分别捕获普通输出和错误输出。
+from contextlib import ExitStack, redirect_stderr, redirect_stdout  # 分别捕获普通输出和错误输出。
 from unittest.mock import patch  # 模拟检查结果，避免依赖本机硬件。
 
+from embodied_agent_lab.probes import ProbeResult  # 构造可控探测结果。
 from embodied_agent_lab.doctor import CheckResult, collect_checks, main  # 导入结果模型与入口。
 
 
@@ -17,7 +18,10 @@ class DoctorTest(unittest.TestCase):
     def test_collect_checks_has_core_items(self) -> None:
         """确认首版至少覆盖软件、ROS 2 与设备检查。"""
 
-        names = {result.name for result in collect_checks()}
+        with ExitStack() as stack:  # 不依赖当前电脑的设备、ROS 或网络。
+            for target in ("run_probe", "probe_ros_python", "probe_serial", "probe_network"):  # 模拟全部探测边界。
+                stack.enter_context(patch(f"embodied_agent_lab.doctor.{target}", return_value=ProbeResult(True, "模拟成功")))  # 注入成功结果。
+            names = {result.name for result in collect_checks()}  # 只验证诊断项的组织。
         expected = {
             "操作系统",
             "Python 版本",
@@ -25,6 +29,7 @@ class DoctorTest(unittest.TestCase):
             "Conda 环境",
             "ROS 2 发行版",
             "串口设备",
+            "ROS 2 命令行", "ROS Python 客户端", "NVIDIA 显卡与驱动", "CUDA 编译工具链", "网络连接",
         }
         self.assertTrue(expected <= names)
 
@@ -97,7 +102,14 @@ class DoctorTest(unittest.TestCase):
     def test_module_process_protocol(self) -> None:
         """验证真实进程的 JSON 输出和用法错误退出码。"""
 
-        command = [sys.executable, "-m", "embodied_agent_lab.doctor"]  # 运行真实模块入口。
+        script = "\n".join([  # 在真实子进程中替换探测边界，保证测试不访问硬件或网络。
+            "import runpy  # 执行真实模块入口",
+            "from unittest.mock import patch  # 模拟外部依赖",
+            "from embodied_agent_lab.probes import ProbeResult  # 使用真实结果模型",
+            "with patch('embodied_agent_lab.probes.run_probe', return_value=ProbeResult(False, '模拟不可用')), patch('embodied_agent_lab.probes.probe_ros_python', return_value=ProbeResult(False, '模拟不可用')), patch('embodied_agent_lab.probes.probe_network', return_value=ProbeResult(False, '模拟不可用')), patch('embodied_agent_lab.probes.probe_serial', return_value=ProbeResult(False, '模拟不可用')):  # 隔离所有探测",
+            "    runpy.run_module('embodied_agent_lab.doctor', run_name='__main__')  # 保留真实退出逻辑",
+        ])
+        command = [sys.executable, "-c", script]  # 运行受控但真实的模块进程。
         result = subprocess.run(command + ["doctor", "--json"], capture_output=True, text=True, timeout=10)  # 获取进程结果。
         report = json.loads(result.stdout)  # 检查真实入口没有附加非 JSON 文本。
         self.assertEqual(result.returncode, report["exit_code"])  # 报告和进程退出码必须一致。
