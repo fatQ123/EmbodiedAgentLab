@@ -1,0 +1,89 @@
+{
+  "domain": 207,
+  "topic": "/sensor_state",
+  "type": "std_msgs/msg/String",
+  "cases": [
+    {
+      "phase": "normal",
+      "subscriber_topic": "/sensor_state",
+      "publisher_count": 1,
+      "subscriber_count_before_probe": 1,
+      "received_samples_at_probe": [
+        "{\"seq\":19,\"value\":18.0}",
+        "{\"seq\":20,\"value\":19.0}",
+        "{\"seq\":21,\"value\":20.0}",
+        "{\"seq\":22,\"value\":21.0}",
+        "{\"seq\":23,\"value\":22.0}",
+        "{\"seq\":24,\"value\":23.0}",
+        "{\"seq\":25,\"value\":24.0}",
+        "{\"seq\":26,\"value\":25.0}",
+        "{\"seq\":27,\"value\":26.0}",
+        "{\"seq\":28,\"value\":27.0}"
+      ],
+      "measured_hz": 5.0,
+      "subscriber_received": true
+    },
+    {
+      "phase": "wrong",
+      "subscriber_topic": "/sensor_state_wrong",
+      "publisher_count": 1,
+      "subscriber_count_before_probe": 1,
+      "received_samples_at_probe": [
+        "{\"seq\":49,\"value\":48.0}",
+        "{\"seq\":50,\"value\":49.0}",
+        "{\"seq\":51,\"value\":50.0}",
+        "{\"seq\":52,\"value\":51.0}",
+        "{\"seq\":53,\"value\":52.0}",
+        "{\"seq\":54,\"value\":53.0}",
+        "{\"seq\":55,\"value\":54.0}",
+        "{\"seq\":56,\"value\":55.0}",
+        "{\"seq\":57,\"value\":56.0}",
+        "{\"seq\":58,\"value\":57.0}"
+      ],
+      "measured_hz": 5.0,
+      "subscriber_received": false
+    },
+    {
+      "phase": "repaired",
+      "subscriber_topic": "/sensor_state",
+      "publisher_count": 1,
+      "subscriber_count_before_probe": 1,
+      "received_samples_at_probe": [
+        "{\"seq\":78,\"value\":77.0}",
+        "{\"seq\":79,\"value\":78.0}",
+        "{\"seq\":80,\"value\":79.0}",
+        "{\"seq\":81,\"value\":80.0}",
+        "{\"seq\":82,\"value\":81.0}",
+        "{\"seq\":83,\"value\":82.0}",
+        "{\"seq\":84,\"value\":83.0}",
+        "{\"seq\":85,\"value\":84.0}",
+        "{\"seq\":86,\"value\":85.0}",
+        "{\"seq\":87,\"value\":86.0}"
+      ],
+      "measured_hz": 5.0,
+      "subscriber_received": true
+    }
+  ],
+  "process_exits": [
+    {
+      "log": "normal-subscriber.log",
+      "code": 0,
+      "upstream_keyboard_interrupt": false
+    },
+    {
+      "log": "wrong-subscriber.log",
+      "code": 0,
+      "upstream_keyboard_interrupt": false
+    },
+    {
+      "log": "repaired-subscriber.log",
+      "code": 0,
+      "upstream_keyboard_interrupt": false
+    },
+    {
+      "log": "publisher.log",
+      "code": 0,
+      "upstream_keyboard_interrupt": false
+    }
+  ]
+}

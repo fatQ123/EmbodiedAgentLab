@@ -133,7 +133,7 @@ ros2 run embodied_comm_cpp status_monitor
 | 正常/错误/修复证据完整 | [阶段⑤](week02-stage5.md)，含真实 rqt_graph 截图与服务响应 |
 | 非法参数、服务分支、实际通信测试 | 本轮 53 项 Python 与 5 项 C++ 测试 |
 | C++ 独立实现与四组通信 | 本文学习卡和四组自动化实测 |
-| 已提交源码复现、合并与标签 | 见下面的发布记录，完成前不提前标记 |
+| 已提交源码复现 | 全新源码构建、53 项 Python + 5 项 C++、18 项原项目测试及四组通信均通过，见下方证据 |
 
 限制：模拟读数没有物理单位；任务只检查缓存值，不检查数据新鲜度或零件身份；不执行真实动作，不提供自动恢复；任务状态为易失消息，晚加入的监控器不补历史结果。非法启动参数会使对应节点退出，Launch 不自动修复其他节点。C++ 包仅为发布订阅对照，不是另一个完整三节点系统。
 
@@ -146,6 +146,34 @@ ros2 run embodied_comm_cpp status_monitor
 bash scripts/verify_ros2_release.sh /tmp/新的源码验收目录
 ```
 
-当前主项目代码与通信验收通过，提交后的源码复现结果待补充。官方原版四组对照按用户本轮要求暂缓，不将主项目独立实现的四组结果冒充官方示例验收。
+主项目的阶段⑥工程验收已完成。提交 `fe8ffdc` 包含三节点系统和阶段①～⑤证据；提交 `5d2b4b8aa052255ec60153402447e4583cd2948e` 包含 C++ 对照及源码复现流程。
+
+从 `5d2b4b8` 导出的源码在 `/tmp/embodied-v02-clean-5d2b4b8` 全新构建：53 项 Python、5 项 C++、18 项原项目测试通过；四组语言组合的正常、错连、修复也重新通过。包定位确认指向新目录的 install，不依赖主项目旧 build/install。
+
+- [源码提交编号](evidence/week02-stage6/clean-source/source-commit.txt)
+- [全新构建日志](evidence/week02-stage6/clean-source/build.log)
+- [完整测试日志](evidence/week02-stage6/clean-source/test.log)
+- [测试汇总](evidence/week02-stage6/clean-source/test-result.log)
+- [从源码启动的服务成功结果](evidence/week02-stage6/clean-source/launch-normal-result.json)
+- [从源码启动的错连失败结果](evidence/week02-stage6/clean-source/launch-wrong-result.json)
+- [四组重新实测结果](evidence/week02-stage6/clean-source/language-pairs/)
+
+后续只补充本轮验收证据与文档，不改变已验证的业务源码。本轮采用本地发布流程：验收后合并到本地 main 并创建带说明的 v0.2 标签，不包含远端推送或 GitHub Release。可用以下命令核对实际本地发布状态：
+
+```bash
+git log --oneline --decorate -5
+git show --no-patch v0.2
+git status --short
+```
+
+官方原版四组对照按用户本轮要求暂缓，不将主项目独立实现的四组结果冒充官方示例验收。
 
 官方固定基线的四个包已在临时目录独立构建；第一组原版 Python 通信收到递增消息，但 Ctrl+C 出现 `KeyboardInterrupt`，ros2 run 返回 254。该版本示例没有捕获中断，主项目则在 finally 清理资源。这是实测的生命周期差异。其余原版组合尚未运行完成，不能据此宣布原实验文档所有学习项完成。
+
+
+## 你下一步做什么
+
+1. 按本文构建两个包，运行一次三节点 Launch 和服务调用。
+2. 在两个终端亲自运行 C++ 发布 → Python 订阅，然后交换方向，说明为何不用额外写语言转换节点。
+3. 用自己的话解释：话题错名时三个进程为什么仍存在；SharedPtr 管理什么；停止传感器后服务为什么可能仍成功。
+4. 官方原版实验按本轮决定暂缓，之后需要时再补全；不自动进入第 3 周或连接真实硬件。

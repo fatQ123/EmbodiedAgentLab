@@ -1,0 +1,77 @@
+Starting >>> embodied_comm
+Starting >>> embodied_comm_cpp
+UpdateCTestConfiguration  from :/tmp/embodied-v02-clean-5d2b4b8/source/ros2_ws/build/embodied_comm_cpp/CTestConfiguration.ini
+Parse Config file:/tmp/embodied-v02-clean-5d2b4b8/source/ros2_ws/build/embodied_comm_cpp/CTestConfiguration.ini
+   Site: fatbro-Lenovo-Legion-R9000P2021H
+   Build name: (empty)
+ Add coverage exclude regular expressions.
+Create new tag: 20260919-1518 - Experimental
+UpdateCTestConfiguration  from :/tmp/embodied-v02-clean-5d2b4b8/source/ros2_ws/build/embodied_comm_cpp/CTestConfiguration.ini
+Parse Config file:/tmp/embodied-v02-clean-5d2b4b8/source/ros2_ws/build/embodied_comm_cpp/CTestConfiguration.ini
+Test project /tmp/embodied-v02-clean-5d2b4b8/source/ros2_ws/build/embodied_comm_cpp
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+    Start 1: test_protocol
+
+1: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/tmp/embodied-v02-clean-5d2b4b8/source/ros2_ws/build/embodied_comm_cpp/test_results/embodied_comm_cpp/test_protocol.gtest.xml" "--package-name" "embodied_comm_cpp" "--output-file" "/tmp/embodied-v02-clean-5d2b4b8/source/ros2_ws/build/embodied_comm_cpp/ament_cmake_gtest/test_protocol.txt" "--command" "/tmp/embodied-v02-clean-5d2b4b8/source/ros2_ws/build/embodied_comm_cpp/test_protocol" "--gtest_output=xml:/tmp/embodied-v02-clean-5d2b4b8/source/ros2_ws/build/embodied_comm_cpp/test_results/embodied_comm_cpp/test_protocol.gtest.xml"
+1: Working Directory: /tmp/embodied-v02-clean-5d2b4b8/source/ros2_ws/build/embodied_comm_cpp
+1: Test timeout computed to be: 60
+1: -- run_test.py: invoking following command in '/tmp/embodied-v02-clean-5d2b4b8/source/ros2_ws/build/embodied_comm_cpp':
+1:  - /tmp/embodied-v02-clean-5d2b4b8/source/ros2_ws/build/embodied_comm_cpp/test_protocol --gtest_output=xml:/tmp/embodied-v02-clean-5d2b4b8/source/ros2_ws/build/embodied_comm_cpp/test_results/embodied_comm_cpp/test_protocol.gtest.xml
+1: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+1: [==========] Running 5 tests from 1 test suite.
+1: [----------] Global test environment set-up.
+1: [----------] 5 tests from Protocol
+1: [ RUN      ] Protocol.PeriodAndBounds
+1: [       OK ] Protocol.PeriodAndBounds (0 ms)
+1: [ RUN      ] Protocol.RejectInvalidRates
+1: [       OK ] Protocol.RejectInvalidRates (0 ms)
+1: [ RUN      ] Protocol.MessageSequenceAndWrap
+1: [       OK ] Protocol.MessageSequenceAndWrap (0 ms)
+1: [ RUN      ] Protocol.AcceptPythonFormat
+1: [       OK ] Protocol.AcceptPythonFormat (0 ms)
+1: [ RUN      ] Protocol.RejectMalformedMessages
+1: [       OK ] Protocol.RejectMalformedMessages (0 ms)
+1: [----------] 5 tests from Protocol (0 ms total)
+1: 
+1: [----------] Global test environment tear-down
+1: [==========] 5 tests from 1 test suite ran. (0 ms total)
+1: [  PASSED  ] 5 tests.
+1: -- run_test.py: return code 0
+1: -- run_test.py: inject classname prefix into gtest result file '/tmp/embodied-v02-clean-5d2b4b8/source/ros2_ws/build/embodied_comm_cpp/test_results/embodied_comm_cpp/test_protocol.gtest.xml'
+1: -- run_test.py: verify result file '/tmp/embodied-v02-clean-5d2b4b8/source/ros2_ws/build/embodied_comm_cpp/test_results/embodied_comm_cpp/test_protocol.gtest.xml'
+1/1 Test #1: test_protocol ....................   Passed    0.09 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Label Time Summary:
+gtest    =   0.09 sec*proc (1 test)
+
+Total Test time (real) =   0.09 sec
+Finished <<< embodied_comm_cpp [0.37s]
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+cachedir: /tmp/embodied-v02-clean-5d2b4b8/source/ros2_ws/build/embodied_comm/.pytest_cache
+rootdir: /tmp/embodied-v02-clean-5d2b4b8/source/ros2_ws/src/embodied_comm
+configfile: setup.cfg
+testpaths: test
+plugins: ament-pep257-0.17.5, launch-testing-3.4.11, ament-lint-0.17.5, ament-flake8-0.17.5, ament-copyright-0.17.5, launch-testing-ros-0.26.12, ament-xmllint-0.17.5, colcon-core-0.21.3, cov-4.1.0
+collected 53 items
+
+test/test_execute_task.py ............                                   [ 22%]
+test/test_launch.py ..                                                   [ 26%]
+test/test_parameters.py ............                                     [ 49%]
+test/test_protocol.py ................                                   [ 79%]
+test/test_pub_sub.py .........                                           [ 96%]
+test/test_task_executor.py ..                                            [100%]
+
+- generated xml file: /tmp/embodied-v02-clean-5d2b4b8/source/ros2_ws/build/embodied_comm/pytest.xml -
+============================= 53 passed in 10.56s ==============================
+Finished <<< embodied_comm [11.4s]
+
+Summary: 2 packages finished [11.6s]
