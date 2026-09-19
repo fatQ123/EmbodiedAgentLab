@@ -1,0 +1,22 @@
+/task_executor
+  Subscribers:
+    /sensor_state: std_msgs/msg/String
+  Publishers:
+    /parameter_events: rcl_interfaces/msg/ParameterEvent
+    /rosout: rcl_interfaces/msg/Log
+    /task_status: std_msgs/msg/String
+  Service Servers:
+    /execute_task: std_srvs/srv/Trigger
+    /task_executor/describe_parameters: rcl_interfaces/srv/DescribeParameters
+    /task_executor/get_parameter_types: rcl_interfaces/srv/GetParameterTypes
+    /task_executor/get_parameters: rcl_interfaces/srv/GetParameters
+    /task_executor/get_type_description: type_description_interfaces/srv/GetTypeDescription
+    /task_executor/list_parameters: rcl_interfaces/srv/ListParameters
+    /task_executor/set_parameters: rcl_interfaces/srv/SetParameters
+    /task_executor/set_parameters_atomically: rcl_interfaces/srv/SetParametersAtomically
+  Service Clients:
+
+  Action Servers:
+
+  Action Clients:
+

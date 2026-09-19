@@ -1,0 +1,21 @@
+{
+  "launch_args": [
+    "ros2",
+    "launch",
+    "embodied_comm",
+    "three_nodes.launch.py",
+    "publish_rate:=5.0",
+    "timeout_sec:=1.5"
+  ],
+  "parameters": {
+    "publish_rate": 5.0,
+    "timeout_sec": 1.5
+  },
+  "sensor_subscribers": [
+    "status_monitor",
+    "task_executor"
+  ],
+  "service_success": true,
+  "service_message": "检查通过：seq=14，value=13.0",
+  "monitor_received_task": true
+}

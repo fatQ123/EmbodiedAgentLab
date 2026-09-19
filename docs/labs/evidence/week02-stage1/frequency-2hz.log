@@ -1,0 +1,5 @@
+WARNING: topic [/sensor_state] does not appear to be published yet
+average rate: 2.000
+	min: 0.500s max: 0.500s std dev: 0.00004s window: 3
+average rate: 2.000
+	min: 0.500s max: 0.500s std dev: 0.00005s window: 6

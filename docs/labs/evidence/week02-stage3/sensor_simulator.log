@@ -1,0 +1,12 @@
+[INFO] [1789817426.765525202] [sensor_simulator]: 传感器已启动：话题=/sensor_state，频率=2.00 Hz
+[INFO] [1789817427.252822724] [sensor_simulator]: 发布：seq=1，value=0.0
+[INFO] [1789817427.752704613] [sensor_simulator]: 发布：seq=2，value=1.0
+[INFO] [1789817428.252885213] [sensor_simulator]: 发布：seq=3，value=2.0
+[INFO] [1789817428.752660594] [sensor_simulator]: 发布：seq=4，value=3.0
+[INFO] [1789817429.252733010] [sensor_simulator]: 发布：seq=5，value=4.0
+[INFO] [1789817429.752774696] [sensor_simulator]: 发布：seq=6，value=5.0
+[INFO] [1789817430.252721119] [sensor_simulator]: 发布：seq=7，value=6.0
+[INFO] [1789817430.752794584] [sensor_simulator]: 发布：seq=8，value=7.0
+[INFO] [1789817431.252813084] [sensor_simulator]: 发布：seq=9，value=8.0
+[INFO] [1789817431.752711666] [sensor_simulator]: 发布：seq=10，value=9.0
+[INFO] [1789817432.252974541] [sensor_simulator]: 发布：seq=11，value=10.0

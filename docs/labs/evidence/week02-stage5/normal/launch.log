@@ -1,0 +1,275 @@
+[INFO] [launch]: All log files can be found below /home/fatbro/.ros/log/2026-09-19-20-02-15-999921-fatbro-Lenovo-Legion-R9000P2021H-131514
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [sensor_simulator-1]: process started with pid [131519]
+[INFO] [task_executor-2]: process started with pid [131520]
+[INFO] [status_monitor-3]: process started with pid [131521]
+[status_monitor-3] [INFO] [1789819336.488175056] [status_monitor]: 监控器已启动：话题=/sensor_state，超时=3.00 秒
+[sensor_simulator-1] [INFO] [1789819336.497306679] [sensor_simulator]: 传感器已启动：话题=/sensor_state，频率=2.00 Hz
+[task_executor-2] [INFO] [1789819336.524950741] [task_executor]: 执行器已启动：话题=/sensor_state，等待传感器数据
+[sensor_simulator-1] [INFO] [1789819336.984011941] [sensor_simulator]: 发布：seq=1，value=0.0
+[task_executor-2] [INFO] [1789819336.984193598] [task_executor]: 最新传感器：seq=1，value=0.0，累计接收=1
+[status_monitor-3] [INFO] [1789819336.985165302] [status_monitor]: 收到传感器：seq=1，value=0.0
+[sensor_simulator-1] [INFO] [1789819337.483656788] [sensor_simulator]: 发布：seq=2，value=1.0
+[status_monitor-3] [INFO] [1789819337.483921138] [status_monitor]: 收到传感器：seq=2，value=1.0
+[task_executor-2] [INFO] [1789819337.484000338] [task_executor]: 最新传感器：seq=2，value=1.0，累计接收=2
+[sensor_simulator-1] [INFO] [1789819337.983754976] [sensor_simulator]: 发布：seq=3，value=2.0
+[task_executor-2] [INFO] [1789819337.983922875] [task_executor]: 最新传感器：seq=3，value=2.0，累计接收=3
+[status_monitor-3] [INFO] [1789819337.984051033] [status_monitor]: 收到传感器：seq=3，value=2.0
+[sensor_simulator-1] [INFO] [1789819338.483675208] [sensor_simulator]: 发布：seq=4，value=3.0
+[task_executor-2] [INFO] [1789819338.484022389] [task_executor]: 最新传感器：seq=4，value=3.0，累计接收=4
+[status_monitor-3] [INFO] [1789819338.484242599] [status_monitor]: 收到传感器：seq=4，value=3.0
+[sensor_simulator-1] [INFO] [1789819338.983650754] [sensor_simulator]: 发布：seq=5，value=4.0
+[task_executor-2] [INFO] [1789819338.983894151] [task_executor]: 最新传感器：seq=5，value=4.0，累计接收=5
+[status_monitor-3] [INFO] [1789819338.983908888] [status_monitor]: 收到传感器：seq=5，value=4.0
+[sensor_simulator-1] [INFO] [1789819339.483625602] [sensor_simulator]: 发布：seq=6，value=5.0
+[task_executor-2] [INFO] [1789819339.483891907] [task_executor]: 最新传感器：seq=6，value=5.0，累计接收=6
+[status_monitor-3] [INFO] [1789819339.483992479] [status_monitor]: 收到传感器：seq=6，value=5.0
+[sensor_simulator-1] [INFO] [1789819339.983651643] [sensor_simulator]: 发布：seq=7，value=6.0
+[task_executor-2] [INFO] [1789819339.983978431] [task_executor]: 最新传感器：seq=7，value=6.0，累计接收=7
+[status_monitor-3] [INFO] [1789819339.984133270] [status_monitor]: 收到传感器：seq=7，value=6.0
+[sensor_simulator-1] [INFO] [1789819340.483905089] [sensor_simulator]: 发布：seq=8，value=7.0
+[task_executor-2] [INFO] [1789819340.483998048] [task_executor]: 最新传感器：seq=8，value=7.0，累计接收=8
+[status_monitor-3] [INFO] [1789819340.484158962] [status_monitor]: 收到传感器：seq=8，value=7.0
+[sensor_simulator-1] [INFO] [1789819340.983750730] [sensor_simulator]: 发布：seq=9，value=8.0
+[task_executor-2] [INFO] [1789819340.984218109] [task_executor]: 最新传感器：seq=9，value=8.0，累计接收=9
+[status_monitor-3] [INFO] [1789819340.984264344] [status_monitor]: 收到传感器：seq=9，value=8.0
+[sensor_simulator-1] [INFO] [1789819341.483780403] [sensor_simulator]: 发布：seq=10，value=9.0
+[status_monitor-3] [INFO] [1789819341.484214677] [status_monitor]: 收到传感器：seq=10，value=9.0
+[task_executor-2] [INFO] [1789819341.484228436] [task_executor]: 最新传感器：seq=10，value=9.0，累计接收=10
+[sensor_simulator-1] [INFO] [1789819341.983775505] [sensor_simulator]: 发布：seq=11，value=10.0
+[status_monitor-3] [INFO] [1789819341.983986007] [status_monitor]: 收到传感器：seq=11，value=10.0
+[task_executor-2] [INFO] [1789819341.984037410] [task_executor]: 最新传感器：seq=11，value=10.0，累计接收=11
+[sensor_simulator-1] [INFO] [1789819342.483993261] [sensor_simulator]: 发布：seq=12，value=11.0
+[task_executor-2] [INFO] [1789819342.484352805] [task_executor]: 最新传感器：seq=12，value=11.0，累计接收=12
+[status_monitor-3] [INFO] [1789819342.484404697] [status_monitor]: 收到传感器：seq=12，value=11.0
+[sensor_simulator-1] [INFO] [1789819342.983888770] [sensor_simulator]: 发布：seq=13，value=12.0
+[status_monitor-3] [INFO] [1789819342.984080275] [status_monitor]: 收到传感器：seq=13，value=12.0
+[task_executor-2] [INFO] [1789819342.985104359] [task_executor]: 最新传感器：seq=13，value=12.0，累计接收=13
+[sensor_simulator-1] [INFO] [1789819343.484017408] [sensor_simulator]: 发布：seq=14，value=13.0
+[task_executor-2] [INFO] [1789819343.484139980] [task_executor]: 最新传感器：seq=14，value=13.0，累计接收=14
+[status_monitor-3] [INFO] [1789819343.484173224] [status_monitor]: 收到传感器：seq=14，value=13.0
+[sensor_simulator-1] [INFO] [1789819343.983916897] [sensor_simulator]: 发布：seq=15，value=14.0
+[task_executor-2] [INFO] [1789819343.984094574] [task_executor]: 最新传感器：seq=15，value=14.0，累计接收=15
+[status_monitor-3] [INFO] [1789819343.984191374] [status_monitor]: 收到传感器：seq=15，value=14.0
+[sensor_simulator-1] [INFO] [1789819344.483691510] [sensor_simulator]: 发布：seq=16，value=15.0
+[status_monitor-3] [INFO] [1789819344.484121384] [status_monitor]: 收到传感器：seq=16，value=15.0
+[task_executor-2] [INFO] [1789819344.484173276] [task_executor]: 最新传感器：seq=16，value=15.0，累计接收=16
+[sensor_simulator-1] [INFO] [1789819344.983764345] [sensor_simulator]: 发布：seq=17，value=16.0
+[status_monitor-3] [INFO] [1789819344.984136390] [status_monitor]: 收到传感器：seq=17，value=16.0
+[task_executor-2] [INFO] [1789819344.984142117] [task_executor]: 最新传感器：seq=17，value=16.0，累计接收=17
+[sensor_simulator-1] [INFO] [1789819345.483752952] [sensor_simulator]: 发布：seq=18，value=17.0
+[status_monitor-3] [INFO] [1789819345.483954654] [status_monitor]: 收到传感器：seq=18，value=17.0
+[task_executor-2] [INFO] [1789819345.483997467] [task_executor]: 最新传感器：seq=18，value=17.0，累计接收=18
+[sensor_simulator-1] [INFO] [1789819345.983726822] [sensor_simulator]: 发布：seq=19，value=18.0
+[task_executor-2] [INFO] [1789819345.983980696] [task_executor]: 最新传感器：seq=19，value=18.0，累计接收=19
+[status_monitor-3] [INFO] [1789819345.983989635] [status_monitor]: 收到传感器：seq=19，value=18.0
+[sensor_simulator-1] [INFO] [1789819346.483723391] [sensor_simulator]: 发布：seq=20，value=19.0
+[status_monitor-3] [INFO] [1789819346.483988439] [status_monitor]: 收到传感器：seq=20，value=19.0
+[task_executor-2] [INFO] [1789819346.484012255] [task_executor]: 最新传感器：seq=20，value=19.0，累计接收=20
+[sensor_simulator-1] [INFO] [1789819346.983803280] [sensor_simulator]: 发布：seq=21，value=20.0
+[task_executor-2] [INFO] [1789819346.983959236] [task_executor]: 最新传感器：seq=21，value=20.0，累计接收=21
+[status_monitor-3] [INFO] [1789819346.984110024] [status_monitor]: 收到传感器：seq=21，value=20.0
+[sensor_simulator-1] [INFO] [1789819347.483958808] [sensor_simulator]: 发布：seq=22，value=21.0
+[task_executor-2] [INFO] [1789819347.484112040] [task_executor]: 最新传感器：seq=22，value=21.0，累计接收=22
+[status_monitor-3] [INFO] [1789819347.484240757] [status_monitor]: 收到传感器：seq=22，value=21.0
+[status_monitor-3] [INFO] [1789819347.984036532] [status_monitor]: 收到传感器：seq=23，value=22.0
+[sensor_simulator-1] [INFO] [1789819347.984079904] [sensor_simulator]: 发布：seq=23，value=22.0
+[task_executor-2] [INFO] [1789819347.984180964] [task_executor]: 最新传感器：seq=23，value=22.0，累计接收=23
+[sensor_simulator-1] [INFO] [1789819348.483690389] [sensor_simulator]: 发布：seq=24，value=23.0
+[status_monitor-3] [INFO] [1789819348.483959209] [status_monitor]: 收到传感器：seq=24，value=23.0
+[task_executor-2] [INFO] [1789819348.483999367] [task_executor]: 最新传感器：seq=24，value=23.0，累计接收=24
+[sensor_simulator-1] [INFO] [1789819348.983883352] [sensor_simulator]: 发布：seq=25，value=24.0
+[status_monitor-3] [INFO] [1789819348.984079676] [status_monitor]: 收到传感器：seq=25，value=24.0
+[task_executor-2] [INFO] [1789819348.984105308] [task_executor]: 最新传感器：seq=25，value=24.0，累计接收=25
+[sensor_simulator-1] [INFO] [1789819349.483732276] [sensor_simulator]: 发布：seq=26，value=25.0
+[status_monitor-3] [INFO] [1789819349.484067514] [status_monitor]: 收到传感器：seq=26，value=25.0
+[task_executor-2] [INFO] [1789819349.484108441] [task_executor]: 最新传感器：seq=26，value=25.0，累计接收=26
+[sensor_simulator-1] [INFO] [1789819349.983835352] [sensor_simulator]: 发布：seq=27，value=26.0
+[task_executor-2] [INFO] [1789819349.983994730] [task_executor]: 最新传感器：seq=27，value=26.0，累计接收=27
+[status_monitor-3] [INFO] [1789819349.984160394] [status_monitor]: 收到传感器：seq=27，value=26.0
+[sensor_simulator-1] [INFO] [1789819350.483749019] [sensor_simulator]: 发布：seq=28，value=27.0
+[task_executor-2] [INFO] [1789819350.484261585] [task_executor]: 最新传感器：seq=28，value=27.0，累计接收=28
+[status_monitor-3] [INFO] [1789819350.484263960] [status_monitor]: 收到传感器：seq=28，value=27.0
+[sensor_simulator-1] [INFO] [1789819350.983687550] [sensor_simulator]: 发布：seq=29，value=28.0
+[task_executor-2] [INFO] [1789819350.984002884] [task_executor]: 最新传感器：seq=29，value=28.0，累计接收=29
+[status_monitor-3] [INFO] [1789819350.984055265] [status_monitor]: 收到传感器：seq=29，value=28.0
+[sensor_simulator-1] [INFO] [1789819351.483712614] [sensor_simulator]: 发布：seq=30，value=29.0
+[task_executor-2] [INFO] [1789819351.483967535] [task_executor]: 最新传感器：seq=30，value=29.0，累计接收=30
+[status_monitor-3] [INFO] [1789819351.484000011] [status_monitor]: 收到传感器：seq=30，value=29.0
+[sensor_simulator-1] [INFO] [1789819351.983661131] [sensor_simulator]: 发布：seq=31，value=30.0
+[task_executor-2] [INFO] [1789819351.984081367] [task_executor]: 最新传感器：seq=31，value=30.0，累计接收=31
+[status_monitor-3] [INFO] [1789819351.984087653] [status_monitor]: 收到传感器：seq=31，value=30.0
+[sensor_simulator-1] [INFO] [1789819352.483697859] [sensor_simulator]: 发布：seq=32，value=31.0
+[status_monitor-3] [INFO] [1789819352.484099168] [status_monitor]: 收到传感器：seq=32，value=31.0
+[task_executor-2] [INFO] [1789819352.484109225] [task_executor]: 最新传感器：seq=32，value=31.0，累计接收=32
+[sensor_simulator-1] [INFO] [1789819352.983797094] [sensor_simulator]: 发布：seq=33，value=32.0
+[status_monitor-3] [INFO] [1789819352.983963317] [status_monitor]: 收到传感器：seq=33，value=32.0
+[task_executor-2] [INFO] [1789819352.983995025] [task_executor]: 最新传感器：seq=33，value=32.0，累计接收=33
+[sensor_simulator-1] [INFO] [1789819353.483617872] [sensor_simulator]: 发布：seq=34，value=33.0
+[task_executor-2] [INFO] [1789819353.483917562] [task_executor]: 最新传感器：seq=34，value=33.0，累计接收=34
+[status_monitor-3] [INFO] [1789819353.483992711] [status_monitor]: 收到传感器：seq=34，value=33.0
+[sensor_simulator-1] [INFO] [1789819353.983927540] [sensor_simulator]: 发布：seq=35，value=34.0
+[task_executor-2] [INFO] [1789819353.983988581] [task_executor]: 最新传感器：seq=35，value=34.0，累计接收=35
+[status_monitor-3] [INFO] [1789819353.983991445] [status_monitor]: 收到传感器：seq=35，value=34.0
+[sensor_simulator-1] [INFO] [1789819354.483639784] [sensor_simulator]: 发布：seq=36，value=35.0
+[status_monitor-3] [INFO] [1789819354.484012947] [status_monitor]: 收到传感器：seq=36，value=35.0
+[task_executor-2] [INFO] [1789819354.484215766] [task_executor]: 最新传感器：seq=36，value=35.0，累计接收=36
+[sensor_simulator-1] [INFO] [1789819354.983676582] [sensor_simulator]: 发布：seq=37，value=36.0
+[task_executor-2] [INFO] [1789819354.983919979] [task_executor]: 最新传感器：seq=37，value=36.0，累计接收=37
+[status_monitor-3] [INFO] [1789819354.984016360] [status_monitor]: 收到传感器：seq=37，value=36.0
+[sensor_simulator-1] [INFO] [1789819355.483734611] [sensor_simulator]: 发布：seq=38，value=37.0
+[status_monitor-3] [INFO] [1789819355.483924998] [status_monitor]: 收到传感器：seq=38，value=37.0
+[task_executor-2] [INFO] [1789819355.483991697] [task_executor]: 最新传感器：seq=38，value=37.0，累计接收=38
+[sensor_simulator-1] [INFO] [1789819355.983843973] [sensor_simulator]: 发布：seq=39，value=38.0
+[task_executor-2] [INFO] [1789819355.984017250] [task_executor]: 最新传感器：seq=39，value=38.0，累计接收=39
+[status_monitor-3] [INFO] [1789819355.984201841] [status_monitor]: 收到传感器：seq=39，value=38.0
+[sensor_simulator-1] [INFO] [1789819356.483750237] [sensor_simulator]: 发布：seq=40，value=39.0
+[task_executor-2] [INFO] [1789819356.483986022] [task_executor]: 最新传感器：seq=40，value=39.0，累计接收=40
+[status_monitor-3] [INFO] [1789819356.484203298] [status_monitor]: 收到传感器：seq=40，value=39.0
+[sensor_simulator-1] [INFO] [1789819356.983646374] [sensor_simulator]: 发布：seq=41，value=40.0
+[task_executor-2] [INFO] [1789819356.983936914] [task_executor]: 最新传感器：seq=41，value=40.0，累计接收=41
+[status_monitor-3] [INFO] [1789819356.983980355] [status_monitor]: 收到传感器：seq=41，value=40.0
+[sensor_simulator-1] [INFO] [1789819357.483725984] [sensor_simulator]: 发布：seq=42，value=41.0
+[task_executor-2] [INFO] [1789819357.483946264] [task_executor]: 最新传感器：seq=42，value=41.0，累计接收=42
+[status_monitor-3] [INFO] [1789819357.483949686] [status_monitor]: 收到传感器：seq=42，value=41.0
+[sensor_simulator-1] [INFO] [1789819357.983630572] [sensor_simulator]: 发布：seq=43，value=42.0
+[task_executor-2] [INFO] [1789819357.983905398] [task_executor]: 最新传感器：seq=43，value=42.0，累计接收=43
+[status_monitor-3] [INFO] [1789819357.984156896] [status_monitor]: 收到传感器：seq=43，value=42.0
+[sensor_simulator-1] [INFO] [1789819358.483691953] [sensor_simulator]: 发布：seq=44，value=43.0
+[task_executor-2] [INFO] [1789819358.483916144] [task_executor]: 最新传感器：seq=44，value=43.0，累计接收=44
+[status_monitor-3] [INFO] [1789819358.484259903] [status_monitor]: 收到传感器：seq=44，value=43.0
+[sensor_simulator-1] [INFO] [1789819358.983725887] [sensor_simulator]: 发布：seq=45，value=44.0
+[task_executor-2] [INFO] [1789819358.984005392] [task_executor]: 最新传感器：seq=45，value=44.0，累计接收=45
+[status_monitor-3] [INFO] [1789819358.984203393] [status_monitor]: 收到传感器：seq=45，value=44.0
+[sensor_simulator-1] [INFO] [1789819359.483708138] [sensor_simulator]: 发布：seq=46，value=45.0
+[task_executor-2] [INFO] [1789819359.483941897] [task_executor]: 最新传感器：seq=46，value=45.0，累计接收=46
+[status_monitor-3] [INFO] [1789819359.484002450] [status_monitor]: 收到传感器：seq=46，value=45.0
+[sensor_simulator-1] [INFO] [1789819359.983674536] [sensor_simulator]: 发布：seq=47，value=46.0
+[task_executor-2] [INFO] [1789819359.983930504] [task_executor]: 最新传感器：seq=47，value=46.0，累计接收=47
+[status_monitor-3] [INFO] [1789819359.983960327] [status_monitor]: 收到传感器：seq=47，value=46.0
+[sensor_simulator-1] [INFO] [1789819360.483768184] [sensor_simulator]: 发布：seq=48，value=47.0
+[task_executor-2] [INFO] [1789819360.483971911] [task_executor]: 最新传感器：seq=48，value=47.0，累计接收=48
+[status_monitor-3] [INFO] [1789819360.484079118] [status_monitor]: 收到传感器：seq=48，value=47.0
+[sensor_simulator-1] [INFO] [1789819360.983782003] [sensor_simulator]: 发布：seq=49，value=48.0
+[status_monitor-3] [INFO] [1789819360.984017229] [status_monitor]: 收到传感器：seq=49，value=48.0
+[task_executor-2] [INFO] [1789819360.984142595] [task_executor]: 最新传感器：seq=49，value=48.0，累计接收=49
+[task_executor-2] [INFO] [1789819361.197050035] [task_executor]: 任务结果：task_id=1，检查通过：seq=49，value=48.0
+[status_monitor-3] [INFO] [1789819361.197377312] [status_monitor]: 收到任务结果：task_id=1，success=True，sensor_seq=49，检查通过：seq=49，value=48.0
+[sensor_simulator-1] [INFO] [1789819361.483811468] [sensor_simulator]: 发布：seq=50，value=49.0
+[task_executor-2] [INFO] [1789819361.483993963] [task_executor]: 最新传感器：seq=50，value=49.0，累计接收=50
+[status_monitor-3] [INFO] [1789819361.484043271] [status_monitor]: 收到传感器：seq=50，value=49.0
+[sensor_simulator-1] [INFO] [1789819361.983839674] [sensor_simulator]: 发布：seq=51，value=50.0
+[status_monitor-3] [INFO] [1789819361.983885421] [status_monitor]: 收到传感器：seq=51，value=50.0
+[task_executor-2] [INFO] [1789819361.983906373] [task_executor]: 最新传感器：seq=51，value=50.0，累计接收=51
+[sensor_simulator-1] [INFO] [1789819362.483694395] [sensor_simulator]: 发布：seq=52，value=51.0
+[status_monitor-3] [INFO] [1789819362.483950085] [status_monitor]: 收到传感器：seq=52，value=51.0
+[task_executor-2] [INFO] [1789819362.483957837] [task_executor]: 最新传感器：seq=52，value=51.0，累计接收=52
+[sensor_simulator-1] [INFO] [1789819362.983698018] [sensor_simulator]: 发布：seq=53，value=52.0
+[task_executor-2] [INFO] [1789819362.983888196] [task_executor]: 最新传感器：seq=53，value=52.0，累计接收=53
+[status_monitor-3] [INFO] [1789819362.983972565] [status_monitor]: 收到传感器：seq=53，value=52.0
+[sensor_simulator-1] [INFO] [1789819363.483733977] [sensor_simulator]: 发布：seq=54，value=53.0
+[status_monitor-3] [INFO] [1789819363.483881832] [status_monitor]: 收到传感器：seq=54，value=53.0
+[task_executor-2] [INFO] [1789819363.483891330] [task_executor]: 最新传感器：seq=54，value=53.0，累计接收=54
+[sensor_simulator-1] [INFO] [1789819363.983809676] [sensor_simulator]: 发布：seq=55，value=54.0
+[status_monitor-3] [INFO] [1789819363.983999366] [status_monitor]: 收到传感器：seq=55，value=54.0
+[task_executor-2] [INFO] [1789819363.984966110] [task_executor]: 最新传感器：seq=55，value=54.0，累计接收=55
+[sensor_simulator-1] [INFO] [1789819364.693952227] [sensor_simulator]: 发布：seq=56，value=55.0
+[task_executor-2] [INFO] [1789819364.694137306] [task_executor]: 最新传感器：seq=56，value=55.0，累计接收=56
+[status_monitor-3] [INFO] [1789819364.694620888] [status_monitor]: 收到传感器：seq=56，value=55.0
+[sensor_simulator-1] [INFO] [1789819364.983733182] [sensor_simulator]: 发布：seq=57，value=56.0
+[task_executor-2] [INFO] [1789819364.984005843] [task_executor]: 最新传感器：seq=57，value=56.0，累计接收=57
+[status_monitor-3] [INFO] [1789819364.984128275] [status_monitor]: 收到传感器：seq=57，value=56.0
+[sensor_simulator-1] [INFO] [1789819365.484000526] [sensor_simulator]: 发布：seq=58，value=57.0
+[task_executor-2] [INFO] [1789819365.484205650] [task_executor]: 最新传感器：seq=58，value=57.0，累计接收=58
+[status_monitor-3] [INFO] [1789819365.484207466] [status_monitor]: 收到传感器：seq=58，value=57.0
+[sensor_simulator-1] [INFO] [1789819365.983625958] [sensor_simulator]: 发布：seq=59，value=58.0
+[status_monitor-3] [INFO] [1789819365.984018187] [status_monitor]: 收到传感器：seq=59，value=58.0
+[task_executor-2] [INFO] [1789819365.984018187] [task_executor]: 最新传感器：seq=59，value=58.0，累计接收=59
+[sensor_simulator-1] [INFO] [1789819366.483632863] [sensor_simulator]: 发布：seq=60，value=59.0
+[task_executor-2] [INFO] [1789819366.483850978] [task_executor]: 最新传感器：seq=60，value=59.0，累计接收=60
+[status_monitor-3] [INFO] [1789819366.483959302] [status_monitor]: 收到传感器：seq=60，value=59.0
+[sensor_simulator-1] [INFO] [1789819366.983590949] [sensor_simulator]: 发布：seq=61，value=60.0
+[task_executor-2] [INFO] [1789819366.983894689] [task_executor]: 最新传感器：seq=61，value=60.0，累计接收=61
+[status_monitor-3] [INFO] [1789819366.983897623] [status_monitor]: 收到传感器：seq=61，value=60.0
+[sensor_simulator-1] [INFO] [1789819367.483669512] [sensor_simulator]: 发布：seq=62，value=61.0
+[task_executor-2] [INFO] [1789819367.484050846] [task_executor]: 最新传感器：seq=62，value=61.0，累计接收=62
+[status_monitor-3] [INFO] [1789819367.484590231] [status_monitor]: 收到传感器：seq=62，value=61.0
+[sensor_simulator-1] [INFO] [1789819367.983749751] [sensor_simulator]: 发布：seq=63，value=62.0
+[status_monitor-3] [INFO] [1789819367.983906195] [status_monitor]: 收到传感器：seq=63，value=62.0
+[task_executor-2] [INFO] [1789819367.983956062] [task_executor]: 最新传感器：seq=63，value=62.0，累计接收=63
+[sensor_simulator-1] [INFO] [1789819368.483680599] [sensor_simulator]: 发布：seq=64，value=63.0
+[task_executor-2] [INFO] [1789819368.483914847] [task_executor]: 最新传感器：seq=64，value=63.0，累计接收=64
+[status_monitor-3] [INFO] [1789819368.483919037] [status_monitor]: 收到传感器：seq=64，value=63.0
+[sensor_simulator-1] [INFO] [1789819368.983706431] [sensor_simulator]: 发布：seq=65，value=64.0
+[status_monitor-3] [INFO] [1789819368.983894095] [status_monitor]: 收到传感器：seq=65，value=64.0
+[task_executor-2] [INFO] [1789819368.984002698] [task_executor]: 最新传感器：seq=65，value=64.0，累计接收=65
+[sensor_simulator-1] [INFO] [1789819369.483800708] [sensor_simulator]: 发布：seq=66，value=65.0
+[task_executor-2] [INFO] [1789819369.484063591] [task_executor]: 最新传感器：seq=66，value=65.0，累计接收=66
+[status_monitor-3] [INFO] [1789819369.484185604] [status_monitor]: 收到传感器：seq=66，value=65.0
+[sensor_simulator-1] [INFO] [1789819369.983649283] [sensor_simulator]: 发布：seq=67，value=66.0
+[status_monitor-3] [INFO] [1789819369.983894496] [status_monitor]: 收到传感器：seq=67，value=66.0
+[task_executor-2] [INFO] [1789819369.984004776] [task_executor]: 最新传感器：seq=67，value=66.0，累计接收=67
+[sensor_simulator-1] [INFO] [1789819370.483851255] [sensor_simulator]: 发布：seq=68，value=67.0
+[task_executor-2] [INFO] [1789819370.483943795] [task_executor]: 最新传感器：seq=68，value=67.0，累计接收=68
+[status_monitor-3] [INFO] [1789819370.484116513] [status_monitor]: 收到传感器：seq=68，value=67.0
+[sensor_simulator-1] [INFO] [1789819370.983884491] [sensor_simulator]: 发布：seq=69，value=68.0
+[task_executor-2] [INFO] [1789819370.983989323] [task_executor]: 最新传感器：seq=69，value=68.0，累计接收=69
+[status_monitor-3] [INFO] [1789819370.984153729] [status_monitor]: 收到传感器：seq=69，value=68.0
+[sensor_simulator-1] [INFO] [1789819371.483728526] [sensor_simulator]: 发布：seq=70，value=69.0
+[task_executor-2] [INFO] [1789819371.483953695] [task_executor]: 最新传感器：seq=70，value=69.0，累计接收=70
+[status_monitor-3] [INFO] [1789819371.483965568] [status_monitor]: 收到传感器：seq=70，value=69.0
+[sensor_simulator-1] [INFO] [1789819371.983627736] [sensor_simulator]: 发布：seq=71，value=70.0
+[status_monitor-3] [INFO] [1789819371.983932943] [status_monitor]: 收到传感器：seq=71，value=70.0
+[task_executor-2] [INFO] [1789819371.983947889] [task_executor]: 最新传感器：seq=71，value=70.0，累计接收=71
+[sensor_simulator-1] [INFO] [1789819372.483676407] [sensor_simulator]: 发布：seq=72，value=71.0
+[status_monitor-3] [INFO] [1789819372.483993626] [status_monitor]: 收到传感器：seq=72，value=71.0
+[task_executor-2] [INFO] [1789819372.484177379] [task_executor]: 最新传感器：seq=72，value=71.0，累计接收=72
+[sensor_simulator-1] [INFO] [1789819372.983693020] [sensor_simulator]: 发布：seq=73，value=72.0
+[task_executor-2] [INFO] [1789819372.984099357] [task_executor]: 最新传感器：seq=73，value=72.0，累计接收=73
+[status_monitor-3] [INFO] [1789819372.984221789] [status_monitor]: 收到传感器：seq=73，value=72.0
+[sensor_simulator-1] [INFO] [1789819373.483603614] [sensor_simulator]: 发布：seq=74，value=73.0
+[task_executor-2] [INFO] [1789819373.483846103] [task_executor]: 最新传感器：seq=74，value=73.0，累计接收=74
+[status_monitor-3] [INFO] [1789819373.483902954] [status_monitor]: 收到传感器：seq=74，value=73.0
+[sensor_simulator-1] [INFO] [1789819373.983771574] [sensor_simulator]: 发布：seq=75，value=74.0
+[task_executor-2] [INFO] [1789819373.983966222] [task_executor]: 最新传感器：seq=75，value=74.0，累计接收=75
+[status_monitor-3] [INFO] [1789819373.984069238] [status_monitor]: 收到传感器：seq=75，value=74.0
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[INFO] [status_monitor-3]: sending signal 'SIGINT' to process[status_monitor-3]
+[INFO] [task_executor-2]: sending signal 'SIGINT' to process[task_executor-2]
+[INFO] [sensor_simulator-1]: sending signal 'SIGINT' to process[sensor_simulator-1]
+[sensor_simulator-1] Traceback (most recent call last):
+[sensor_simulator-1]   File "/home/fatbro/workspace/ros2_ws/install/embodied_comm/lib/embodied_comm/sensor_simulator", line 33, in <module>
+[sensor_simulator-1]     sys.exit(load_entry_point('embodied-comm', 'console_scripts', 'sensor_simulator')())
+[sensor_simulator-1]              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[task_executor-2] Traceback (most recent call last):
+[task_executor-2]   File "/home/fatbro/workspace/ros2_ws/install/embodied_comm/lib/embodied_comm/task_executor", line 33, in <module>
+[task_executor-2]     sys.exit(load_entry_point('embodied-comm', 'console_scripts', 'task_executor')())
+[status_monitor-3] Traceback (most recent call last):
+[status_monitor-3]   File "/home/fatbro/workspace/ros2_ws/install/embodied_comm/lib/embodied_comm/status_monitor", line 33, in <module>
+[status_monitor-3]     sys.exit(load_entry_point('embodied-comm', 'console_scripts', 'status_monitor')())
+[sensor_simulator-1]   File "/home/fatbro/workspace/ros2_ws/build/embodied_comm/embodied_comm/sensor_simulator.py", line 34, in main
+[sensor_simulator-1]     run_node(SensorSimulator, args)
+[task_executor-2]              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[task_executor-2]   File "/home/fatbro/workspace/ros2_ws/build/embodied_comm/embodied_comm/task_executor.py", line 73, in main
+[status_monitor-3]              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[status_monitor-3]   File "/home/fatbro/workspace/ros2_ws/build/embodied_comm/embodied_comm/status_monitor.py", line 77, in main
+[status_monitor-3]     run_node(StatusMonitor, args)
+[status_monitor-3]   File "/home/fatbro/workspace/ros2_ws/build/embodied_comm/embodied_comm/common.py", line 64, in run_node
+[sensor_simulator-1]   File "/home/fatbro/workspace/ros2_ws/build/embodied_comm/embodied_comm/common.py", line 64, in run_node
+[sensor_simulator-1]     node.destroy_node()
+[sensor_simulator-1]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/node.py", line 1968, in destroy_node
+[task_executor-2]     run_node(TaskExecutor, args)
+[task_executor-2]   File "/home/fatbro/workspace/ros2_ws/build/embodied_comm/embodied_comm/common.py", line 64, in run_node
+[task_executor-2]     node.destroy_node()
+[task_executor-2]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/node.py", line 1968, in destroy_node
+[status_monitor-3]     node.destroy_node()
+[status_monitor-3]   File "/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/node.py", line 1968, in destroy_node
+[sensor_simulator-1]     self.__node.destroy_when_not_in_use()
+[sensor_simulator-1] KeyboardInterrupt
+[task_executor-2]     self.__node.destroy_when_not_in_use()
+[task_executor-2] KeyboardInterrupt
+[status_monitor-3]     self.__node.destroy_when_not_in_use()
+[status_monitor-3] KeyboardInterrupt
+[ERROR] [status_monitor-3]: process has died [pid 131521, exit code -2, cmd '/home/fatbro/workspace/ros2_ws/install/embodied_comm/lib/embodied_comm/status_monitor --ros-args --params-file /tmp/launch_params_gwxbwqfk'].
+[ERROR] [task_executor-2]: process has died [pid 131520, exit code -2, cmd '/home/fatbro/workspace/ros2_ws/install/embodied_comm/lib/embodied_comm/task_executor --ros-args -r /sensor_state:=/sensor_state'].
+[ERROR] [sensor_simulator-1]: process has died [pid 131519, exit code -2, cmd '/home/fatbro/workspace/ros2_ws/install/embodied_comm/lib/embodied_comm/sensor_simulator --ros-args --params-file /tmp/launch_params_b1e5hbev'].
