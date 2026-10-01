@@ -5,6 +5,7 @@ import math
 from rcl_interfaces.msg import ParameterDescriptor
 import rclpy
 from rclpy.executors import ExternalShutdownException
+from rclpy.impl.implementation_singleton import rclpy_implementation
 from rclpy.qos import DurabilityPolicy, QoSProfile, ReliabilityPolicy
 
 SENSOR_TOPIC = '/sensor_state'
@@ -12,6 +13,9 @@ TASK_STATUS_TOPIC = '/task_status'
 DIAGNOSTICS_TOPIC = '/diagnostics'
 EXECUTE_TASK_SERVICE = '/execute_task'
 EXECUTE_TASK_ACTION = '/execute_task_long'
+
+# Jazzy 的原生 RCL 错误类型；exceptions 模块没有公开此别名。
+RCLError = rclpy_implementation.RCLError
 
 
 def positive_parameter(node, name, default):
@@ -115,6 +119,11 @@ def run_node(node_type, args=None):
         rclpy.spin(node)
     except (KeyboardInterrupt, ExternalShutdownException):
         pass
+    except RCLError:
+        # SIGINT 可在等待集创建期间关闭 Context。仅关闭后的原生 ROS
+        # 错误属于正常退出；运行期错误和注入 RuntimeError 继续上抛。
+        if rclpy.ok():
+            raise
     finally:
         if node is not None:
             node.destroy_node()

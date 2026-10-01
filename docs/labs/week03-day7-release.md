@@ -83,8 +83,11 @@ bash scripts/verify_ros2_release.sh /tmp/embodiedagentlab-v0.3-replay refs/tags/
 | 诊断调用漏掉 `doctor` 子命令 | 从归档源码执行 `/usr/bin/python3 -m embodied_agent_lab.doctor doctor --skip-network --json`，生成实际 JSON 报告。 |
 | 超时命令的日志被重复拼接 | `communicate()` 重试返回完整缓存输出，不再把 `TimeoutExpired.output` 与它重复相加，保留真实事件次数和顺序。 |
 | rosbag 可读被误当作 Recorder 成功退出 | 同时核对 Recorder 干净退出、停止方式与 bag 可读性；强制结束或非正常退出必须使场景失败。 |
+| 诊断观察器先启动时无法推断未上线 Topic 的类型 | 显式指定 `diagnostic_msgs/msg/DiagnosticArray`，并测试发布者尚未上线时观察器继续等待；不能为绕过失败而丢掉故障前的观察窗口。 |
 | Day 4 观察器已断流，但执行器仍可能消费积压样本 | DDS 消费者有独立队列。先确认停止注入与执行器收到最后序号，再等待其接收时钟超过新鲜度阈值，最后验证 Service 拒绝旧缓存。 |
 | Day 5 Launch 壳进程退出慢，容易掩盖节点状态 | 按节点名核对正常退出；崩溃场景单独核对传感器退出码 1。所有预期节点退出已证实后，只回收本次残留 Launch PID，并保存清理报告。 |
+| 管道与真实终端的 Ctrl+C 行为不同 | 自动采集子进程显式使用 `stdin=DEVNULL`；Day 3 终端测试用 PTY 加一次独立进程组 SIGINT，严格核对四节点正常退出与 Graph 清空，避免非交互 Launch 重复转发信号。 |
+| Ctrl+C 与 WaitSet 创建竞争，Context 已关闭时抛出原生 `RCLError` | 只有 `rclpy.ok()` 已为 false 时将该 RCL 错误作为正常关闭；有效 Context 下的 RCL 错误和注入 `RuntimeError` 继续传播。单/多线程入口均有对应回归，不能吞掉真实崩溃。 |
 | 越界 Action 结果与接口契约不一致 | 失败 Action Result 的 `sensor_seq` 统一为 `0`；`/task_status` JSON 仍保留越界样本的实际序号供定位，无合法样本时继续为 `null`。 |
 
 这些修复改变的是构建、接口契约或验收判据。表中的修复说明不代表当前候选已通过全部验收；通过状态以本轮完整演练日志为准。

@@ -6,7 +6,7 @@ import time
 
 from embodied_comm.common import (
     EXECUTE_TASK_ACTION, EXECUTE_TASK_SERVICE, nonnegative_parameter,
-    parse_sensor, positive_parameter, sensor_qos, SENSOR_TOPIC,
+    parse_sensor, positive_parameter, RCLError, sensor_qos, SENSOR_TOPIC,
     TASK_STATUS_TOPIC,
 )
 from embodied_interfaces.action import ExecuteTask
@@ -283,6 +283,9 @@ def main(args=None):
         executor.spin()
     except (KeyboardInterrupt, ExternalShutdownException):
         pass
+    except RCLError:
+        if rclpy.ok():
+            raise
     finally:
         executor.shutdown()
         if node is not None:
