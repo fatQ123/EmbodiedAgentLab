@@ -1,0 +1,25 @@
+三个真实 Launch 场景关键事件摘录（2026-09-28）
+
+[Service 超时]
+[WARN] [task_executor]: 故障注入：/execute_task 延迟 1.00 秒后响应
+自动化客户端：0.20 秒截止时间到达，输出“服务响应超时”，退出码=6
+[INFO] [status_monitor]: 收到任务结果：task_id=1，success=True，sensor_seq=...
+[INFO] [task_executor]: 任务结果：task_id=1，检查通过：seq=...
+解释：Server 在 Client 停止等待后仍完成请求，因此不能把超时解释成未执行。
+
+[Action 取消与恢复]
+[INFO] [inspection_demo]: 目标已接受：task_name=inspect_workpiece_WP-DAY5-CANCEL，duration=2.00 秒
+[INFO] [task_executor]: 接受取消请求：task_name=inspect_workpiece_WP-DAY5-CANCEL
+[INFO] [task_executor]: 任务结果：task_id=1，任务已取消：task_name=inspect_workpiece_WP-DAY5-CANCEL
+[INFO] [inspection_demo]: 最终状态=CANCELED，success=False，sensor_seq=0
+[INFO] [inspection_demo]: 目标已接受：task_name=inspect_workpiece_WP-DAY5-RECOVER，duration=0.20 秒
+[INFO] [task_executor]: 任务结果：task_id=2，task_name=inspect_workpiece_WP-DAY5-RECOVER，检查通过：seq=138，value=36.0
+[INFO] [inspection_demo]: 最终状态=SUCCEEDED，success=True，sensor_seq=138
+
+[节点崩溃]
+[FATAL] [sensor_simulator]: 故障注入：sensor_simulator 即将崩溃，最后序号=40
+RuntimeError: 故障注入：sensor_simulator 即将崩溃
+[ERROR] [sensor_simulator-1]: process has died [..., exit code 1, ...]
+自动化诊断：state=publisher_lost，publisher_count=0
+自动化 Service：success=false，消息包含“数据已过期”
+解释：异常栈和 exit code 1 确认是进程级崩溃；其余四个节点保持运行。

@@ -1,0 +1,12 @@
+# 长任务目标：名称用于追踪工件或工序，时长用于本阶段的可重复模拟。
+string task_name
+float32 duration_sec
+---
+# 结果中的 sensor_seq 为 0 时表示任务结束时没有合法传感器数据。
+bool success
+string message
+uint64 sensor_seq
+---
+# 进度范围为 0～100；phase 使用约定的英文阶段名，便于机器解析。
+float32 progress_percent
+string phase

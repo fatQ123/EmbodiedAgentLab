@@ -1,0 +1,8 @@
+[INFO] [1789916941.899267039] [sensor_simulator]: 发布：{"seq": 30, "value": 29.0}
+[WARN] [1789916941.899904622] [sensor_simulator]: 故障注入：节点与 Publisher 保持存活，但 /sensor_state 停止发布，最后序号=30
+[INFO] [1789916941.899529643] [status_monitor]: 收到传感器：seq=30，value=29.0
+[WARN] [1789916943.411190359] [status_monitor]: 传感器消息超时：已 1.51 秒没有有效消息
+[INFO] [1789916954.646852524] [task_executor]: 任务结果：task_id=1，传感器数据已过期：last_seq=30，age=12.24 秒，阈值=1.50 秒
+[INFO] [1789916954.646853991] [status_monitor]: 收到任务结果：task_id=1，success=False，sensor_seq=None，传感器数据已过期：last_seq=30，age=12.24 秒，阈值=1.50 秒
+
+检测延迟：1789916943.411190359 - 1789916941.899904622 = 1.511285737 秒。

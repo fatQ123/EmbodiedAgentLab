@@ -1,0 +1,16 @@
+Action graph:
+/execute_task_long [embodied_interfaces/action/ExecuteTask]
+Action servers: 1
+  /task_executor
+
+[inspection_demo] 目标已接受：task_name=inspect_workpiece_WP-001，duration=3.00 秒
+[inspection_demo] 质检反馈：phase=preparing，progress=0.0%
+[inspection_demo] 质检反馈：phase=inspecting，progress=13.4%
+[inspection_demo] 质检反馈：phase=inspecting，progress=54.4%
+[inspection_demo] 质检反馈：phase=validating，progress=95.5%
+[inspection_demo] 质检反馈：phase=validating，progress=99.0%
+[inspection_demo] 质检反馈：phase=completed，progress=100.0%
+[inspection_demo] 最终状态=SUCCEEDED，success=True，sensor_seq=13，message=task_name=inspect_workpiece_WP-001，检查通过：seq=13，value=12.0
+
+Service call while the Action was active:
+std_srvs.srv.Trigger_Response(success=True, message='检查通过：seq=7，value=6.0')

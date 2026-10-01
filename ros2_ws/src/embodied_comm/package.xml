@@ -1,15 +1,27 @@
 <?xml version="1.0"?>
 <package format="3">
   <name>embodied_comm</name>
-  <version>0.2.0</version>
-  <description>第 2 周独立模拟传感器通信实验。</description>
+  <version>0.3.0</version>
+  <description>第 3 周长任务、坐标变换、监控与故障诊断实验。</description>
   <maintainer email="fatQ123@users.noreply.github.com">fatQ123</maintainer>
   <license>MIT</license>
   <buildtool_depend>ament_python</buildtool_depend>
   <exec_depend>rclpy</exec_depend>
   <exec_depend>rcl_interfaces</exec_depend>
+  <exec_depend>action_msgs</exec_depend>
+  <exec_depend>diagnostic_msgs</exec_depend>
+  <exec_depend>embodied_interfaces</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>rviz2</exec_depend>
+  <exec_depend>ros2bag</exec_depend>
+  <exec_depend>rosbag2_storage_mcap</exec_depend>
+  <exec_depend>rosbag2_transport</exec_depend>
   <exec_depend>std_msgs</exec_depend>
   <exec_depend>std_srvs</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>tf2_ros_py</exec_depend>
+  <exec_depend>tf2_tools</exec_depend>
+  <exec_depend>visualization_msgs</exec_depend>
   <exec_depend>launch</exec_depend>
   <exec_depend>launch_ros</exec_depend>
   <exec_depend>ros2launch</exec_depend>

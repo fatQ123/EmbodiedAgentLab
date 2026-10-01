@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="3">
   <name>embodied_comm_cpp</name>
-  <version>0.2.0</version>
+  <version>0.3.0</version>
   <description>Python/C++ 发布订阅对照实验。</description>
   <maintainer email="fatQ123@users.noreply.github.com">fatQ123</maintainer>
   <license>MIT</license>

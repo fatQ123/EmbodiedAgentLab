@@ -1,0 +1,47 @@
+环境：Ubuntu 24.04 / ROS 2 Jazzy / Python 3.12.3
+日期：2026-09-20
+
+$ colcon build --symlink-install --packages-up-to embodied_comm embodied_comm_cpp
+Starting >>> embodied_interfaces
+Starting >>> embodied_comm_cpp
+Finished <<< embodied_comm_cpp
+Finished <<< embodied_interfaces
+Starting >>> embodied_comm
+Finished <<< embodied_comm
+Summary: 3 packages finished
+
+$ colcon test --packages-select embodied_interfaces embodied_comm embodied_comm_cpp --event-handlers console_direct+
+embodied_comm: collected 73 items
+test/test_execute_task.py ............
+test/test_execute_task_action.py ............
+test/test_launch.py ..
+test/test_parameters.py ..................
+test/test_protocol.py ................
+test/test_pub_sub.py .........
+test/test_task_executor.py ..
+test/test_workcell_visualizer.py ..
+73 passed
+embodied_comm_cpp: 5 tests from Protocol, 5 passed
+Summary: 3 packages finished
+
+$ colcon test-result --all --verbose
+build/embodied_comm/pytest.xml: 73 tests, 0 errors, 0 failures, 0 skipped
+build/embodied_comm_cpp/Testing/.../Test.xml: 1 test, 0 errors, 0 failures, 0 skipped
+build/embodied_comm_cpp/test_results/embodied_comm_cpp/test_protocol.gtest.xml: 5 tests, 0 errors, 0 failures, 0 skipped
+Summary: 79 tests, 0 errors, 0 failures, 0 skipped
+
+$ PYTHONPATH=src python3 -m pytest -q tests
+18 passed
+
+$ ament_flake8 <Day 2 changed Python files>
+5 files checked
+No problems found
+
+$ ament_xmllint ros2_ws/src/embodied_comm/package.xml ros2_ws/src/embodied_interfaces/package.xml
+2 files valid
+No problems found
+
+$ git diff --check
+(no output; exit 0)
+
+合计：97 个报告条目通过；扣除 CTest 对 5 个 gtest 的 1 个包装条目后，96 个独立测试用例通过。0 errors，0 failures，0 skipped。

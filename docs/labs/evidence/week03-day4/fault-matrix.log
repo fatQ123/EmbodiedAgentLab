@@ -1,0 +1,44 @@
+第 4 天已安装 Launch 故障矩阵实测（2026-09-28）
+
+共同断言：
+- 五个节点均由 week03_day4.launch.py 启动；
+- /execute_task 可发现并返回；
+- /diagnostics 同时承载传感器流与 TF 链两个独立 status.name；
+- 每个 Launch 收到 SIGINT 后五个子进程均干净退出。
+
+[ROS_DOMAIN_ID=185] QoS 不匹配
+参数：publisher_reliability=best_effort
+传感器诊断：state=qos_mismatch, level=ERROR
+空间诊断：state=healthy, level=OK
+端点：/sensor_state Publisher count=1
+数据：测试探针与两个 RELIABLE 业务订阅端均未收到消息
+Service：success=false，原因是尚未收到合法传感器读数
+结论：端点存在不等于 Requested/Offered QoS 兼容。
+
+[ROS_DOMAIN_ID=186] 话题停止
+参数：fault_stop_after_sec=2.0
+传感器诊断：先 healthy，后 state=stale, level=ERROR
+空间诊断：state=healthy, level=OK
+数据：停止后的观察窗口内消息计数不再增长
+Service：success=false，原因是最后缓存读数已过期
+结论：节点和 Publisher 存活不等于数据仍在流动。
+
+[ROS_DOMAIN_ID=187] TF 缺失
+参数：tf_fault_mode=missing
+传感器诊断：state=healthy, level=OK
+空间诊断：state=missing, level=ERROR
+TF：world→tool0 不可合成；world→base_link 与 camera_link→tool0 局部链存在
+Service：success=true
+结论：空间链已报警，但第 4 天尚未把 TF 健康接入任务门禁。
+
+[ROS_DOMAIN_ID=188] TF 过期
+参数：tf_fault_mode=stale, tf_fault_after_sec=4.0
+传感器诊断：state=healthy, level=OK
+空间诊断：先 healthy，后 state=stale, level=ERROR
+TF：动态时间戳停止增长，缓存仍可能完成 latest-time 查询
+Marker：使用有限寿命，避免 RViz 永久保留错误绿块
+Service：success=true
+结论：能查到缓存变换不等于变换足够新；当前空间链只报警。
+
+测试文件：ros2_ws/src/embodied_comm/test/test_day4_fault_injection.py
+结果：7 passed（3 个节点内真实 ROS 测试 + 4 个已安装 Launch 场景）

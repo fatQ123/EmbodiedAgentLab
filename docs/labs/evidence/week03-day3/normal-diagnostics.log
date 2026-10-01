@@ -1,0 +1,21 @@
+正常模式：fault_stop_after_sec=0.0, timeout_sec=2.0, diagnostic_rate=2.0
+
+$ ros2 topic echo /diagnostics diagnostic_msgs/msg/DiagnosticArray --once
+status:
+- level: "\0"
+  name: 'sensor_simulator: Sensor Stream'
+  message: 传感器流正常
+  hardware_id: simulated_inspection_sensor
+  values:
+  - {key: topic, value: /sensor_state}
+  - {key: state, value: healthy}
+  - {key: age_sec, value: '0.050'}
+  - {key: timeout_sec, value: '2.000'}
+  - {key: received_count, value: '125'}
+  - {key: invalid_count, value: '0'}
+  - {key: latest_seq, value: '125'}
+  - {key: publisher_count, value: '1'}
+
+$ ros2 service call /execute_task std_srvs/srv/Trigger "{}"
+success=True
+message='检查通过：seq=156，value=54.0'

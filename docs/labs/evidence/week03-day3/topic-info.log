@@ -1,0 +1,14 @@
+故障发生后：
+
+$ ros2 topic info /sensor_state --verbose
+Type: std_msgs/msg/String
+Publisher count: 1
+Node name: sensor_simulator
+Reliability: RELIABLE
+Durability: VOLATILE
+
+Subscription count: 2
+Node name: task_executor
+Node name: status_monitor
+
+结论：ROS 节点与 DDS 端点仍然存在；本故障不是节点退出，而是有效消息停止流动。

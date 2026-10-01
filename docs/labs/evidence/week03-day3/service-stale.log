@@ -1,0 +1,16 @@
+$ ros2 service call /execute_task std_srvs/srv/Trigger "{}"
+response:
+std_srvs.srv.Trigger_Response(
+  success=False,
+  message='传感器数据已过期：last_seq=30，age=12.24 秒，阈值=1.50 秒'
+)
+
+/task_status 对应终态：
+{
+  "task_id": 1,
+  "success": false,
+  "message": "传感器数据已过期：last_seq=30，age=12.24 秒，阈值=1.50 秒",
+  "sensor_seq": null
+}
+
+结论：序号 30 的数值虽然格式和范围合法，但因数据年龄超限而不能用于新任务。

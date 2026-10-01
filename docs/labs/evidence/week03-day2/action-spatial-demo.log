@@ -1,0 +1,6 @@
+[INFO] [1789898068.169993095] [inspection_demo]: 目标已接受：task_name=inspect_workpiece_WP-DAY2，duration=2.00 秒
+[INFO] [1789898068.171072827] [inspection_demo]: 质检反馈：phase=preparing，progress=0.0%
+[INFO] [1789898068.359326502] [inspection_demo]: 质检反馈：phase=inspecting，progress=10.0%
+[INFO] [1789898070.376287472] [inspection_demo]: 质检反馈：phase=validating，progress=99.0%
+[INFO] [1789898070.377196375] [inspection_demo]: 质检反馈：phase=completed，progress=100.0%
+[INFO] [1789898070.379108184] [inspection_demo]: 最终状态=SUCCEEDED，success=True，sensor_seq=152，message=task_name=inspect_workpiece_WP-DAY2，检查通过：seq=152，value=50.0

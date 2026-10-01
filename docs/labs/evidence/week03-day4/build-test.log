@@ -1,0 +1,35 @@
+第 3 周第 4 天最终门禁（2026-09-28）
+
+$ colcon build --symlink-install --packages-up-to embodied_comm embodied_comm_cpp
+Summary: 3 packages finished [2.49s]
+
+$ colcon test --packages-select embodied_interfaces embodied_comm embodied_comm_cpp
+embodied_comm: 123 passed in 45.71s
+embodied_comm_cpp: 5 tests passed
+Summary: 3 packages finished [46.7s]
+
+$ colcon test-result --all --verbose
+build/embodied_comm/pytest.xml: 123 tests, 0 errors, 0 failures, 0 skipped
+embodied_comm_cpp CTest wrapper: 1 test, 0 errors, 0 failures, 0 skipped
+embodied_comm_cpp GoogleTest: 5 tests, 0 errors, 0 failures, 0 skipped
+Summary: 129 tests, 0 errors, 0 failures, 0 skipped
+
+说明：CTest 的 1 条包装记录与其中 5 个 GoogleTest 用例重叠；ROS 独立用例数为 123 + 5 = 128。
+
+$ PYTHONPATH=src python3 -m pytest -q tests
+18 passed in 0.30s
+
+项目独立测试用例合计：128 + 18 = 146，全通过。
+
+$ ament_flake8 <13 个本次相关 Python/Launch/Test 文件>
+13 files checked
+No problems found
+
+$ ament_xmllint ros2_ws/src/embodied_comm/package.xml ros2_ws/src/embodied_interfaces/package.xml
+2 files valid
+
+$ Mermaid parser docs/flowcharts/*.md
+validated 5 Mermaid diagrams
+
+$ git diff --check
+exit 0，无空白错误

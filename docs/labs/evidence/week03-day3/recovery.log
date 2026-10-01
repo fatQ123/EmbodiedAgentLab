@@ -1,0 +1,14 @@
+恢复配置：fault_stop_after_sec=0.0, timeout_sec=2.0, diagnostic_rate=2.0
+
+/diagnostics:
+level=OK (0)
+state=healthy
+age_sec=0.050
+latest_seq=125
+publisher_count=1
+
+/execute_task:
+success=True
+message='检查通过：seq=156，value=54.0'
+
+结论：关闭故障注入并重新启动后，新消息恢复，诊断回到 OK，任务接口重新放行。

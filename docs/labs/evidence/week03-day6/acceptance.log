@@ -1,0 +1,18 @@
+week03_day6_evidence: passed
+started_at: 2026-09-29T12:15:34+08:00
+finished_at: 2026-09-29T12:19:00+08:00
+scenario_count: 7
+fault_category_count: 6
+
+qos_mismatch: passed, rosbag_messages=731
+topic_stop: passed, rosbag_messages=922
+tf_missing: passed, rosbag_messages=887
+tf_stale: passed, rosbag_messages=1271
+service_timeout: passed, rosbag_messages=1009
+action_cancel: passed, rosbag_messages=1157
+node_crash: passed, rosbag_messages=899
+rosbag_messages_total: 6876
+
+colcon_test: passed
+colcon_test_result: 148 tests, 0 errors, 0 failures, 0 skipped
+repository_tests: 18 passed

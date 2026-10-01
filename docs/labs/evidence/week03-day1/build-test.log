@@ -1,0 +1,17 @@
+ROS 2 interface:
+/execute_task_long [embodied_interfaces/action/ExecuteTask]
+Action server: /task_executor
+
+colcon build summary:
+Summary: 3 packages finished
+  embodied_interfaces
+  embodied_comm
+  embodied_comm_cpp
+
+colcon test summary:
+embodied_comm: 65 tests, 0 errors, 0 failures, 0 skipped
+embodied_comm_cpp CTest: 1 test suite / 5 cases, 0 failures
+Total: 71 tests, 0 errors, 0 failures, 0 skipped
+
+Root Python project:
+18 tests passed

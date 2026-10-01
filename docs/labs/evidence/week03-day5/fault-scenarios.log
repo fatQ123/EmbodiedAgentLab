@@ -1,0 +1,33 @@
+第 5 天已安装 Launch 故障矩阵实测（2026-09-28）
+
+共同断言：
+- 五个节点均由 week03_day5.launch.py 启动并首先达到 healthy；
+- /execute_task 和 /execute_task_long 均可发现；
+- 三个场景分别使用独立 ROS Domain，避免发现缓存和残留进程串扰；
+- 每个业务终态只向 /task_status 发布一次。
+
+[ROS_DOMAIN_ID=189] Service 响应超时
+参数：fault_service_delay_sec=1.0
+客户端：response_timeout=0.2，输出“服务响应超时”，退出码=6
+服务器：客户端退出后继续完成原请求，发布 success=true 的唯一终态
+进程：task_executor 仍在 ROS Graph 中，Launch 仍存活
+结论：客户端不再等待，不等于 Server 回调被取消或业务执行失败。
+
+[ROS_DOMAIN_ID=190] Action 取消与恢复
+目标一：duration=2.0，在 feedback 达到 40% 后发出 Cancel Request
+结果一：最终状态=CANCELED，success=false，客户端退出码=3
+目标二：duration=0.2，在同一工位立即重新提交
+结果二：最终状态=SUCCEEDED，success=true，客户端退出码=0
+/task_status：按顺序得到 [false, true] 两个终态
+结论：取消走 ROS 2 Action 协议，执行器释放活动目标占用，工位没有卡死。
+
+[ROS_DOMAIN_ID=191] 传感器进程崩溃
+参数：fault_sensor_crash_after_sec=4.0，timeout_sec=0.4
+进程：sensor_simulator 以 exit code 1 退出，其他四个节点仍存在
+端点：/sensor_state Publisher count 从 1 变为 0，消息计数停止增长
+诊断：state=publisher_lost，说明监控器此前见过端点而后端点消失
+Service：success=false，拒绝崩溃前留下的过期缓存
+结论：ROS Graph 与诊断用于确认端点丢失，Launch 异常栈和退出码用于确认根因是进程崩溃。
+
+测试文件：ros2_ws/src/embodied_comm/test/test_day5_fault_injection.py
+结果：3 passed in 21.05s

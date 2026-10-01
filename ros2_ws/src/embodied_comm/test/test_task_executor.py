@@ -1,13 +1,13 @@
-"""验证执行器缓存语义及三节点实际通信。"""
+"""验证执行器缓存语义及三节点实际通信."""
 import time
-
-from rclpy.executors import SingleThreadedExecutor
-from rclpy.parameter import Parameter
-from std_msgs.msg import String
 
 from embodied_comm.sensor_simulator import SensorSimulator
 from embodied_comm.status_monitor import StatusMonitor
 from embodied_comm.task_executor import TaskExecutor
+from rclpy.callback_groups import MutuallyExclusiveCallbackGroup, ReentrantCallbackGroup
+from rclpy.executors import SingleThreadedExecutor
+from rclpy.parameter import Parameter
+from std_msgs.msg import String
 
 
 def test_cache_preserves_last_valid_reading(ros_context):
@@ -16,6 +16,9 @@ def test_cache_preserves_last_valid_reading(ros_context):
         assert node.latest_reading is None
         assert node.last_received_at is None
         assert node.received_count == 0
+        assert isinstance(node.sensor_callback_group, MutuallyExclusiveCallbackGroup)
+        assert isinstance(node.request_callback_group, ReentrantCallbackGroup)
+        assert node.sensor_callback_group is not node.request_callback_group
         node.receive(String(data='bad JSON'))
         assert node.latest_reading is None
         assert node.last_received_at is None

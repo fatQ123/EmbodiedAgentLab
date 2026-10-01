@@ -1,0 +1,13 @@
+[inspection_demo] 目标已接受：task_name=inspect_workpiece_WP-002，duration=4.00 秒
+[inspection_demo] 质检反馈：phase=inspecting，progress=35.1%
+[inspection_demo] 质检反馈：phase=inspecting，progress=40.2%
+[inspection_demo] 模拟安全联锁：进度达到 40.2%，请求取消
+[inspection_demo] 最终状态=CANCELED，success=False，sensor_seq=0，message=任务已取消：task_name=inspect_workpiece_WP-002
+[ros2run] Process exited with expected business status 3
+
+[inspection_demo] 目标已接受：task_name=inspect_workpiece_WP-003，duration=0.50 秒
+[inspection_demo] 质检反馈：phase=preparing，progress=0.0%
+[inspection_demo] 质检反馈：phase=inspecting，progress=40.2%
+[inspection_demo] 质检反馈：phase=validating，progress=99.0%
+[inspection_demo] 质检反馈：phase=completed，progress=100.0%
+[inspection_demo] 最终状态=SUCCEEDED，success=True，sensor_seq=32，message=task_name=inspect_workpiece_WP-003，检查通过：seq=32，value=31.0

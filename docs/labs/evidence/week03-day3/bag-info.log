@@ -1,0 +1,26 @@
+$ ros2 bag info /tmp/week03_day3_topic_stop
+
+Storage id: mcap
+ROS distribution: jazzy
+Duration: 24.712057386s
+Messages: 79
+
+Topic: /diagnostics
+Type: diagnostic_msgs/msg/DiagnosticArray
+Message count: 51
+
+Topic: /sensor_state
+Type: std_msgs/msg/String
+Message count: 27
+
+Topic: /task_status
+Type: std_msgs/msg/String
+Message count: 1
+
+Bag file: week03_day3_topic_stop_0.mcap
+Size: 36.8 KiB
+
+$ ros2 bag play /tmp/week03_day3_topic_stop --rate 20.0
+回放进程正常结束，exit 0。
+
+说明：录包器在发布开始后才完成发现，因此包内为 27 条传感器消息，而故障源最后发布的序号为 30；这不影响断流和报警的相对时间线。

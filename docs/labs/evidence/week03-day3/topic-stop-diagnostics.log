@@ -1,0 +1,19 @@
+话题停止后诊断快照：fault_stop_after_sec=12.0, timeout_sec=2.0
+
+$ ros2 topic echo /diagnostics diagnostic_msgs/msg/DiagnosticArray --once
+status:
+- level: "\x02"
+  name: 'sensor_simulator: Sensor Stream'
+  message: 传感器流已过期，测量值不可用于任务决策
+  hardware_id: simulated_inspection_sensor
+  values:
+  - {key: topic, value: /sensor_state}
+  - {key: state, value: stale}
+  - {key: age_sec, value: '12.988'}
+  - {key: timeout_sec, value: '2.000'}
+  - {key: received_count, value: '59'}
+  - {key: invalid_count, value: '0'}
+  - {key: latest_seq, value: '60'}
+  - {key: publisher_count, value: '1'}
+
+解释：level 2 是 diagnostic_msgs/msg/DiagnosticStatus.ERROR。

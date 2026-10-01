@@ -1,0 +1,32 @@
+第 3 周第 3 天最终门禁（2026-09-20）
+
+$ colcon build --symlink-install --packages-up-to embodied_comm embodied_comm_cpp
+Summary: 3 packages finished [2.85s]
+
+$ colcon test --packages-select embodied_interfaces embodied_comm embodied_comm_cpp
+embodied_comm: 94 passed in 25.22s
+embodied_comm_cpp: 5 tests passed
+Summary: 3 packages finished [26.2s]
+
+$ colcon test-result --all --verbose
+build/embodied_comm/pytest.xml: 94 tests, 0 errors, 0 failures, 0 skipped
+build/embodied_comm_cpp/Testing/20260920-1515/Test.xml: 1 test, 0 errors, 0 failures, 0 skipped
+build/embodied_comm_cpp/test_results/embodied_comm_cpp/test_protocol.gtest.xml: 5 tests, 0 errors, 0 failures, 0 skipped
+Summary: 100 tests, 0 errors, 0 failures, 0 skipped
+
+说明：CTest 的 1 条包装记录与其中 5 个 GoogleTest 用例重叠；ROS 独立用例数为 99。
+
+$ PYTHONPATH=src python3 -m pytest -q tests
+18 passed in 0.24s
+
+独立测试用例合计：99 + 18 = 117，全通过。
+
+$ ament_flake8 <9 个本次相关 Python/Launch/Test 文件>
+9 files checked
+No problems found
+
+$ ament_xmllint ros2_ws/src/embodied_comm/package.xml ros2_ws/src/embodied_interfaces/package.xml
+2 files valid
+
+$ git diff --check
+exit 0，无空白错误

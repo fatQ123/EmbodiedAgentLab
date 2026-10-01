@@ -24,6 +24,7 @@ ros2_ws/install/
 ros2_ws/log/
 
 # 大型实验产物；只提交经过筛选的演示和报告
+artifacts/
 episodes/
 *.bag
 *.db3
