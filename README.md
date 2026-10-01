@@ -71,7 +71,7 @@ colcon test-result --verbose
 
 第三周在上述依赖外还需要 `ros-jazzy-rosidl-default-generators`、`ros-jazzy-rosidl-default-runtime`、`ros-jazzy-action-msgs`、`ros-jazzy-diagnostic-msgs`、`ros-jazzy-tf2-ros`、`ros-jazzy-tf2-ros-py`、`ros-jazzy-tf2-tools`、`ros-jazzy-visualization-msgs`、`ros-jazzy-rviz2`、`ros-jazzy-ros2bag`、`ros-jazzy-rosbag2-transport`、`ros-jazzy-rosbag2-storage-mcap`。使用系统 Python 3.12 的 ROS 终端，避免 Conda 的 Python 与系统原生 ROS 库混用；所有构建命令可追加 `--cmake-args -DPython3_EXECUTABLE=/usr/bin/python3`。已配置 ROS apt 源的主机可用 `rosdep install --from-paths ros2_ws/src --ignore-src --rosdistro jazzy -y` 补齐声明依赖。
 
-`/execute_task` 继续承担立即返回的传感器检查；新增的 `/execute_task_long` Action 模拟生产线工件质检，持续反馈 `preparing → inspecting → validating → completed`，并支持安全取消。同一工位一次只接受一个长任务。
+`/execute_task` 继续承担立即返回的传感器检查；新增的 `/execute_task_long` Action 模拟生产线工件质检，持续反馈 `preparing → inspecting → validating → completed`，并支持任务取消。同一工位一次只接受一个长任务。
 
 构建并启动三节点：
 
@@ -91,7 +91,7 @@ ros2 run embodied_comm inspection_demo \
   --duration 5
 ```
 
-模拟安全门打开，在 40% 进度取消任务：
+模拟安全门打开，收到首次达到或超过 40% 阈值的反馈后请求取消任务：
 
 ```bash
 ros2 run embodied_comm inspection_demo \
@@ -100,7 +100,7 @@ ros2 run embodied_comm inspection_demo \
   --cancel-at 40
 ```
 
-取消属于预期业务结果，客户端以退出码 `3` 标识；成功、任务失败、目标拒绝和接口不可用分别使用 `0`、`2`、`4`、`5`。完整的工业场景解释、并发规则、复现步骤和能力边界见[第 3 周第 1 天记录](docs/labs/week03-day1-action.md)。
+取消属于预期业务结果，客户端以退出码 `3` 标识；成功、任务失败、目标拒绝和接口不可用分别使用 `0`、`2`、`4`、`5`。反馈阈值不保证精确停在 40%，当前取消验证任务协议和资源释放，不替代硬件急停或安全联锁。完整的工业场景解释、并发规则、复现步骤和能力边界见[第 3 周第 1 天记录](docs/labs/week03-day1-action.md)。
 
 ## v0.3 第 2 天：正常坐标树与 RViz 工位画面
 
@@ -225,7 +225,7 @@ Service 超时客户端：
 ros2 run embodied_comm service_timeout_demo --response-timeout 1.0
 ```
 
-Action 在 40% 取消，并验证下一件工件能够恢复：
+Action 在反馈达到 40% 阈值后请求取消，并验证下一件工件能够恢复：
 
 ```bash
 ros2 run embodied_comm inspection_demo \
@@ -260,6 +260,19 @@ ros2 run embodied_comm week03_day6_evidence \
 ```
 
 结果默认写入被 Git 忽略的 `artifacts/week03-day6/run-时间戳/`，避免把大型 MCAP 提交到仓库。每次运行的 `summary.json` 供程序读取，`故障记录.md` 供操作员阅读。设计、目录、回放方式、六类中文记录和自动化边界见[第 3 周第 6 天记录](docs/labs/week03-day6-automated-evidence.md)。
+
+## v0.3 第 7 天：干净终端完整验收
+
+当前候选仍在发布验收中，`v0.3` 尚未发布。验收脚本固定一个已提交 ref，将源码导出到新目录，再以 `env -i` 和无终端配置的 shell 构建三个 ROS 包，运行正常质检、取消恢复、七场故障采集、全部测试及 Python/C++ 四组通信组合。
+
+在仓库根目录运行；输出目录必须尚不存在。当前候选可省略 ref 使用 `HEAD`；发布标签创建后，完整复现入口为：
+
+```bash
+# OUTPUT 为新的验收目录，例如 /tmp/embodiedagentlab-v0.3-replay
+bash scripts/verify_ros2_release.sh OUTPUT refs/tags/v0.3
+```
+
+发布代码以 annotated tag `v0.3` 为准。同名 branch 不代表发布标签；命令中使用 `refs/tags/v0.3`，避免 Git 将 `v0.3` 解析成同名分支。脚本保存实际源码 SHA、安装前缀、演示与测试结果、MCAP 和中文故障记录。验收条件、修复记录与工业交付推演见[第 3 周第 7 天记录](docs/labs/week03-day7-release.md)。
 
 ## 第 3 周实现与调试流程图
 

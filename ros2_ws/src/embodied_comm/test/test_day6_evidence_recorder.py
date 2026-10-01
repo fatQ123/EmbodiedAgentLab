@@ -6,8 +6,8 @@ import sys
 
 from embodied_comm import evidence_recorder
 from embodied_comm.evidence_recorder import (
-    FAULT_RECORDS, RECORDED_TOPICS, SCENARIOS, bag_message_count,
-    render_chinese_report, run_captured, run_regression,
+    DIAGNOSTIC_ECHO, FAULT_RECORDS, RECORDED_TOPICS, SCENARIOS, bag_message_count,
+    evidence_environment, render_chinese_report, run_captured, run_regression,
     scenario_launch_arguments, selected_scenarios,
 )
 
@@ -43,6 +43,15 @@ def test_rosbag_topics_cover_runtime_evidence_and_action_state():
         '/inspection_target_marker', '/execute_task_long/_action/feedback',
         '/execute_task_long/_action/status', '/rosout',
     } == set(RECORDED_TOPICS)
+
+
+def test_diagnostic_observer_waits_for_a_publisher_with_explicit_type():
+    """发布者还未启动时观察器必须等待，不能因无法推断类型而退出。"""
+    code, output = run_captured(
+        list(DIAGNOSTIC_ECHO), evidence_environment(217), timeout_sec=1.5,
+    )
+    assert code == 124, output
+    assert 'Could not determine the type' not in output
 
 
 def test_launch_arguments_are_unique_and_scenario_overrides_common_value():

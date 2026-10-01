@@ -33,6 +33,12 @@ EXPECTED_NODES = {
     'spatial_health_monitor',
 }
 
+# 观察器早于 Publisher 启动时必须给出类型，否则 ros2 echo 可能直接退出。
+DIAGNOSTIC_ECHO = (
+    'ros2', 'topic', 'echo', '/diagnostics',
+    'diagnostic_msgs/msg/DiagnosticArray',
+)
+
 
 @dataclass(frozen=True)
 class DriverCommand:
@@ -481,7 +487,7 @@ def collect_snapshots(scenario_dir, env):
         ),
         DriverCommand(
             'diagnostics-snapshot',
-            ('ros2', 'topic', 'echo', '/diagnostics'),
+            DIAGNOSTIC_ECHO,
             expected_codes=(124,), timeout_sec=3.0,
         ),
         DriverCommand(
@@ -556,7 +562,7 @@ def run_scenario(scenario, output_dir, base_domain):
 
         # 观察器与 Recorder 均先于系统启动，保留发现和健康前态。
         diagnostic_process, diagnostic_stream = start_logged_process(
-            ['ros2', 'topic', 'echo', '/diagnostics'],
+            list(DIAGNOSTIC_ECHO),
             env, scenario_dir / 'diagnostics-live.log',
         )
         launch_process, launch_stream = start_logged_process(

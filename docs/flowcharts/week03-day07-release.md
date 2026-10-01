@@ -14,7 +14,7 @@ flowchart TB
     BUILDCHECK -- "否" --> FIX["查看对应日志<br/>修复源码或文档后提交"]
     BUILDCHECK -- "是" --> OVERLAY["只 source 本轮 install/setup.bash"]
     OVERLAY --> NORMAL["正常工位：Service 查询 + Action Feedback<br/>执行期间 Service 响应"]
-    NORMAL --> CANCEL["40% 取消 → CANCELED<br/>下一件工件 → SUCCEEDED"]
+    NORMAL --> CANCEL["反馈达到 40% 阈值后请求取消 → CANCELED<br/>下一件工件 → SUCCEEDED"]
     CANCEL --> FAULTS["运行七个独立 Domain 场景<br/>六类故障 rosbag + 日志 + 中文记录"]
     FAULTS --> REG["运行全部 ROS 测试与仓库测试<br/>Python/C++ 四组通信组合"]
     REG --> REVIEW["核对 summary、测试结果、bag、进程清理<br/>补齐复现说明和能力边界"]
@@ -40,7 +40,7 @@ flowchart TB
 3. 演示失败：先查本轮正常工位日志，确认 Domain、服务发现、目标参数和传感器新鲜度。
 4. 故障矩阵失败：按第 6 天的 `result.json → diagnostics → Graph → Launch → rosbag` 顺序定位。
 5. 测试汇总有失败：核对实际测试框架结果，不能把 `colcon test` 启动成功当作全部断言通过。
-6. 验收后修改了可执行源码：重新提交并从新 SHA 演练；仅补文档/精简证据时，保存源码树哈希一致性证据。用 `git rev-parse 'v0.3^{commit}'` 确认最终标记。
+6. 验收后修改了可执行源码：重新提交并从新 SHA 演练；仅补文档/精简证据时，保存源码树哈希一致性证据。用 `git rev-parse 'refs/tags/v0.3^{commit}'` 确认最终标记。
 
 对应实现与记录：
 
