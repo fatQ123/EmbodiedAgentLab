@@ -1,6 +1,7 @@
 """从已安装的 Launch 启动进程，验证参数、服务和重映射作用域。"""
 import json
 import os
+import re
 import signal
 import subprocess
 import time
@@ -11,6 +12,8 @@ from rclpy.executors import SingleThreadedExecutor
 from rclpy.node import Node
 from rclpy.parameter_client import AsyncParameterClient
 from std_srvs.srv import Trigger
+
+from launch_helpers import PtyLaunch
 
 
 @pytest.mark.parametrize('wrong_topic,domain', [(False, 181), (True, 182)])
@@ -38,8 +41,7 @@ def test_installed_launch(tmp_path, wrong_topic, domain):
 
     try:
         with log_path.open('w') as log:
-            proc = subprocess.Popen(args, env=env, stdout=log, stderr=subprocess.STDOUT,
-                                    start_new_session=True)
+            proc = PtyLaunch(args, env=env, stdout=log, stderr=subprocess.STDOUT)
             expected = {'sensor_simulator', 'task_executor', 'status_monitor'}
             wait_for(lambda: expected <= set(probe.get_node_names()))
             parameters = {}
@@ -79,26 +81,35 @@ def test_installed_launch(tmp_path, wrong_topic, domain):
                 'service_success': response.success, 'service_message': response.message,
                 'monitor_received_task': True,
             }, ensure_ascii=False, indent=2) + '\n')
-            # 只给 Launch 主进程发 Ctrl+C，验证它能关闭所有子节点。
+            # 模拟真实终端的一次 Ctrl+C，验证所有节点正常关闭。
             proc.send_signal(signal.SIGINT)
             proc.wait(timeout=12)
             assert proc.returncode == 0, log_path.read_text()
+            shutdown_log = log_path.read_text()
+            for name in expected:
+                assert re.search(r'\[' + name + r'-\d+\]: process has finished cleanly',
+                                 shutdown_log), shutdown_log
+            assert 'process has died' not in shutdown_log, shutdown_log
             deadline = time.monotonic() + 5
             while expected & set(probe.get_node_names()) and time.monotonic() < deadline:
                 executor.spin_once(timeout_sec=0.05)
             assert not expected & set(probe.get_node_names())
     finally:
-        if proc is not None:
-            # 清理仅限本测试创建的进程组，包括测试失败时残留的子进程。
-            try:
-                os.killpg(proc.pid, signal.SIGINT)
-            except ProcessLookupError:
-                pass
-            try:
-                proc.wait(timeout=8)
-            except subprocess.TimeoutExpired:
-                os.killpg(proc.pid, signal.SIGKILL)
-                proc.wait(timeout=3)
-        executor.shutdown()
-        probe.destroy_node()
-        context.try_shutdown()
+        try:
+            if proc is not None:
+                # 清理仅限本测试创建的进程组，包括失败时残留的子进程。
+                try:
+                    proc.send_signal(signal.SIGINT)
+                except ProcessLookupError:
+                    pass
+                try:
+                    proc.wait(timeout=8)
+                except subprocess.TimeoutExpired:
+                    os.killpg(proc.pid, signal.SIGKILL)
+                    proc.wait(timeout=3)
+        finally:
+            if proc is not None:
+                proc.close_terminal()
+            executor.shutdown()
+            probe.destroy_node()
+            context.try_shutdown()

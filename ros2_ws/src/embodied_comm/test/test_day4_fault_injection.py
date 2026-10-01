@@ -14,6 +14,7 @@ from embodied_comm.workcell_visualizer import (
     BASE_FRAME, CAMERA_FRAME, MARKER_TOPIC, TOOL_FRAME, WorkcellVisualizer,
     WORLD_FRAME,
 )
+from launch_helpers import PtyLaunch
 import pytest
 from rclpy.context import Context
 from rclpy.executors import MultiThreadedExecutor, SingleThreadedExecutor
@@ -290,9 +291,22 @@ def test_installed_day4_fault_matrix(
         assert proc.poll() is None, log_path.read_text()
         return True
 
+    def verify_node_exits():
+        log_text = log_path.read_text()
+        clean = re.findall(
+            r'\[(\w+)-\d+\]: process has finished cleanly \[pid \d+\]',
+            log_text,
+        )
+        died = re.findall(
+            r'\[(\w+)-\d+\]: process has died \[pid \d+, exit code (-?\d+),',
+            log_text,
+        )
+        assert sorted(clean) == sorted(expected), log_text
+        assert not died, log_text
+
     try:
         with log_path.open('w') as log:
-            proc = subprocess.Popen(
+            proc = PtyLaunch(
                 args, env=env, stdout=log, stderr=subprocess.STDOUT,
                 start_new_session=True,
             )
@@ -409,24 +423,35 @@ def test_installed_day4_fault_matrix(
             try:
                 proc.wait(timeout=20)
             except subprocess.TimeoutExpired:
-                log_text = log_path.read_text()
-                assert log_text.count('process has finished cleanly') >= 5
+                verify_node_exits()
                 proc.terminate()
                 proc.wait(timeout=5)
             else:
                 assert proc.returncode == 0, log_path.read_text()
+            verify_node_exits()
+            spin_until(
+                executor,
+                lambda: not expected.intersection(probe.get_node_names()),
+                timeout=8.0,
+                message=log_path.read_text(),
+            )
     finally:
-        if proc is not None:
-            try:
-                os.killpg(proc.pid, signal.SIGINT)
-            except ProcessLookupError:
-                pass
-            try:
-                proc.wait(timeout=8)
-            except subprocess.TimeoutExpired:
-                os.killpg(proc.pid, signal.SIGKILL)
-                proc.wait(timeout=3)
-        listener.unregister()
-        executor.shutdown()
-        probe.destroy_node()
-        context.try_shutdown()
+        try:
+            if proc is not None:
+                try:
+                    proc.send_signal(signal.SIGINT)
+                except ProcessLookupError:
+                    pass
+                try:
+                    proc.wait(timeout=8)
+                except subprocess.TimeoutExpired:
+                    assert os.getpgid(proc.pid) == proc.pid
+                    os.killpg(proc.pid, signal.SIGKILL)
+                    proc.wait(timeout=3)
+        finally:
+            if proc is not None:
+                proc.close_terminal()
+            listener.unregister()
+            executor.shutdown()
+            probe.destroy_node()
+            context.try_shutdown()

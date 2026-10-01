@@ -18,6 +18,8 @@ from rclpy.node import Node
 from std_msgs.msg import String
 from std_srvs.srv import Trigger
 
+from launch_helpers import PtyLaunch
+
 
 SENSOR_DIAGNOSTIC = 'sensor_simulator: Sensor Stream'
 SYSTEM_PROCESSES = {
@@ -237,9 +239,8 @@ def run_day5_launch(tmp_path, domain, extra_args, scenario):
 
     try:
         with log_path.open('w') as log:
-            proc = subprocess.Popen(
+            proc = PtyLaunch(
                 args, env=env, stdout=log, stderr=subprocess.STDOUT,
-                start_new_session=True,
             )
             spin_until(
                 executor,
@@ -270,14 +271,20 @@ def run_day5_launch(tmp_path, domain, extra_args, scenario):
     finally:
         if proc is not None:
             try:
-                os.killpg(proc.pid, signal.SIGINT)
-            except ProcessLookupError:
-                pass
-            try:
-                proc.wait(timeout=8)
-            except subprocess.TimeoutExpired:
-                os.killpg(proc.pid, signal.SIGKILL)
-                proc.wait(timeout=3)
+                try:
+                    proc.send_signal(signal.SIGINT)
+                except ProcessLookupError:
+                    pass
+                try:
+                    proc.wait(timeout=8)
+                except subprocess.TimeoutExpired:
+                    try:
+                        os.killpg(proc.pid, signal.SIGKILL)
+                    except ProcessLookupError:
+                        pass
+                    proc.wait(timeout=3)
+            finally:
+                proc.close_terminal()
         action.destroy()
         executor.shutdown()
         probe.destroy_node()

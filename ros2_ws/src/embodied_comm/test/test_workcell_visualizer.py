@@ -1,6 +1,7 @@
 """验证正常质检工位的 TF 链、Marker 和安装后 Launch."""
 import os
 from pathlib import Path
+import re
 import signal
 import subprocess
 import time
@@ -21,6 +22,8 @@ from std_msgs.msg import String
 from std_srvs.srv import Trigger
 from tf2_ros import Buffer, TransformListener
 from visualization_msgs.msg import Marker
+
+from launch_helpers import PtyLaunch
 
 
 def spin_until(executor, predicate, timeout=5.0, message='等待 TF 或 Marker 超时'):
@@ -147,9 +150,8 @@ def test_installed_day2_launch_without_rviz(tmp_path):
 
     try:
         with log_path.open('w') as log:
-            proc = subprocess.Popen(
+            proc = PtyLaunch(
                 args, env=env, stdout=log, stderr=subprocess.STDOUT,
-                start_new_session=True,
             )
             expected = {
                 'sensor_simulator', 'task_executor', 'status_monitor',
@@ -199,6 +201,11 @@ def test_installed_day2_launch_without_rviz(tmp_path):
             proc.send_signal(signal.SIGINT)
             proc.wait(timeout=12)
             assert proc.returncode == 0, log_path.read_text()
+            shutdown_log = log_path.read_text()
+            for name in expected:
+                assert re.search(r'\[' + name + r'-\d+\]: process has finished cleanly',
+                                 shutdown_log), shutdown_log
+            assert 'process has died' not in shutdown_log, shutdown_log
             spin_until(
                 executor,
                 lambda: not expected & set(probe.get_node_names()),
@@ -206,17 +213,21 @@ def test_installed_day2_launch_without_rviz(tmp_path):
                 message=log_path.read_text(),
             )
     finally:
-        if proc is not None:
-            try:
-                os.killpg(proc.pid, signal.SIGINT)
-            except ProcessLookupError:
-                pass
-            try:
-                proc.wait(timeout=8)
-            except subprocess.TimeoutExpired:
-                os.killpg(proc.pid, signal.SIGKILL)
-                proc.wait(timeout=3)
-        listener.unregister()
-        executor.shutdown()
-        probe.destroy_node()
-        context.try_shutdown()
+        try:
+            if proc is not None:
+                try:
+                    proc.send_signal(signal.SIGINT)
+                except ProcessLookupError:
+                    pass
+                try:
+                    proc.wait(timeout=8)
+                except subprocess.TimeoutExpired:
+                    os.killpg(proc.pid, signal.SIGKILL)
+                    proc.wait(timeout=3)
+        finally:
+            if proc is not None:
+                proc.close_terminal()
+            listener.unregister()
+            executor.shutdown()
+            probe.destroy_node()
+            context.try_shutdown()
