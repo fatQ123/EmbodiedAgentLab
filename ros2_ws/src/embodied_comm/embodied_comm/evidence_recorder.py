@@ -351,6 +351,7 @@ def run_captured(argv, env, timeout_sec):
     process = subprocess.Popen(
         argv,
         env=env,
+        stdin=subprocess.DEVNULL,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         text=True,
@@ -445,6 +446,7 @@ def start_logged_process(argv, env, log_path):
     process = subprocess.Popen(
         argv,
         env=env,
+        stdin=subprocess.DEVNULL,
         stdout=stream,
         stderr=subprocess.STDOUT,
         text=True,
@@ -724,6 +726,7 @@ def run_regression(workspace, output_dir, env):
             argv,
             cwd=workspace,
             env=command_env,
+            stdin=subprocess.DEVNULL,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
             text=True,

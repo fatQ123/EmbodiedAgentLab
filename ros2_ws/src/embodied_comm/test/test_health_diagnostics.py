@@ -1,6 +1,7 @@
 """验证标准健康诊断、话题停止故障和陈旧数据联锁."""
 import json
 import os
+import re
 import signal
 import subprocess
 import time
@@ -220,21 +221,52 @@ def test_installed_day3_topic_stop_launch(tmp_path):
     executor = SingleThreadedExecutor(context=context)
     executor.add_node(probe)
     proc = None
+    master_fd = None
+    slave_fd = None
+    expected = {
+        'sensor_simulator', 'task_executor', 'status_monitor',
+        'workcell_visualizer',
+    }
+    shutdown = {
+        'mode': 'pty_group_sigint',
+        'node_exits_verified': False,
+        'graph_cleared': False,
+        'signal_sent': False,
+    }
 
     def launch_alive():
         assert proc.poll() is None, log_path.read_text()
         return True
 
+    def verify_node_exits():
+        log_text = log_path.read_text()
+        clean = re.findall(
+            r'\[(\w+)-\d+\]: process has finished cleanly \[pid \d+\]',
+            log_text,
+        )
+        died = re.findall(
+            r'\[(\w+)-\d+\]: process has died \[pid \d+, exit code (-?\d+),',
+            log_text,
+        )
+        shutdown.update(clean_processes=clean, crashed_processes=died)
+        assert sorted(clean) == sorted(expected), log_text
+        assert not died, log_text
+        shutdown['node_exits_verified'] = True
+
     try:
+        # stdin 是真实 PTY，Launch 按交互终端处理进程组收到的 Ctrl+C，
+        # 不再向已经收到 SIGINT 的节点重复转发信号。
+        master_fd, slave_fd = os.openpty()
         with log_path.open('w') as log:
             proc = subprocess.Popen(
-                args, env=env, stdout=log, stderr=subprocess.STDOUT,
+                args, env=env, stdin=slave_fd,
+                stdout=log, stderr=subprocess.STDOUT,
                 start_new_session=True,
             )
-            expected = {
-                'sensor_simulator', 'task_executor', 'status_monitor',
-                'workcell_visualizer',
-            }
+            os.close(slave_fd)
+            slave_fd = None
+            shutdown['owned_process_group'] = os.getpgid(proc.pid)
+            assert shutdown['owned_process_group'] == proc.pid
             spin_until(
                 executor,
                 lambda: launch_alive() and expected <= set(probe.get_node_names()),
@@ -293,31 +325,52 @@ def test_installed_day3_topic_stop_launch(tmp_path):
             assert '数据已过期' in service_future.result().message
             assert '故障注入：节点与 Publisher 保持存活' in log_path.read_text()
 
-            proc.send_signal(signal.SIGINT)
-            # 忙碌的全量回归中 DDS Participant 清理可能晚于四个子进程。
-            # 先验证子进程都已干净结束，再回收仅剩的 Launch 外壳。
+            assert os.getpgid(proc.pid) == proc.pid
+            os.killpg(proc.pid, signal.SIGINT)
+            shutdown['signal_sent'] = True
             try:
                 proc.wait(timeout=20)
             except subprocess.TimeoutExpired:
-                log_text = log_path.read_text()
-                assert log_text.count('process has finished cleanly') >= 4
+                # 仅四个具名节点全部正常退出后，允许回收残留的外壳 PID。
+                verify_node_exits()
+                shutdown['shell_cleanup'] = 'sigterm'
                 proc.terminate()
                 proc.wait(timeout=5)
             else:
                 assert proc.returncode == 0, log_path.read_text()
+            verify_node_exits()
+            spin_until(
+                executor,
+                lambda: not expected.intersection(probe.get_node_names()),
+                timeout=8.0,
+                message=log_path.read_text(),
+            )
+            shutdown['graph_cleared'] = True
     finally:
-        if proc is not None:
-            try:
-                os.killpg(proc.pid, signal.SIGINT)
-            except ProcessLookupError:
-                pass
-            try:
-                proc.wait(timeout=8)
-            except subprocess.TimeoutExpired:
-                os.killpg(proc.pid, signal.SIGKILL)
-                proc.wait(timeout=3)
-        action.destroy()
-        listener.unregister()
-        executor.shutdown()
-        probe.destroy_node()
-        context.try_shutdown()
+        try:
+            if proc is not None and proc.poll() is None:
+                assert os.getpgid(proc.pid) == proc.pid
+                if not shutdown['signal_sent']:
+                    os.killpg(proc.pid, signal.SIGINT)
+                    shutdown['signal_sent'] = True
+                try:
+                    proc.wait(timeout=8)
+                except subprocess.TimeoutExpired:
+                    assert os.getpgid(proc.pid) == proc.pid
+                    shutdown['forced_cleanup'] = 'owned_group_sigkill'
+                    os.killpg(proc.pid, signal.SIGKILL)
+                    proc.wait(timeout=3)
+        finally:
+            shutdown['exit_code'] = proc.poll() if proc is not None else None
+            for descriptor in (slave_fd, master_fd):
+                if descriptor is not None:
+                    os.close(descriptor)
+            action.destroy()
+            listener.unregister()
+            executor.shutdown()
+            probe.destroy_node()
+            context.try_shutdown()
+            log_path.with_suffix('.shutdown.json').write_text(
+                json.dumps(shutdown, ensure_ascii=False, indent=2) + '\n',
+                encoding='utf-8',
+            )

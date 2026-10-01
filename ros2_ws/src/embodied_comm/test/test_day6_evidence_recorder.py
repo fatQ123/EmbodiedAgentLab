@@ -8,7 +8,7 @@ from embodied_comm import evidence_recorder
 from embodied_comm.evidence_recorder import (
     DIAGNOSTIC_ECHO, FAULT_RECORDS, RECORDED_TOPICS, SCENARIOS, bag_message_count,
     evidence_environment, render_chinese_report, run_captured, run_regression,
-    scenario_launch_arguments, selected_scenarios,
+    scenario_launch_arguments, selected_scenarios, start_logged_process,
 )
 
 
@@ -129,11 +129,26 @@ def test_captured_timeout_preserves_output_once_and_returns_124():
     assert output.splitlines().count('unique-timeout-evidence') == 1
 
 
+def test_background_commands_never_inherit_an_interactive_terminal(tmp_path):
+    """从真实终端启动采集也必须使用固定的非交互子进程语义。"""
+    argv = [sys.executable, '-c', 'import sys; print(sys.stdin.isatty())']
+    code, output = run_captured(argv, dict(os.environ), 3.0)
+    assert code == 0 and output.strip() == 'False'
+    path = tmp_path / 'noninteractive.log'
+    process, stream = start_logged_process(argv, dict(os.environ), path)
+    try:
+        assert process.wait(timeout=3.0) == 0
+    finally:
+        stream.close()
+    assert path.read_text().strip() == 'False'
+
+
 def test_regression_timeout_logs_preserve_output_once(tmp_path, monkeypatch):
     """三个回归入口超时均应写唯一证据，并返回失败而非通过."""
     real_popen = subprocess.Popen
 
     def short_timeout_process(_argv, **kwargs):
+        assert kwargs['stdin'] == subprocess.DEVNULL
         # 保留真实进程、管道和 SIGINT；仅替换重命令及首次等待时限。
         process = real_popen(timeout_command(), **kwargs)
         real_communicate = process.communicate
