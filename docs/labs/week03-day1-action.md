@@ -32,6 +32,7 @@ string phase
 - `task_name` 用于追踪工件或工序，不得为空。
 - `duration_sec` 是本阶段用于稳定复现实验的模拟时长，范围为 0.1～300 秒。
 - `sensor_seq=0` 表示结束时没有合法传感器数据。
+- 无数据、过期或越界导致 `ABORTED` 时，Action Result 的序号统一为 `0`；兼容的 `/task_status` 对无数据/过期保留 JSON `null`，对越界保留实际样本序号供排查。
 - 进度范围为 0～100，阶段依次为 `preparing`、`inspecting`、`validating` 和 `completed`。
 - 单个工位一次只执行一个目标；已有目标时，新目标会被拒绝，不会偷偷终止正在加工的工件。
 - 成功、失败和取消各向 `/task_status` 发布一次终态。

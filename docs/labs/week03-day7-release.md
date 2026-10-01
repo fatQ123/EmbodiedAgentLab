@@ -21,16 +21,16 @@ cd /home/fatbro/workspace
 bash scripts/verify_ros2_release.sh /tmp/embodiedagentlab-v0.3-acceptance
 
 # 发布后固定 v0.3 复现；使用另一个尚不存在的输出目录
-bash scripts/verify_ros2_release.sh /tmp/embodiedagentlab-v0.3-replay v0.3
+bash scripts/verify_ros2_release.sh /tmp/embodiedagentlab-v0.3-replay refs/tags/v0.3
 ```
 
-参数为 `OUTPUT_DIR [REF]`，省略 `REF` 时使用 `HEAD`。发布后按 `v0.3` 复现，新输出记录的提交 SHA 应与 `git rev-parse 'v0.3^{commit}'` 一致。首次验收的候选 SHA 则单独保留。
+参数为 `OUTPUT_DIR [REF]`，省略 `REF` 时使用 `HEAD`。发布后按 `refs/tags/v0.3` 复现，新输出记录的提交 SHA 应与 `git rev-parse 'refs/tags/v0.3^{commit}'` 一致。显式使用标签路径以避免同名分支歧义；首次验收的候选 SHA 单独保留。
 
 演练依次检查：
 
 1. `embodied_interfaces`、`embodied_comm`、`embodied_comm_cpp` 从空构建目录成功安装，接口可导入；
 2. 正常工位的 Service 即时查询、Action 阶段反馈、执行期间的 Service 响应；
-3. 40% 取消进入 `CANCELED`，下一件工件重新进入 `SUCCEEDED`；
+3. 收到首个达到 40% 阈值的反馈后请求取消，进入 `CANCELED`，下一件工件重新进入 `SUCCEEDED`；
 4. QoS 不匹配、话题停止、TF 缺失、TF 过期、Service 超时、Action 取消和节点崩溃七场采集；
 5. 全部 ROS 包测试、仓库级测试和 Python/C++ 四组通信组合；
 6. rosbag 可读取、中文故障记录完整、测试断言通过且本轮进程正常清理。
@@ -84,7 +84,7 @@ bash scripts/verify_ros2_release.sh /tmp/embodiedagentlab-v0.3-replay v0.3
 ```bash
 git tag -a v0.3 <发布提交SHA> -m "v0.3: 第三周 Action、TF、diagnostics 与六类故障验收通过"
 git show --no-patch v0.3
-git rev-parse 'v0.3^{commit}'
+git rev-parse 'refs/tags/v0.3^{commit}'
 ```
 
 标记仅在本地创建。完整 MCAP 与生成的构建目录保存在验收输出目录；提交精简日志、中文说明和证据索引，便于复查而不把运行产物混入源代码。
@@ -96,3 +96,5 @@ git rev-parse 'v0.3^{commit}'
 若测量值突然消失，班组通过 ROS Graph、QoS、新鲜度诊断和 Launch 日志区分断流与崩溃；若检查区域不显示，则沿静态/动态 TF 链定位缺失或过期。自动 rosbag 和中文记录把这次问题交给下一班工程师，固定版本 SHA 则让两人验证同一套软件。这对应工业交付中的版本追溯、工厂验收与故障复盘流程。
 
 当前系统已验证通信、任务调度、空间显示、健康报警、故障注入和证据采集。传感器是测量信号替身，Action 尚未控制机械臂，TF 报警尚未接入任务门禁；视觉缺陷识别、PLC 接入、硬件急停和真实分拣仍需后续工程实现。客户端取消请求本身也不能替代硬件安全联锁。
+
+新鲜度门禁按执行器收到消息的单调时钟计时，不代表测量源采集时间；DDS 积压样本可能晚到，因此测试须先核对最后样本已消费。工业升级需要源时间戳、时钟同步和端到端延迟门禁。`--cancel-at 40` 是反馈阈值而非精确 40% 停止；普通 Linux/ROS 2 调度可能使反馈跨过阈值，不具备硬实时安全停止保证。

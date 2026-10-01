@@ -116,8 +116,8 @@ def test_success_feedback_and_single_terminal_status(action_system):
     assert statuses[0]['sensor_seq'] == 42
 
 
-@pytest.mark.parametrize('reading,expected_seq', [(None, 0), ((7, 101.0), 7)])
-def test_abort_without_usable_sensor_data(action_system, reading, expected_seq):
+@pytest.mark.parametrize('reading,status_seq', [(None, None), ((7, 101.0), 7)])
+def test_abort_without_usable_sensor_data(action_system, reading, status_seq):
     if reading is not None:
         publish_reading(action_system, seq=reading[0], value=reading[1])
     goal_handle = send_goal(action_system, 'inspect_bad_input', 0.1)
@@ -126,8 +126,9 @@ def test_abort_without_usable_sensor_data(action_system, reading, expected_seq):
     spin_until(action_system[2], lambda: len(action_system[-1]) == 1)
     assert wrapped.status == GoalStatus.STATUS_ABORTED
     assert not wrapped.result.success
-    assert wrapped.result.sensor_seq == expected_seq
+    assert wrapped.result.sensor_seq == 0
     assert action_system[-1][0]['success'] is False
+    assert action_system[-1][0]['sensor_seq'] == status_seq
 
 
 def test_cancel_reject_concurrent_goal_and_recover(action_system):

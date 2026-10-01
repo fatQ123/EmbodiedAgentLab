@@ -17,7 +17,7 @@ if [[ "${1:-}" != "--clean-worker" ]]; then
   mkdir -p "$release_dir/source"
   printf '%s\n' "$release_commit" > "$release_dir/source-commit.txt"
   git -C "$release_repo" ls-tree -r "$release_commit" -- \
-    src ros2_ws/src scripts pyproject.toml environment.yml \
+    src ros2_ws/src scripts tests pyproject.toml environment.yml \
     > "$release_dir/executable-tree.txt"
   git -C "$release_repo" archive "$release_commit" | tar -x -C "$release_dir/source"
   exec env -i HOME="${HOME}" USER="$(id -un)" PATH=/usr/bin:/bin \

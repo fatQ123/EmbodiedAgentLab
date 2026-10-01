@@ -20,7 +20,7 @@ flowchart TD
     F --> G{"收到已接受的取消请求？"}
     G -- "是" --> X["goal_handle.canceled<br/>Result: success=false、sensor_seq=0<br/>task_status: sensor_seq=null"]
     G -- "否" --> H{"达到 duration？"}
-    H -- "否" --> I["发布单调反馈<br/>preparing → inspecting → validating<br/>间隔不超过 0.2 秒"]
+    H -- "否" --> I["发布单调反馈<br/>preparing → inspecting → validating<br/>配置周期不超过 0.2 秒，实际受调度影响"]
     I --> J{"达到 cancel_at？"}
     J -- "是" --> J1["客户端只发送一次取消请求"]
     J1 --> J2{"仍是当前活动 Goal？"}
@@ -32,7 +32,7 @@ flowchart TD
     K --> L{"传感器数据状态"}
     L -- "没有合法读数" --> N["ABORTED<br/>Result sensor_seq=0<br/>task_status sensor_seq=null"]
     L -- "数据过期：第 3 天新增" --> N
-    L -- "value 不在 0～100" --> O["ABORTED<br/>保留越界读数的实际 sensor_seq"]
+    L -- "value 不在 0～100" --> O["ABORTED<br/>Result sensor_seq=0<br/>task_status 保留越界样本序号"]
     L -- "新鲜且范围有效" --> P["发布 100% completed<br/>SUCCEEDED<br/>返回最新 sensor_seq"]
 
     X --> Z["设置 ROS Action 终态<br/>另发布一次 /task_status<br/>finally 释放工位"]

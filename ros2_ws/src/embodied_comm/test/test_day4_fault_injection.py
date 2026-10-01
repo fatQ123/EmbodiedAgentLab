@@ -1,5 +1,6 @@
 """验证 QoS 不匹配以及 TF 缺失/过期故障的真实 ROS 行为."""
 import os
+import re
 import signal
 import subprocess
 import time
@@ -308,10 +309,10 @@ def test_installed_day4_fault_matrix(
             spin_until(
                 executor,
                 lambda: launch_alive()
-                and sensor_state in diagnostic_states(
-                    diagnostics, SENSOR_DIAGNOSTIC,
-                )
-                and tf_state in diagnostic_states(diagnostics, TF_DIAGNOSTIC),
+                and diagnostic_states(diagnostics, SENSOR_DIAGNOSTIC)[-1:]
+                == [sensor_state]
+                and diagnostic_states(diagnostics, TF_DIAGNOSTIC)[-1:]
+                == [tf_state],
                 timeout=8.0,
                 message=log_path.read_text(),
             )
@@ -321,6 +322,27 @@ def test_installed_day4_fault_matrix(
                 assert not sensor_messages
                 assert probe.count_publishers('/sensor_state') == 1
             elif sensor_state == 'stale':
+                # 监控器与执行器有独立的 DDS 接收队列。先证明注入确已
+                # 停止、执行器已消费最终样本，再越过其接收时间门限；
+                # 历史诊断 stale 或观察器断流不能证明执行器队列已排空。
+                spin_until(
+                    executor,
+                    lambda: re.search(
+                        r'停止发布，最后序号=(\d+)', log_path.read_text(),
+                    ) is not None,
+                    timeout=5.0,
+                    message='等待停止注入记录超时',
+                )
+                final_seq = re.search(
+                    r'停止发布，最后序号=(\d+)', log_path.read_text(),
+                ).group(1)
+                spin_until(
+                    executor,
+                    lambda: f'最新传感器：seq={final_seq}，'
+                    in log_path.read_text(),
+                    timeout=8.0,
+                    message='执行器未在时限内消费最终传感器样本',
+                )
                 stopped_count = len(sensor_messages)
                 deadline = time.monotonic() + 0.8
                 while time.monotonic() < deadline:
@@ -364,6 +386,8 @@ def test_installed_day4_fault_matrix(
             )
             if sensor_state in ('qos_mismatch', 'stale'):
                 assert not future.result().success
+                if sensor_state == 'stale':
+                    assert '数据已过期' in future.result().message
             else:
                 assert future.result().success
 

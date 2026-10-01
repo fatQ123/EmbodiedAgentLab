@@ -1,9 +1,13 @@
 """验证 Service 超时、Action 取消和节点崩溃的真实 ROS 行为."""
 import json
 import os
+import re
 import signal
 import subprocess
 import time
+from collections import Counter
+
+import pytest
 
 from diagnostic_msgs.msg import DiagnosticArray
 from embodied_interfaces.action import ExecuteTask
@@ -16,6 +20,10 @@ from std_srvs.srv import Trigger
 
 
 SENSOR_DIAGNOSTIC = 'sensor_simulator: Sensor Stream'
+SYSTEM_PROCESSES = {
+    'sensor_simulator', 'task_executor', 'status_monitor',
+    'workcell_visualizer', 'spatial_health_monitor',
+}
 
 
 def spin_until(executor, predicate, timeout=8.0, message='等待 Day 5 状态超时'):
@@ -37,18 +45,168 @@ def diagnostic_states(messages):
     ]
 
 
+def shutdown_day5_launch(proc, log_path, sensor_crash_expected):
+    """先核对所有节点的具名退出，再处理可能滞留的 Launch 外壳."""
+    clean_expected = SYSTEM_PROCESSES - (
+        {'sensor_simulator'} if sensor_crash_expected else set()
+    )
+    died_expected = [('sensor_simulator', 1)] if sensor_crash_expected else []
+    report = {
+        'expected_clean_processes': sorted(clean_expected),
+        'expected_crashed_processes': died_expected,
+        'node_exits_verified': False,
+        'mode': 'sigint',
+    }
+    try:
+        proc.send_signal(signal.SIGINT)
+        deadline = time.monotonic() + 20.0
+        while True:
+            text = log_path.read_text()
+            clean = Counter(re.findall(
+                r'\[(\w+)-\d+\]: process has finished cleanly \[pid \d+\]',
+                text,
+            ))
+            died = [
+                (name, int(code)) for name, code in re.findall(
+                    r'\[(\w+)-\d+\]: process has died '
+                    r'\[pid \d+, exit code (-?\d+),', text,
+                )
+            ]
+            if proc.poll() is not None or time.monotonic() >= deadline:
+                break
+            time.sleep(0.05)
+        report.update(clean_processes=dict(clean), crashed_processes=died)
+        assert clean == Counter({name: 1 for name in clean_expected}), text
+        assert died == died_expected, text
+        report['node_exits_verified'] = True
+        if proc.poll() is None:
+            # 每个节点都已退出；只终止残留的本次 Launch PID，不操作进程组。
+            report['mode'] = 'shell_only_sigterm'
+            proc.terminate()
+            try:
+                proc.wait(timeout=5.0)
+            except subprocess.TimeoutExpired:
+                report['mode'] = 'shell_only_sigkill'
+                proc.kill()
+                proc.wait(timeout=3.0)
+        else:
+            assert proc.returncode == 0, text
+        report['exit_code'] = proc.returncode
+    finally:
+        report['exit_code'] = proc.poll()
+        log_path.with_suffix('.shutdown.json').write_text(
+            json.dumps(report, ensure_ascii=False, indent=2) + '\n',
+            encoding='utf-8',
+        )
+
+
+class FakeLaunchProcess:
+    """只模拟 Launch 外壳；是否允许终止由真实日志判据决定."""
+
+    def __init__(self, exits_on_sigint=False):
+        self.exits_on_sigint = exits_on_sigint
+        self.returncode = None
+        self.terminated = False
+        self.killed = False
+
+    def send_signal(self, signal_number):
+        assert signal_number == signal.SIGINT
+        if self.exits_on_sigint:
+            self.returncode = 0
+
+    def poll(self):
+        return self.returncode
+
+    def terminate(self):
+        self.terminated = True
+        self.returncode = -signal.SIGTERM
+
+    def kill(self):
+        self.killed = True
+        self.returncode = -signal.SIGKILL
+
+    def wait(self, timeout):
+        assert timeout > 0
+        return self.returncode
+
+
+def clean_process_log(names):
+    """生成与 Launch 实际输出相同格式的具名进程退出记录."""
+    return '\n'.join(
+        f'[INFO] [{name}-{index}]: process has finished cleanly [pid {index}]'
+        for index, name in enumerate(sorted(names), 1)
+    ) + '\n'
+
+
+def expire_shutdown_deadline(monkeypatch):
+    """让首次检查即超过期限，避免模拟测试真实等待 20 秒."""
+    clock = iter((0.0, 21.0))
+    monkeypatch.setattr(time, 'monotonic', lambda: next(clock))
+
+
+def test_day5_shutdown_accepts_all_clean_nodes(tmp_path):
+    log_path = tmp_path / 'normal.log'
+    log_path.write_text(clean_process_log(SYSTEM_PROCESSES), encoding='utf-8')
+    process = FakeLaunchProcess(exits_on_sigint=True)
+    shutdown_day5_launch(process, log_path, sensor_crash_expected=False)
+    report = json.loads(log_path.with_suffix('.shutdown.json').read_text())
+    assert report['node_exits_verified'] is True
+    assert report['mode'] == 'sigint'
+    assert report['exit_code'] == 0
+    assert not process.terminated and not process.killed
+
+
+def test_day5_shutdown_rejects_missing_node_before_termination(
+        tmp_path, monkeypatch):
+    log_path = tmp_path / 'missing-node.log'
+    log_path.write_text(
+        clean_process_log(SYSTEM_PROCESSES - {'spatial_health_monitor'}),
+        encoding='utf-8',
+    )
+    process = FakeLaunchProcess()
+    expire_shutdown_deadline(monkeypatch)
+    with pytest.raises(AssertionError):
+        shutdown_day5_launch(process, log_path, sensor_crash_expected=False)
+    report = json.loads(log_path.with_suffix('.shutdown.json').read_text())
+    assert report['node_exits_verified'] is False
+    assert not process.terminated and not process.killed
+
+
+def test_day5_shutdown_allows_verified_shell_only_cleanup(
+        tmp_path, monkeypatch):
+    log_path = tmp_path / 'crashed-sensor.log'
+    log_path.write_text(
+        clean_process_log(SYSTEM_PROCESSES - {'sensor_simulator'})
+        + '[ERROR] [sensor_simulator-1]: process has died '
+        "[pid 99, exit code 1, cmd 'sensor_simulator']\n",
+        encoding='utf-8',
+    )
+    process = FakeLaunchProcess()
+    expire_shutdown_deadline(monkeypatch)
+    shutdown_day5_launch(process, log_path, sensor_crash_expected=True)
+    report = json.loads(log_path.with_suffix('.shutdown.json').read_text())
+    assert report['node_exits_verified'] is True
+    assert report['crashed_processes'] == [['sensor_simulator', 1]]
+    assert report['mode'] == 'shell_only_sigterm'
+    assert report['exit_code'] == -signal.SIGTERM
+    assert process.terminated and not process.killed
+
+
 def run_day5_launch(tmp_path, domain, extra_args, scenario):
     env = dict(
         os.environ,
         ROS_DOMAIN_ID=str(domain),
         ROS_AUTOMATIC_DISCOVERY_RANGE='LOCALHOST',
     )
+    parameters = {
+        'use_rviz': 'false', 'publish_rate': '20.0',
+        'timeout_sec': '2.0', 'tf_timeout_sec': '0.4',
+        'diagnostic_rate': '20.0', 'frame_publish_rate': '20.0',
+    }
+    parameters.update(item.split(':=', 1) for item in extra_args)
     args = [
         'ros2', 'launch', 'embodied_comm', 'week03_day5.launch.py',
-        'use_rviz:=false', 'publish_rate:=20.0',
-        'timeout_sec:=2.0', 'tf_timeout_sec:=0.4',
-        'diagnostic_rate:=20.0', 'frame_publish_rate:=20.0',
-        *extra_args,
+        *(f'{name}:={value}' for name, value in parameters.items()),
     ]
     log_path = tmp_path / f'day5-{domain}.log'
     context = Context()
@@ -83,13 +241,9 @@ def run_day5_launch(tmp_path, domain, extra_args, scenario):
                 args, env=env, stdout=log, stderr=subprocess.STDOUT,
                 start_new_session=True,
             )
-            expected = {
-                'sensor_simulator', 'task_executor', 'status_monitor',
-                'workcell_visualizer', 'spatial_health_monitor',
-            }
             spin_until(
                 executor,
-                lambda: launch_alive() and expected <= set(
+                lambda: launch_alive() and SYSTEM_PROCESSES <= set(
                     probe.get_node_names()
                 ),
                 timeout=12.0,
@@ -109,9 +263,10 @@ def run_day5_launch(tmp_path, domain, extra_args, scenario):
                 sensor_messages, task_statuses, log_path,
             )
 
-            proc.send_signal(signal.SIGINT)
-            proc.wait(timeout=20)
-            assert proc.returncode == 0, log_path.read_text()
+            shutdown_day5_launch(
+                proc, log_path,
+                float(parameters.get('fault_sensor_crash_after_sec', '0')) > 0,
+            )
     finally:
         if proc is not None:
             try:

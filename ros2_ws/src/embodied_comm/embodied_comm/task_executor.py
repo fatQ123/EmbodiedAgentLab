@@ -252,7 +252,9 @@ class TaskExecutor(Node):
             if not success:
                 goal_handle.abort()
                 self.publish_task_status(False, message, sensor_seq)
-                return self.action_result(False, message, sensor_seq)
+                # Action 失败结果按接口契约统一为 0；状态话题继续保留
+                # 越界样本序号供定位，兼容原有 Service/JSON 消费者。
+                return self.action_result(False, message, None)
 
             self.publish_action_feedback(goal_handle, 100.0, 'completed')
             goal_handle.succeed()
