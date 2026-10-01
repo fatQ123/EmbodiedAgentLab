@@ -58,7 +58,7 @@ ros2 interface show embodied_interfaces/action/ExecuteTask \
   | tee "$release_dir/action-interface.log"
 cd "$release_dir/source"
 export PYTHONPATH="$release_dir/source/src${PYTHONPATH:+:$PYTHONPATH}"
-/usr/bin/python3 -m embodied_agent_lab.doctor --skip-network --json > "$release_dir/doctor.json"
+/usr/bin/python3 -m embodied_agent_lab.doctor doctor --skip-network --json > "$release_dir/doctor.json"
 /usr/bin/python3 scripts/rehearse_week03.py --output "$release_dir/normal" \
   2>&1 | tee "$release_dir/normal-demo.log"
 cd "$release_dir/source/ros2_ws"
