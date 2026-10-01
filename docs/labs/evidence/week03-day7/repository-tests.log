@@ -1,0 +1,5 @@
+$ /usr/bin/python3 -m pytest -q /home/fatbro/workspace/artifacts/week03-day7/clean-candidate-20261001-g/source/tests
+exit_code=0
+
+..................                                                       [100%]
+18 passed in 0.20s

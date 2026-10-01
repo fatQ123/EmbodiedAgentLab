@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "checks": [
+    {
+      "name": "操作系统",
+      "status": "正常",
+      "detail": "Linux-7.0.0-34-generic-x86_64-with-glibc2.39",
+      "check_id": "os",
+      "suggestion": ""
+    },
+    {
+      "name": "Python 版本",
+      "status": "正常",
+      "detail": "3.12.3；解释器=/usr/bin/python3；最低要求 3.10",
+      "check_id": "python",
+      "suggestion": ""
+    },
+    {
+      "name": "Git 版本控制工具",
+      "status": "正常",
+      "detail": "/usr/bin/git：git version 2.43.0",
+      "check_id": "git",
+      "suggestion": ""
+    },
+    {
+      "name": "Conda 环境",
+      "status": "警告",
+      "detail": "当前终端未激活 Conda 环境",
+      "check_id": "conda",
+      "suggestion": "如使用项目 Conda 环境，请先激活 embodied-agent-lab。"
+    },
+    {
+      "name": "ROS 2 发行版",
+      "status": "正常",
+      "detail": "ROS_DISTRO=jazzy；仅代表环境变量声明",
+      "check_id": "ros",
+      "suggestion": ""
+    },
+    {
+      "name": "ROS 2 命令行",
+      "status": "正常",
+      "detail": "/opt/ros/jazzy/bin/ros2：usage: ros2 [-h] [--use-python-default-buffering]\n            Call `ros2 <command> -h` for more detailed usage. ...\n\nros2 is an extensible command-line tool for ROS 2.\n\noptions:\n  -h, --help            show this help message and exit\n  --use-python-default-buffering\n                        Do not force line buffering in stdout and instead use\n                        the python default buffering, which might be affected\n                        by PYTHONUNBUFFERED/-u and depends on whatever stdout\n                        is interactive or not\n\nCommands:\n  action     Various action related sub-commands\n  bag        Various rosbag related sub-commands\n  component  Various component related sub-commands\n  daemon     Various daemon related sub-commands\n  doctor     Check ROS setup and other potential issues\n  interface  Show information about ROS interfaces\n  launch     Run a launch file\n  lifecycle  Various lifecycle related sub-commands\n  multicast  Various multicast related sub-commands\n  node       Various node related sub-commands\n  param      Various param related sub-commands\n  pkg        Various package related sub-commands\n  plugin     Various plugin related sub-commands\n  run        Run a package specific executable\n  security   Various security related sub-commands\n  service    Various service related sub-commands\n  topic      Various topic related sub-commands\n  wtf        Use `wtf` as alias to `doctor`\n\n  Call `ros2 <command> -h` for more detailed usage.",
+      "check_id": "ros_cli",
+      "suggestion": ""
+    },
+    {
+      "name": "ROS Python 客户端",
+      "status": "正常",
+      "detail": "/usr/bin/python3：解释器=/usr/bin/python3；rclpy=/opt/ros/jazzy/lib/python3.12/site-packages/rclpy/__init__.py；String 类型支持可用",
+      "check_id": "ros_python",
+      "suggestion": ""
+    },
+    {
+      "name": "NVIDIA 显卡与驱动",
+      "status": "正常",
+      "detail": "/usr/bin/nvidia-smi：NVIDIA GeForce RTX 3060 Laptop GPU, 595.91.07",
+      "check_id": "gpu",
+      "suggestion": ""
+    },
+    {
+      "name": "CUDA 编译工具链",
+      "status": "警告",
+      "detail": "未找到命令：nvcc",
+      "check_id": "cuda",
+      "suggestion": "未找到 nvcc 不代表显卡或框架 CUDA 运行时不可用；需要编译 CUDA 程序时再检查 Toolkit 与 PATH。"
+    },
+    {
+      "name": "串口设备",
+      "status": "警告",
+      "detail": "未发现 /dev/ttyUSB* 或 /dev/ttyACM*；未检查其他类型串口",
+      "check_id": "serial",
+      "suggestion": "仿真实验可忽略；真实设备请检查连接、用户组和读写权限。"
+    },
+    {
+      "name": "网络连接",
+      "status": "警告",
+      "detail": "已按 --skip-network 跳过；目标=https://pypi.org/simple/；未验证连接",
+      "check_id": "network",
+      "suggestion": "需要网络诊断时移除 --skip-network。"
+    }
+  ],
+  "summary": {
+    "正常": 7,
+    "警告": 4,
+    "失败": 0
+  },
+  "exit_code": 0
+}

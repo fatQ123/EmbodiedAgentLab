@@ -125,7 +125,7 @@ flowchart TB
         D6DRIVE["按场景等待定时注入<br/>或运行 Service/Action Client"]
         D6SNAP["采集 node/topic/service/action<br/>diagnostics/TF 快照"]
         D6STOP["先停止观察器和 Recorder<br/>再停止 Launch"]
-        D6INFO{"bag 可读且消息数 > 0？<br/>退出码和关键字正确？"}
+        D6INFO{"bag 可读且消息数 > 0？<br/>命令和关键字正确？<br/>Recorder/Launch 干净退出？"}
         D6RESULT["每场 result.json<br/>失败不阻断后续场景"]
         D6MORE{"还有场景？"}
         D6REG["colcon test + test-result<br/>仓库 Python 回归"]
@@ -133,7 +133,7 @@ flowchart TB
 
         D6REC --> D6LIVE --> LAUNCH --> D6READY
         D6READY -- "是" --> D6DRIVE --> D6SNAP --> D6STOP --> D6INFO
-        D6READY -- "否：记录失败并清理" --> D6STOP
+        D6READY -- "否：记失败并继续留证" --> D6DRIVE
         D6INFO --> D6RESULT --> D6MORE
         D6MORE -- "是：前场失败也继续" --> DAY6SELECT
         D6MORE -- "否" --> D6REG --> D6REPORT

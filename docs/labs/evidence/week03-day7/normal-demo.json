@@ -1,0 +1,106 @@
+{
+  "domain_id": 202,
+  "status": "passed",
+  "workpieces": [
+    {
+      "task_name": "inspect_workpiece_WP-001",
+      "accepted": true,
+      "service_latency_sec": 0.0032148699974641204,
+      "status": "SUCCEEDED",
+      "sensor_seq": 48,
+      "progress": [
+        0.0005901498370803893,
+        70.22532653808594,
+        90.30838775634766,
+        99.0,
+        100.0
+      ],
+      "phases": [
+        "preparing",
+        "inspecting",
+        "validating",
+        "completed"
+      ]
+    },
+    {
+      "task_name": "inspect_workpiece_WP-002",
+      "accepted": true,
+      "cancel_latency_sec": 0.20196849599960842,
+      "status": "CANCELED",
+      "sensor_seq": 0,
+      "progress": [
+        0.00036316667683422565,
+        6.709542751312256,
+        13.399909973144531,
+        20.100238800048828,
+        26.790138244628906,
+        33.48026657104492,
+        40.17348098754883
+      ],
+      "phases": [
+        "preparing",
+        "inspecting"
+      ]
+    },
+    {
+      "task_name": "inspect_workpiece_WP-003",
+      "accepted": true,
+      "status": "SUCCEEDED",
+      "sensor_seq": 69,
+      "progress": [
+        0.002360600046813488,
+        10.209039688110352,
+        20.33545684814453,
+        30.500579833984375,
+        40.646610260009766,
+        50.82183074951172,
+        60.985111236572266,
+        71.17939758300781,
+        81.37255859375,
+        91.57759857177734,
+        99.0,
+        100.0
+      ],
+      "phases": [
+        "preparing",
+        "inspecting",
+        "validating",
+        "completed"
+      ]
+    }
+  ],
+  "terminal_records": [
+    {
+      "task_id": 1,
+      "success": true,
+      "message": "检查通过：seq=34，value=33.0",
+      "sensor_seq": 34
+    },
+    {
+      "task_id": 2,
+      "success": true,
+      "message": "task_name=inspect_workpiece_WP-001，检查通过：seq=48，value=47.0",
+      "sensor_seq": 48
+    },
+    {
+      "task_id": 3,
+      "success": false,
+      "message": "任务已取消：task_name=inspect_workpiece_WP-002",
+      "sensor_seq": null
+    },
+    {
+      "task_id": 4,
+      "success": true,
+      "message": "task_name=inspect_workpiece_WP-003，检查通过：seq=69，value=68.0",
+      "sensor_seq": 69
+    }
+  ],
+  "diagnostics": {
+    "sensor_simulator: Sensor Stream": "healthy",
+    "workcell_visualizer: TF Chain": "healthy"
+  },
+  "launch_shutdown": {
+    "exit_code": 0,
+    "mode": "sigint"
+  }
+}

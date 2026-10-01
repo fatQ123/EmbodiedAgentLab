@@ -1,0 +1,241 @@
+{
+  "schema_version": 1,
+  "candidate_commit": "e24bfacbbbba86694cfa8e100e867cd97dad51ed",
+  "artifact_directory": "/home/fatbro/workspace/artifacts/week03-day7/clean-candidate-20261001-g/faults",
+  "review_scope": "closed_rosbag_content_only",
+  "regression_verdict": "not_assessed_by_this_report",
+  "review_method": {
+    "storage_reader": "rosbag2_py.SequentialReader, storage_id=mcap",
+    "deserializer": "rclpy.serialization.deserialize_message + rosidl_runtime_py.utilities.get_message",
+    "source": "逐条读取实际 MCAP 消息；话题数与状态转换不来自 summary.json 的预设 topics 列表",
+    "execution": "离线读取；未启动 ROS 节点或测试",
+    "selection": "仅读取已有且 status=passed 的 result.json 所对应的已关闭 rosbag"
+  },
+  "action_status_codes": {
+    "1": "ACCEPTED",
+    "2": "EXECUTING",
+    "3": "CANCELING",
+    "4": "SUCCEEDED",
+    "5": "CANCELED",
+    "6": "ABORTED"
+  },
+  "scenarios": {
+    "qos_mismatch": {
+      "message_count": 817,
+      "actual_topic_counts": {
+        "/diagnostics": 254,
+        "/inspection_target_marker": 140,
+        "/rosout": 168,
+        "/sensor_state": 114,
+        "/task_status": 1,
+        "/tf": 139,
+        "/tf_static": 1
+      },
+      "diagnostic_state_transitions": {
+        "sensor_simulator: Sensor Stream": ["waiting", "qos_mismatch"],
+        "workcell_visualizer: TF Chain": ["healthy"]
+      },
+      "task_status": [
+        {
+          "task_id": 1,
+          "success": false,
+          "message": "没有有效传感器数据：尚未收到格式合法的读数",
+          "sensor_seq": null
+        }
+      ]
+    },
+    "topic_stop": {
+      "message_count": 887,
+      "actual_topic_counts": {
+        "/diagnostics": 337,
+        "/inspection_target_marker": 169,
+        "/rosout": 178,
+        "/sensor_state": 33,
+        "/task_status": 1,
+        "/tf": 168,
+        "/tf_static": 1
+      },
+      "diagnostic_state_transitions": {
+        "sensor_simulator: Sensor Stream": ["healthy", "stale"],
+        "workcell_visualizer: TF Chain": ["healthy"]
+      },
+      "task_status": [
+        {
+          "task_id": 1,
+          "success": false,
+          "message": "传感器数据已过期：last_seq=57，age=6.65 秒，阈值=0.60 秒",
+          "sensor_seq": null
+        }
+      ]
+    },
+    "tf_missing": {
+      "message_count": 851,
+      "actual_topic_counts": {
+        "/diagnostics": 223,
+        "/inspection_target_marker": 112,
+        "/rosout": 403,
+        "/sensor_state": 111,
+        "/task_status": 1,
+        "/tf_static": 1
+      },
+      "diagnostic_state_transitions": {
+        "sensor_simulator: Sensor Stream": ["healthy"],
+        "workcell_visualizer: TF Chain": ["missing"]
+      },
+      "task_status": [
+        {
+          "task_id": 1,
+          "success": true,
+          "message": "检查通过：seq=67，value=66.0",
+          "sensor_seq": 67
+        }
+      ]
+    },
+    "tf_stale": {
+      "message_count": 1301,
+      "actual_topic_counts": {
+        "/diagnostics": 350,
+        "/inspection_target_marker": 177,
+        "/rosout": 559,
+        "/sensor_state": 175,
+        "/task_status": 1,
+        "/tf": 38,
+        "/tf_static": 1
+      },
+      "diagnostic_state_transitions": {
+        "sensor_simulator: Sensor Stream": ["healthy"],
+        "workcell_visualizer: TF Chain": ["healthy", "stale"]
+      },
+      "task_status": [
+        {
+          "task_id": 1,
+          "success": true,
+          "message": "检查通过：seq=127，value=25.0",
+          "sensor_seq": 127
+        }
+      ]
+    },
+    "service_timeout": {
+      "message_count": 1091,
+      "actual_topic_counts": {
+        "/diagnostics": 252,
+        "/inspection_target_marker": 127,
+        "/rosout": 457,
+        "/sensor_state": 127,
+        "/task_status": 1,
+        "/tf": 126,
+        "/tf_static": 1
+      },
+      "diagnostic_state_transitions": {
+        "sensor_simulator: Sensor Stream": ["healthy"],
+        "workcell_visualizer: TF Chain": ["healthy"]
+      },
+      "task_status": [
+        {
+          "task_id": 1,
+          "success": true,
+          "message": "检查通过：seq=84，value=83.0",
+          "sensor_seq": 84
+        }
+      ]
+    },
+    "action_cancel": {
+      "message_count": 1588,
+      "actual_topic_counts": {
+        "/diagnostics": 362,
+        "/execute_task_long/_action/feedback": 14,
+        "/execute_task_long/_action/status": 7,
+        "/inspection_target_marker": 181,
+        "/rosout": 659,
+        "/sensor_state": 181,
+        "/task_status": 2,
+        "/tf": 181,
+        "/tf_static": 1
+      },
+      "diagnostic_state_transitions": {
+        "sensor_simulator: Sensor Stream": ["healthy"],
+        "workcell_visualizer: TF Chain": ["healthy"]
+      },
+      "task_status": [
+        {
+          "task_id": 1,
+          "success": false,
+          "message": "任务已取消：task_name=inspect_workpiece_WP-DAY6-CANCEL",
+          "sensor_seq": null
+        },
+        {
+          "task_id": 2,
+          "success": true,
+          "message": "task_name=inspect_workpiece_WP-DAY6-RECOVER，检查通过：seq=135，value=33.0",
+          "sensor_seq": 135
+        }
+      ],
+      "action_state_trajectories": {
+        "120f457c1a9547ef82597f7c9a72f274": {
+          "status_codes": [1, 2, 3, 5],
+          "status_names": ["ACCEPTED", "EXECUTING", "CANCELING", "CANCELED"],
+          "terminal_status": "CANCELED",
+          "recorded_feedback": [
+            {"progress_percent": 0.0007298500277101994, "phase": "preparing"},
+            {"progress_percent": 17.01386260986328, "phase": "inspecting"},
+            {"progress_percent": 44.1718864440918, "phase": "inspecting"}
+          ]
+        },
+        "cd97fbe61ddb4acb8f49a075e5f8c6b5": {
+          "status_codes": [1, 2, 4],
+          "status_names": ["ACCEPTED", "EXECUTING", "SUCCEEDED"],
+          "terminal_status": "SUCCEEDED",
+          "recorded_feedback": [
+            {"progress_percent": 0.004004332702606916, "phase": "preparing"},
+            {"progress_percent": 10.204387664794922, "phase": "inspecting"},
+            {"progress_percent": 20.4910945892334, "phase": "inspecting"},
+            {"progress_percent": 30.77105140686035, "phase": "inspecting"},
+            {"progress_percent": 41.05862045288086, "phase": "inspecting"},
+            {"progress_percent": 51.33217239379883, "phase": "inspecting"},
+            {"progress_percent": 61.61981201171875, "phase": "inspecting"},
+            {"progress_percent": 71.92924499511719, "phase": "inspecting"},
+            {"progress_percent": 82.22044372558594, "phase": "inspecting"},
+            {"progress_percent": 99.0, "phase": "validating"},
+            {"progress_percent": 100.0, "phase": "completed"}
+          ]
+        }
+      }
+    },
+    "node_crash": {
+      "message_count": 891,
+      "actual_topic_counts": {
+        "/diagnostics": 342,
+        "/inspection_target_marker": 165,
+        "/rosout": 186,
+        "/sensor_state": 26,
+        "/task_status": 1,
+        "/tf": 170,
+        "/tf_static": 1
+      },
+      "diagnostic_state_transitions": {
+        "sensor_simulator: Sensor Stream": ["healthy", "publisher_lost"],
+        "workcell_visualizer: TF Chain": ["healthy"]
+      },
+      "task_status": [
+        {
+          "task_id": 1,
+          "success": false,
+          "message": "传感器数据已过期：last_seq=60，age=5.36 秒，阈值=0.60 秒",
+          "sensor_seq": null
+        }
+      ]
+    }
+  },
+  "total_message_count": 7426,
+  "scenario_count": 7,
+  "conclusion": "passed",
+  "notes": [
+    "话题计数仅列出实际读到消息的话题。TF 缺失场景没有 /tf 消息，仅有一条 /tf_static；其空间诊断明确为 missing。",
+    "录包可收到 QoS 不匹配场景的 BEST_EFFORT /sensor_state；业务订阅是否兼容由实测 waiting→qos_mismatch 诊断及任务失败终态区分。",
+    "TF 缺失与过期场景的即时测量检查仍成功，符合当前 TF 诊断尚未接入任务门禁的能力边界。",
+    "Action 取消场景只产生一次取消和一次恢复任务终态，取消 sensor_seq 为 JSON null；对应协议终态分别为 CANCELED 与 SUCCEEDED。",
+    "取消目标最后记录的反馈为 44.1719%；--cancel-at 40 是收到达到阈值的反馈后请求取消，并非保证精确在 40% 停止。恢复目标反馈单调递增至 100%，阶段完整。",
+    "话题停止任务实际报告最后业务缓存序号为 57；记录保留此实测序号，不假设各订阅者缓存必然等于发布端最终序号。",
+    "passed 仅表示本次离线录包内容核对通过；Service 客户端超时、节点进程退出码和完整回归结果需结合相应文件日志验证。"
+  ]
+}

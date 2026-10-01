@@ -58,20 +58,20 @@ bash scripts/verify_ros2_release.sh /tmp/embodiedagentlab-v0.3-replay refs/tags/
 └── status.txt                    # 本轮最终通过/失败
 ```
 
-下表在最终演练后填写，不能用历史结果替代本轮结果。
+2026-10-01 的干净终端演练已完成，候选 `e24bfacbbbba86694cfa8e100e867cd97dad51ed` 的 [status.txt](evidence/week03-day7/status.txt) 为 `passed`。完整输出位于 `/home/fatbro/workspace/artifacts/week03-day7/clean-candidate-20261001-g/`，精简证据见[第 7 天证据索引](evidence/week03-day7/README.md)。以下为本轮实际结果，发布提交只补文档与证据，不改变已测试源码。
 
 | 验收项 | 本轮结果 | 证据 |
 |---|---|---|
-| 已测试候选 SHA | 待最终演练填写 | `source-commit.txt` |
-| 干净目录构建三个 ROS 包 | 待最终演练填写 | `build.log`、`prefixes.log` |
-| 正常 Service/Action 与运行中即时查询 | 待最终演练填写 | `normal/normal-demo.json`、`normal-demo.log` |
-| 取消时限与取消后恢复 | 待最终演练填写 | `normal/normal-demo.json`、`normal-demo.log` |
-| 六类故障、七场 MCAP | 待最终演练填写 | `faults/summary.json` 与各场 `bag-info.log` |
-| 全部 ROS 测试 | 待最终演练填写 | `faults/colcon-test-result.log` |
-| 仓库级测试 | 待最终演练填写 | `faults/repository-tests.log` |
-| Python/C++ 四组组合 | 待最终演练填写 | `language-pairs/*/result.json` |
-| 本轮进程清理 | 待最终演练填写 | 演练结束进程检查 |
-| 本地 annotated tag `v0.3` | 待最终验收后创建 | tag 对象及发布提交；候选/发布源码一致性证据 |
+| 已测试候选 SHA | `e24bfacbbbba86694cfa8e100e867cd97dad51ed` | [source-commit.txt](evidence/week03-day7/source-commit.txt) |
+| 干净目录构建三个 ROS 包 | 3 包全部成功，9.26 秒；安装前缀属于本轮目录 | [build.log](evidence/week03-day7/build.log)、[prefixes.log](evidence/week03-day7/prefixes.log)、[接口导入](evidence/week03-day7/interface-import.log) |
+| 正常 Service/Action 与运行中即时查询 | `WP-001=SUCCEEDED`；运行中 Service 响应约 0.003215 秒；传感器与 TF 诊断均 `healthy` | [normal-demo.json](evidence/week03-day7/normal-demo.json)、[normal-demo.log](evidence/week03-day7/normal-demo.log) |
+| 取消时限与取消后恢复 | `WP-002=CANCELED`，请求到终态约 0.201968 秒；随后 `WP-003=SUCCEEDED` | [normal-demo.json](evidence/week03-day7/normal-demo.json) |
+| 六类故障、七场 MCAP | 七场全部 `passed`；实际读取共 7,426 条消息 | [故障汇总](evidence/week03-day7/fault-summary.json)、[bag 内容核查](evidence/week03-day7/bag-review.json)、[中文故障记录](evidence/week03-day7/fault-records.md) |
+| 全部 ROS 测试 | Python 156 + C++ 5 = 161 项独立测试；colcon 汇总 162 条记录，0 失败/错误/跳过 | [colcon-test.log](evidence/week03-day7/colcon-test.log)、[colcon-test-result.log](evidence/week03-day7/colcon-test-result.log) |
+| 仓库级测试 | 18 项通过；与 ROS 独立测试合计 179 项 | [repository-tests.log](evidence/week03-day7/repository-tests.log) |
+| Python/C++ 四组组合 | 四组各验证 `normal → wrong → repaired`；所有进程退出码 0 | [py→py](evidence/week03-day7/rclpy-to-rclpy.json)、[cpp→cpp](evidence/week03-day7/rclcpp-to-rclcpp.json)、[py→cpp](evidence/week03-day7/rclpy-to-rclcpp.json)、[cpp→py](evidence/week03-day7/rclcpp-to-rclpy.json) |
+| 本轮进程清理 | 2026-10-01 16:10:43 检查，本轮候选进程及故障 Launch 无残留 | [进程与源码检查](evidence/week03-day7/release-check.json) |
+| 本地 annotated tag `v0.3` | 通过全部验收，发布标记为 `refs/tags/v0.3`；仅本地，不推送远端 | [证据索引](evidence/week03-day7/README.md)、[候选可执行源码树](evidence/week03-day7/executable-tree.txt)；最终对象与源码复核见完整目录 `tag-verification.log` |
 
 `colcon test-result` 的汇总记录可能包含 CTest 包装项；独立测试数量以 pytest、GoogleTest 和仓库测试各自结果为准，避免重复计数。
 
@@ -86,11 +86,11 @@ bash scripts/verify_ros2_release.sh /tmp/embodiedagentlab-v0.3-replay refs/tags/
 | 诊断观察器先启动时无法推断未上线 Topic 的类型 | 显式指定 `diagnostic_msgs/msg/DiagnosticArray`，并测试发布者尚未上线时观察器继续等待；不能为绕过失败而丢掉故障前的观察窗口。 |
 | Day 4 观察器已断流，但执行器仍可能消费积压样本 | DDS 消费者有独立队列。先确认停止注入与执行器收到最后序号，再等待其接收时钟超过新鲜度阈值，最后验证 Service 拒绝旧缓存。 |
 | Day 5 Launch 壳进程退出慢，容易掩盖节点状态 | 按节点名核对正常退出；崩溃场景单独核对传感器退出码 1。所有预期节点退出已证实后，只回收本次残留 Launch PID，并保存清理报告。 |
-| 管道与真实终端的 Ctrl+C 行为不同 | 自动采集子进程显式使用 `stdin=DEVNULL`；Day 3 终端测试用 PTY 加一次独立进程组 SIGINT，严格核对四节点正常退出与 Graph 清空，避免非交互 Launch 重复转发信号。 |
+| 管道与真实终端的 Ctrl+C 行为不同 | 自动采集子进程显式使用 `stdin=DEVNULL`；Day 1/2/4/5 的终端 Launch 测试统一使用公共 [PtyLaunch helper](../../ros2_ws/src/embodied_comm/test/launch_helpers.py)，保留 PTY stdin，并仅向本次独立进程组发送一次 SIGINT，清理时关闭 PTY。Day 3 保留原有手动 PTY 方案。各测试保留既有正常退出、崩溃退出与 Graph 清理断言，不用重复 Ctrl+C 或强杀替代通过条件。 |
 | Ctrl+C 与 WaitSet 创建竞争，Context 已关闭时抛出原生 `RCLError` | 只有 `rclpy.ok()` 已为 false 时将该 RCL 错误作为正常关闭；有效 Context 下的 RCL 错误和注入 `RuntimeError` 继续传播。单/多线程入口均有对应回归，不能吞掉真实崩溃。 |
 | 越界 Action 结果与接口契约不一致 | 失败 Action Result 的 `sensor_seq` 统一为 `0`；`/task_status` JSON 仍保留越界样本的实际序号供定位，无合法样本时继续为 `null`。 |
 
-这些修复改变的是构建、接口契约或验收判据。表中的修复说明不代表当前候选已通过全部验收；通过状态以本轮完整演练日志为准。
+这些修复改变的是构建、接口契约或验收判据；通过状态以本轮完整演练日志为准，进程清理及候选/发布源码一致性另有收据。
 
 ## 发布标记
 

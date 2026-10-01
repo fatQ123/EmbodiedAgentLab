@@ -115,7 +115,7 @@ ros2 bag play artifacts/week03-day6/run-时间戳/topic_stop/rosbag
 
 ### 5. Action 取消
 
-- 现象：目标在 40% 请求取消并进入 `CANCELED`，下一个目标进入 `SUCCEEDED`。
+- 现象：客户端收到首个达到或超过 40% 阈值的反馈后请求取消，目标进入 `CANCELED`，下一个目标进入 `SUCCEEDED`。反馈采样和调度可能使进度跨过阈值，不保证精确停在 40%。
 - 检查命令：查看 Action 类型、Feedback、Cancel/Result 和 `/task_status`。
 - 画面：当前 Marker 不由 Action 驱动，终止证据来自协议状态，不来自机械臂动画。
 - 日志：依次出现取消请求、`CANCELED`、资源释放、恢复目标 `SUCCEEDED`。

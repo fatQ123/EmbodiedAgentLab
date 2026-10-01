@@ -1,0 +1,7 @@
+inspect_workpiece_WP-001: 目标接受
+长任务运行中：快速 Service 查询成功
+inspect_workpiece_WP-001: SUCCEEDED，阶段=['preparing', 'inspecting', 'validating', 'completed']，进度=[0.0005901498370803893, 70.22532653808594, 90.30838775634766, 99.0, 100.0]
+inspect_workpiece_WP-002: 目标接受
+inspect_workpiece_WP-002: CANCELED，阶段=['preparing', 'inspecting']，进度=[0.00036316667683422565, 6.709542751312256, 13.399909973144531, 20.100238800048828, 26.790138244628906, 33.48026657104492, 40.17348098754883]
+inspect_workpiece_WP-003: 目标接受
+inspect_workpiece_WP-003: SUCCEEDED，阶段=['preparing', 'inspecting', 'validating', 'completed']，进度=[0.002360600046813488, 10.209039688110352, 20.33545684814453, 30.500579833984375, 40.646610260009766, 50.82183074951172, 60.985111236572266, 71.17939758300781, 81.37255859375, 91.57759857177734, 99.0, 100.0]

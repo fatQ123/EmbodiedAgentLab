@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "candidate_commit": "e24bfacbbbba86694cfa8e100e867cd97dad51ed",
+  "acceptance_status": "passed",
+  "runtime_diff_exit_code": 0,
+  "executable_tree_sha256": "32953a1dbc4baf7047aecbd653a148a12583e21046f0022e98d458ab963d4627",
+  "compared_paths": [
+    "src",
+    "ros2_ws/src",
+    "scripts",
+    "tests",
+    "pyproject.toml",
+    "environment.yml"
+  ],
+  "proof_scope": "候选与验收后文档工作树；最终发布提交在tag-verification.log中再次复核",
+  "process_check": {
+    "time": "2026-10-01 08:10:43 UTC",
+    "residual": []
+  },
+  "roadmap_sha256": "976a535f9b09379e7cccb177aff36968b180780113b37059e620ecd505f42f3a",
+  "independent_tests": {
+    "ros_python": 156,
+    "cpp_google_test": 5,
+    "repository_python": 18,
+    "total": 179,
+    "colcon_records_with_wrapper": 162
+  },
+  "fault_scenarios": 7,
+  "rosbag_messages": 7426,
+  "gui_scope": "automated headless only; no new manual RViz claim"
+}

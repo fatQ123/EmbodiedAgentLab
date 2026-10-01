@@ -1,0 +1,94 @@
+$ colcon test --packages-select embodied_interfaces embodied_comm embodied_comm_cpp --event-handlers console_direct+
+exit_code=0
+
+Starting >>> embodied_interfaces
+Starting >>> embodied_comm_cpp
+Finished <<< embodied_interfaces [0.02s]
+Starting >>> embodied_comm
+UpdateCTestConfiguration  from :/home/fatbro/workspace/artifacts/week03-day7/clean-candidate-20261001-g/source/ros2_ws/build/embodied_comm_cpp/CTestConfiguration.ini
+Parse Config file:/home/fatbro/workspace/artifacts/week03-day7/clean-candidate-20261001-g/source/ros2_ws/build/embodied_comm_cpp/CTestConfiguration.ini
+   Site: fatbro-Lenovo-Legion-R9000P2021H
+   Build name: (empty)
+ Add coverage exclude regular expressions.
+Create new tag: 20261001-0806 - Experimental
+UpdateCTestConfiguration  from :/home/fatbro/workspace/artifacts/week03-day7/clean-candidate-20261001-g/source/ros2_ws/build/embodied_comm_cpp/CTestConfiguration.ini
+Parse Config file:/home/fatbro/workspace/artifacts/week03-day7/clean-candidate-20261001-g/source/ros2_ws/build/embodied_comm_cpp/CTestConfiguration.ini
+Test project /home/fatbro/workspace/artifacts/week03-day7/clean-candidate-20261001-g/source/ros2_ws/build/embodied_comm_cpp
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+    Start 1: test_protocol
+
+1: Test command: /usr/bin/python3 "-u" "/opt/ros/jazzy/share/ament_cmake_test/cmake/run_test.py" "/home/fatbro/workspace/artifacts/week03-day7/clean-candidate-20261001-g/source/ros2_ws/build/embodied_comm_cpp/test_results/embodied_comm_cpp/test_protocol.gtest.xml" "--package-name" "embodied_comm_cpp" "--output-file" "/home/fatbro/workspace/artifacts/week03-day7/clean-candidate-20261001-g/source/ros2_ws/build/embodied_comm_cpp/ament_cmake_gtest/test_protocol.txt" "--command" "/home/fatbro/workspace/artifacts/week03-day7/clean-candidate-20261001-g/source/ros2_ws/build/embodied_comm_cpp/test_protocol" "--gtest_output=xml:/home/fatbro/workspace/artifacts/week03-day7/clean-candidate-20261001-g/source/ros2_ws/build/embodied_comm_cpp/test_results/embodied_comm_cpp/test_protocol.gtest.xml"
+1: Working Directory: /home/fatbro/workspace/artifacts/week03-day7/clean-candidate-20261001-g/source/ros2_ws/build/embodied_comm_cpp
+1: Test timeout computed to be: 60
+1: -- run_test.py: invoking following command in '/home/fatbro/workspace/artifacts/week03-day7/clean-candidate-20261001-g/source/ros2_ws/build/embodied_comm_cpp':
+1:  - /home/fatbro/workspace/artifacts/week03-day7/clean-candidate-20261001-g/source/ros2_ws/build/embodied_comm_cpp/test_protocol --gtest_output=xml:/home/fatbro/workspace/artifacts/week03-day7/clean-candidate-20261001-g/source/ros2_ws/build/embodied_comm_cpp/test_results/embodied_comm_cpp/test_protocol.gtest.xml
+1: Running main() from /opt/ros/jazzy/src/gtest_vendor/src/gtest_main.cc
+1: [==========] Running 5 tests from 1 test suite.
+1: [----------] Global test environment set-up.
+1: [----------] 5 tests from Protocol
+1: [ RUN      ] Protocol.PeriodAndBounds
+1: [       OK ] Protocol.PeriodAndBounds (0 ms)
+1: [ RUN      ] Protocol.RejectInvalidRates
+1: [       OK ] Protocol.RejectInvalidRates (0 ms)
+1: [ RUN      ] Protocol.MessageSequenceAndWrap
+1: [       OK ] Protocol.MessageSequenceAndWrap (0 ms)
+1: [ RUN      ] Protocol.AcceptPythonFormat
+1: [       OK ] Protocol.AcceptPythonFormat (0 ms)
+1: [ RUN      ] Protocol.RejectMalformedMessages
+1: [       OK ] Protocol.RejectMalformedMessages (0 ms)
+1: [----------] 5 tests from Protocol (0 ms total)
+1: 
+1: [----------] Global test environment tear-down
+1: [==========] 5 tests from 1 test suite ran. (0 ms total)
+1: [  PASSED  ] 5 tests.
+1: -- run_test.py: return code 0
+1: -- run_test.py: inject classname prefix into gtest result file '/home/fatbro/workspace/artifacts/week03-day7/clean-candidate-20261001-g/source/ros2_ws/build/embodied_comm_cpp/test_results/embodied_comm_cpp/test_protocol.gtest.xml'
+1: -- run_test.py: verify result file '/home/fatbro/workspace/artifacts/week03-day7/clean-candidate-20261001-g/source/ros2_ws/build/embodied_comm_cpp/test_results/embodied_comm_cpp/test_protocol.gtest.xml'
+1/1 Test #1: test_protocol ....................   Passed    0.07 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Label Time Summary:
+gtest    =   0.07 sec*proc (1 test)
+
+Total Test time (real) =   0.07 sec
+Finished <<< embodied_comm_cpp [0.25s]
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+cachedir: /home/fatbro/workspace/artifacts/week03-day7/clean-candidate-20261001-g/source/ros2_ws/build/embodied_comm/.pytest_cache
+rootdir: /home/fatbro/workspace/artifacts/week03-day7/clean-candidate-20261001-g/source/ros2_ws/src/embodied_comm
+configfile: setup.cfg
+testpaths: test
+plugins: ament-pep257-0.17.5, launch-testing-3.4.11, ament-lint-0.17.5, ament-flake8-0.17.5, ament-copyright-0.17.5, launch-testing-ros-0.26.12, ament-xmllint-0.17.5, colcon-core-0.21.3, cov-4.1.0
+collected 156 items
+
+test/test_day4_fault_injection.py .......                                [  4%]
+test/test_day5_fault_injection.py ......                                 [  8%]
+[Processing: embodied_comm]
+[Processing: embodied_comm]
+test/test_day6_evidence_recorder.py ...........                          [ 15%]
+test/test_execute_task.py ............                                   [ 23%]
+test/test_execute_task_action.py ............                            [ 30%]
+test/test_health_diagnostics.py ...                                      [ 32%]
+test/test_launch.py ..                                                   [ 33%]
+test/test_launch_helpers.py .                                            [ 34%]
+test/test_node_lifecycle.py ......                                       [ 38%]
+test/test_parameters.py ................................................ [ 69%]
+...................                                                      [ 81%]
+[Processing: embodied_comm]
+test/test_protocol.py ................                                   [ 91%]
+test/test_pub_sub.py .........                                           [ 97%]
+test/test_task_executor.py ..                                            [ 98%]
+test/test_workcell_visualizer.py ..                                      [100%]
+
+- generated xml file: /home/fatbro/workspace/artifacts/week03-day7/clean-candidate-20261001-g/source/ros2_ws/build/embodied_comm/pytest.xml -
+======================== 156 passed in 95.89s (0:01:35) ========================
+Finished <<< embodied_comm [1min 37s]
+
+Summary: 3 packages finished [1min 37s]

@@ -1,0 +1,8 @@
+Starting >>> embodied_interfaces
+Starting >>> embodied_comm_cpp
+Finished <<< embodied_interfaces [7.48s]
+Starting >>> embodied_comm
+Finished <<< embodied_comm [1.40s]
+Finished <<< embodied_comm_cpp [9.11s]
+
+Summary: 3 packages finished [9.26s]

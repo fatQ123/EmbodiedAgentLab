@@ -1,0 +1,2 @@
+/home/fatbro/workspace/artifacts/week03-day7/clean-candidate-20261001-g/source/ros2_ws/install/embodied_interfaces/lib/python3.12/site-packages/embodied_interfaces/action/__init__.py
+embodied_interfaces.action.ExecuteTask_Goal(task_name='', duration_sec=0.0) embodied_interfaces.action.ExecuteTask_Result(success=False, message='', sensor_seq=0) embodied_interfaces.action.ExecuteTask_Feedback(progress_percent=0.0, phase='')

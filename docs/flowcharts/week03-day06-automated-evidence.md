@@ -26,15 +26,16 @@ flowchart TB
 
     subgraph RUN["每个场景的独立采集事务"]
         ISOLATE["独立 ROS_DOMAIN_ID<br/>新建场景目录"] --> RECORDER["先启动 rosbag Recorder<br/>MCAP + /rosout + 业务 Topics"]
-        RECORDER --> LAUNCH["启动 week03_day5.launch.py<br/>RViz=false"]
+        RECORDER --> LIVE["系统启动前创建常驻 diagnostics 观察器<br/>显式指定 DiagnosticArray 类型"]
+        LIVE --> LAUNCH["启动 week03_day5.launch.py<br/>RViz=false"]
         LAUNCH --> READY{"五个节点就绪？"}
-        READY --> LIVE["故障前启动常驻<br/>diagnostics 观察器"]
-        LIVE --> INJECT["等待定时注入<br/>或执行 Service/Action Client"]
+        READY -- "是" --> INJECT["等待定时注入<br/>或执行 Service/Action Client"]
+        READY -- "否：记失败并继续留证" --> INJECT
         INJECT --> SNAP["采集 node/topic/service/action<br/>diagnostics/TF 快照"]
         SNAP --> STOPREC["先停止观察器与 Recorder<br/>刷新 MCAP"]
         STOPREC --> STOPLAUNCH["再让 Launch 干净退出"]
         STOPLAUNCH --> BAGINFO["ros2 bag info<br/>消息数必须大于 0"]
-        BAGINFO --> ASSERT["核对退出码与关键日志"]
+        BAGINFO --> ASSERT["核对命令退出码与关键日志<br/>Recorder/Launch 必须干净退出"]
         ASSERT --> RESULT["result.json"]
     end
 

@@ -1,0 +1,8 @@
+$ colcon test-result --all --verbose
+exit_code=0
+
+build/embodied_comm/pytest.xml: 156 tests, 0 errors, 0 failures, 0 skipped
+build/embodied_comm_cpp/Testing/20261001-0806/Test.xml: 1 test, 0 errors, 0 failures, 0 skipped
+build/embodied_comm_cpp/test_results/embodied_comm_cpp/test_protocol.gtest.xml: 5 tests, 0 errors, 0 failures, 0 skipped
+
+Summary: 162 tests, 0 errors, 0 failures, 0 skipped

@@ -1,0 +1,830 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-01T16:04:35+08:00",
+  "finished_at": "2026-10-01T16:08:32+08:00",
+  "output_dir": "/home/fatbro/workspace/artifacts/week03-day7/clean-candidate-20261001-g/faults",
+  "workspace": "/home/fatbro/workspace/artifacts/week03-day7/clean-candidate-20261001-g/source/ros2_ws",
+  "status": "passed",
+  "scenario_count": 7,
+  "fault_category_count": 6,
+  "scenarios": [
+    {
+      "key": "qos_mismatch",
+      "category": "qos_mismatch",
+      "title": "QoS 不匹配",
+      "domain_id": 210,
+      "status": "passed",
+      "failures": [],
+      "checks": [
+        {
+          "needle": "可靠性=best_effort",
+          "found": true
+        },
+        {
+          "needle": "qos_mismatch",
+          "found": true
+        }
+      ],
+      "commands": [
+        {
+          "label": "service-result",
+          "command": "ros2 service call /execute_task std_srvs/srv/Trigger '{}'",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "nodes",
+          "command": "ros2 node list",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "sensor-topic",
+          "command": "ros2 topic info /sensor_state --verbose",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "service-list",
+          "command": "ros2 service list -t",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "action-list",
+          "command": "ros2 action list -t",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "diagnostics-snapshot",
+          "command": "ros2 topic echo /diagnostics diagnostic_msgs/msg/DiagnosticArray",
+          "exit_code": 124,
+          "expected_codes": [
+            124
+          ],
+          "passed": true
+        },
+        {
+          "label": "tf-snapshot",
+          "command": "ros2 run tf2_ros tf2_echo world tool0",
+          "exit_code": 124,
+          "expected_codes": [
+            124
+          ],
+          "passed": true
+        }
+      ],
+      "rosbag": {
+        "path": "qos_mismatch/rosbag",
+        "record_exit_code": 0,
+        "record_stop": "sigint",
+        "info_exit_code": 0,
+        "message_count": 817,
+        "topics": [
+          "/sensor_state",
+          "/diagnostics",
+          "/task_status",
+          "/tf",
+          "/tf_static",
+          "/inspection_target_marker",
+          "/execute_task_long/_action/feedback",
+          "/execute_task_long/_action/status",
+          "/rosout"
+        ]
+      },
+      "launch": {
+        "command": "ros2 launch embodied_comm week03_day5.launch.py use_rviz:=false publish_rate:=10.0 timeout_sec:=0.6 diagnostic_rate:=10.0 frame_publish_rate:=10.0 tf_timeout_sec:=0.6 publisher_reliability:=best_effort",
+        "exit_code": 0,
+        "stop": "sigint"
+      },
+      "diagnostic_observer": {
+        "exit_code": 2,
+        "stop": "sigint",
+        "log": "diagnostics-live.log"
+      }
+    },
+    {
+      "key": "topic_stop",
+      "category": "topic_stop",
+      "title": "话题停止",
+      "domain_id": 211,
+      "status": "passed",
+      "failures": [],
+      "checks": [
+        {
+          "needle": "停止发布",
+          "found": true
+        },
+        {
+          "needle": "value: stale",
+          "found": true
+        }
+      ],
+      "commands": [
+        {
+          "label": "service-result",
+          "command": "ros2 service call /execute_task std_srvs/srv/Trigger '{}'",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "nodes",
+          "command": "ros2 node list",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "sensor-topic",
+          "command": "ros2 topic info /sensor_state --verbose",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "service-list",
+          "command": "ros2 service list -t",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "action-list",
+          "command": "ros2 action list -t",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "diagnostics-snapshot",
+          "command": "ros2 topic echo /diagnostics diagnostic_msgs/msg/DiagnosticArray",
+          "exit_code": 124,
+          "expected_codes": [
+            124
+          ],
+          "passed": true
+        },
+        {
+          "label": "tf-snapshot",
+          "command": "ros2 run tf2_ros tf2_echo world tool0",
+          "exit_code": 124,
+          "expected_codes": [
+            124
+          ],
+          "passed": true
+        }
+      ],
+      "rosbag": {
+        "path": "topic_stop/rosbag",
+        "record_exit_code": 0,
+        "record_stop": "sigint",
+        "info_exit_code": 0,
+        "message_count": 887,
+        "topics": [
+          "/sensor_state",
+          "/diagnostics",
+          "/task_status",
+          "/tf",
+          "/tf_static",
+          "/inspection_target_marker",
+          "/execute_task_long/_action/feedback",
+          "/execute_task_long/_action/status",
+          "/rosout"
+        ]
+      },
+      "launch": {
+        "command": "ros2 launch embodied_comm week03_day5.launch.py use_rviz:=false publish_rate:=10.0 timeout_sec:=0.6 diagnostic_rate:=10.0 frame_publish_rate:=10.0 tf_timeout_sec:=0.6 fault_stop_after_sec:=6.0",
+        "exit_code": 0,
+        "stop": "sigint"
+      },
+      "diagnostic_observer": {
+        "exit_code": 2,
+        "stop": "sigint",
+        "log": "diagnostics-live.log"
+      }
+    },
+    {
+      "key": "tf_missing",
+      "category": "tf_fault",
+      "title": "TF 缺失",
+      "domain_id": 212,
+      "status": "passed",
+      "failures": [],
+      "checks": [
+        {
+          "needle": "坐标链缺失",
+          "found": true
+        },
+        {
+          "needle": "value: missing",
+          "found": true
+        }
+      ],
+      "commands": [
+        {
+          "label": "service-result",
+          "command": "ros2 service call /execute_task std_srvs/srv/Trigger '{}'",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "nodes",
+          "command": "ros2 node list",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "sensor-topic",
+          "command": "ros2 topic info /sensor_state --verbose",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "service-list",
+          "command": "ros2 service list -t",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "action-list",
+          "command": "ros2 action list -t",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "diagnostics-snapshot",
+          "command": "ros2 topic echo /diagnostics diagnostic_msgs/msg/DiagnosticArray",
+          "exit_code": 124,
+          "expected_codes": [
+            124
+          ],
+          "passed": true
+        },
+        {
+          "label": "tf-snapshot",
+          "command": "ros2 run tf2_ros tf2_echo world tool0",
+          "exit_code": 124,
+          "expected_codes": [
+            124
+          ],
+          "passed": true
+        }
+      ],
+      "rosbag": {
+        "path": "tf_missing/rosbag",
+        "record_exit_code": 0,
+        "record_stop": "sigint",
+        "info_exit_code": 0,
+        "message_count": 851,
+        "topics": [
+          "/sensor_state",
+          "/diagnostics",
+          "/task_status",
+          "/tf",
+          "/tf_static",
+          "/inspection_target_marker",
+          "/execute_task_long/_action/feedback",
+          "/execute_task_long/_action/status",
+          "/rosout"
+        ]
+      },
+      "launch": {
+        "command": "ros2 launch embodied_comm week03_day5.launch.py use_rviz:=false publish_rate:=10.0 timeout_sec:=0.6 diagnostic_rate:=10.0 frame_publish_rate:=10.0 tf_timeout_sec:=0.6 tf_fault_mode:=missing",
+        "exit_code": 0,
+        "stop": "sigint"
+      },
+      "diagnostic_observer": {
+        "exit_code": 2,
+        "stop": "sigint",
+        "log": "diagnostics-live.log"
+      }
+    },
+    {
+      "key": "tf_stale",
+      "category": "tf_fault",
+      "title": "TF 过期",
+      "domain_id": 213,
+      "status": "passed",
+      "failures": [],
+      "checks": [
+        {
+          "needle": "停止刷新",
+          "found": true
+        },
+        {
+          "needle": "value: stale",
+          "found": true
+        }
+      ],
+      "commands": [
+        {
+          "label": "service-result",
+          "command": "ros2 service call /execute_task std_srvs/srv/Trigger '{}'",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "nodes",
+          "command": "ros2 node list",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "sensor-topic",
+          "command": "ros2 topic info /sensor_state --verbose",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "service-list",
+          "command": "ros2 service list -t",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "action-list",
+          "command": "ros2 action list -t",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "diagnostics-snapshot",
+          "command": "ros2 topic echo /diagnostics diagnostic_msgs/msg/DiagnosticArray",
+          "exit_code": 124,
+          "expected_codes": [
+            124
+          ],
+          "passed": true
+        },
+        {
+          "label": "tf-snapshot",
+          "command": "ros2 run tf2_ros tf2_echo world tool0",
+          "exit_code": 124,
+          "expected_codes": [
+            124
+          ],
+          "passed": true
+        }
+      ],
+      "rosbag": {
+        "path": "tf_stale/rosbag",
+        "record_exit_code": 0,
+        "record_stop": "sigint",
+        "info_exit_code": 0,
+        "message_count": 1301,
+        "topics": [
+          "/sensor_state",
+          "/diagnostics",
+          "/task_status",
+          "/tf",
+          "/tf_static",
+          "/inspection_target_marker",
+          "/execute_task_long/_action/feedback",
+          "/execute_task_long/_action/status",
+          "/rosout"
+        ]
+      },
+      "launch": {
+        "command": "ros2 launch embodied_comm week03_day5.launch.py use_rviz:=false publish_rate:=10.0 timeout_sec:=0.6 diagnostic_rate:=10.0 frame_publish_rate:=10.0 tf_timeout_sec:=0.6 tf_fault_mode:=stale tf_fault_after_sec:=6.0",
+        "exit_code": 0,
+        "stop": "sigint"
+      },
+      "diagnostic_observer": {
+        "exit_code": 2,
+        "stop": "sigint",
+        "log": "diagnostics-live.log"
+      }
+    },
+    {
+      "key": "service_timeout",
+      "category": "service_timeout",
+      "title": "Service 超时",
+      "domain_id": 214,
+      "status": "passed",
+      "failures": [],
+      "checks": [
+        {
+          "needle": "服务响应超时",
+          "found": true
+        },
+        {
+          "needle": "延迟 1.00 秒后响应",
+          "found": true
+        }
+      ],
+      "commands": [
+        {
+          "label": "service-timeout-client",
+          "command": "ros2 run embodied_comm service_timeout_demo --response-timeout 0.2",
+          "exit_code": 6,
+          "expected_codes": [
+            6
+          ],
+          "passed": true
+        },
+        {
+          "label": "nodes",
+          "command": "ros2 node list",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "sensor-topic",
+          "command": "ros2 topic info /sensor_state --verbose",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "service-list",
+          "command": "ros2 service list -t",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "action-list",
+          "command": "ros2 action list -t",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "diagnostics-snapshot",
+          "command": "ros2 topic echo /diagnostics diagnostic_msgs/msg/DiagnosticArray",
+          "exit_code": 124,
+          "expected_codes": [
+            124
+          ],
+          "passed": true
+        },
+        {
+          "label": "tf-snapshot",
+          "command": "ros2 run tf2_ros tf2_echo world tool0",
+          "exit_code": 124,
+          "expected_codes": [
+            124
+          ],
+          "passed": true
+        }
+      ],
+      "rosbag": {
+        "path": "service_timeout/rosbag",
+        "record_exit_code": 0,
+        "record_stop": "sigint",
+        "info_exit_code": 0,
+        "message_count": 1091,
+        "topics": [
+          "/sensor_state",
+          "/diagnostics",
+          "/task_status",
+          "/tf",
+          "/tf_static",
+          "/inspection_target_marker",
+          "/execute_task_long/_action/feedback",
+          "/execute_task_long/_action/status",
+          "/rosout"
+        ]
+      },
+      "launch": {
+        "command": "ros2 launch embodied_comm week03_day5.launch.py use_rviz:=false publish_rate:=10.0 timeout_sec:=5.0 diagnostic_rate:=10.0 frame_publish_rate:=10.0 tf_timeout_sec:=0.6 fault_service_delay_sec:=1.0",
+        "exit_code": 0,
+        "stop": "sigint"
+      },
+      "diagnostic_observer": {
+        "exit_code": 2,
+        "stop": "sigint",
+        "log": "diagnostics-live.log"
+      }
+    },
+    {
+      "key": "action_cancel",
+      "category": "action_cancel",
+      "title": "Action 取消与恢复",
+      "domain_id": 215,
+      "status": "passed",
+      "failures": [],
+      "checks": [
+        {
+          "needle": "最终状态=CANCELED",
+          "found": true
+        },
+        {
+          "needle": "接受取消请求",
+          "found": true
+        },
+        {
+          "needle": "最终状态=SUCCEEDED",
+          "found": true
+        }
+      ],
+      "commands": [
+        {
+          "label": "action-cancel-client",
+          "command": "ros2 run embodied_comm inspection_demo --task-name inspect_workpiece_WP-DAY6-CANCEL --duration 2.0 --cancel-at 40",
+          "exit_code": 3,
+          "expected_codes": [
+            3
+          ],
+          "passed": true
+        },
+        {
+          "label": "action-recovery-client",
+          "command": "ros2 run embodied_comm inspection_demo --task-name inspect_workpiece_WP-DAY6-RECOVER --duration 0.3",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "nodes",
+          "command": "ros2 node list",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "sensor-topic",
+          "command": "ros2 topic info /sensor_state --verbose",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "service-list",
+          "command": "ros2 service list -t",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "action-list",
+          "command": "ros2 action list -t",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "diagnostics-snapshot",
+          "command": "ros2 topic echo /diagnostics diagnostic_msgs/msg/DiagnosticArray",
+          "exit_code": 124,
+          "expected_codes": [
+            124
+          ],
+          "passed": true
+        },
+        {
+          "label": "tf-snapshot",
+          "command": "ros2 run tf2_ros tf2_echo world tool0",
+          "exit_code": 124,
+          "expected_codes": [
+            124
+          ],
+          "passed": true
+        }
+      ],
+      "rosbag": {
+        "path": "action_cancel/rosbag",
+        "record_exit_code": 0,
+        "record_stop": "sigint",
+        "info_exit_code": 0,
+        "message_count": 1588,
+        "topics": [
+          "/sensor_state",
+          "/diagnostics",
+          "/task_status",
+          "/tf",
+          "/tf_static",
+          "/inspection_target_marker",
+          "/execute_task_long/_action/feedback",
+          "/execute_task_long/_action/status",
+          "/rosout"
+        ]
+      },
+      "launch": {
+        "command": "ros2 launch embodied_comm week03_day5.launch.py use_rviz:=false publish_rate:=10.0 timeout_sec:=3.0 diagnostic_rate:=10.0 frame_publish_rate:=10.0 tf_timeout_sec:=0.6",
+        "exit_code": 0,
+        "stop": "sigint"
+      },
+      "diagnostic_observer": {
+        "exit_code": 2,
+        "stop": "sigint",
+        "log": "diagnostics-live.log"
+      }
+    },
+    {
+      "key": "node_crash",
+      "category": "node_crash",
+      "title": "节点崩溃",
+      "domain_id": 216,
+      "status": "passed",
+      "failures": [],
+      "checks": [
+        {
+          "needle": "即将崩溃",
+          "found": true
+        },
+        {
+          "needle": "process has died",
+          "found": true
+        },
+        {
+          "needle": "exit code 1",
+          "found": true
+        },
+        {
+          "needle": "publisher_lost",
+          "found": true
+        }
+      ],
+      "commands": [
+        {
+          "label": "service-result",
+          "command": "ros2 service call /execute_task std_srvs/srv/Trigger '{}'",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "nodes",
+          "command": "ros2 node list",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "sensor-topic",
+          "command": "ros2 topic info /sensor_state --verbose",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "service-list",
+          "command": "ros2 service list -t",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "action-list",
+          "command": "ros2 action list -t",
+          "exit_code": 0,
+          "expected_codes": [
+            0
+          ],
+          "passed": true
+        },
+        {
+          "label": "diagnostics-snapshot",
+          "command": "ros2 topic echo /diagnostics diagnostic_msgs/msg/DiagnosticArray",
+          "exit_code": 124,
+          "expected_codes": [
+            124
+          ],
+          "passed": true
+        },
+        {
+          "label": "tf-snapshot",
+          "command": "ros2 run tf2_ros tf2_echo world tool0",
+          "exit_code": 124,
+          "expected_codes": [
+            124
+          ],
+          "passed": true
+        }
+      ],
+      "rosbag": {
+        "path": "node_crash/rosbag",
+        "record_exit_code": 0,
+        "record_stop": "sigint",
+        "info_exit_code": 0,
+        "message_count": 891,
+        "topics": [
+          "/sensor_state",
+          "/diagnostics",
+          "/task_status",
+          "/tf",
+          "/tf_static",
+          "/inspection_target_marker",
+          "/execute_task_long/_action/feedback",
+          "/execute_task_long/_action/status",
+          "/rosout"
+        ]
+      },
+      "launch": {
+        "command": "ros2 launch embodied_comm week03_day5.launch.py use_rviz:=false publish_rate:=10.0 timeout_sec:=0.6 diagnostic_rate:=10.0 frame_publish_rate:=10.0 tf_timeout_sec:=0.6 fault_sensor_crash_after_sec:=6.0",
+        "exit_code": 0,
+        "stop": "sigint"
+      },
+      "diagnostic_observer": {
+        "exit_code": 2,
+        "stop": "sigint",
+        "log": "diagnostics-live.log"
+      }
+    }
+  ],
+  "regression": [
+    {
+      "command": "colcon test --packages-select embodied_interfaces embodied_comm embodied_comm_cpp --event-handlers console_direct+",
+      "log": "colcon-test.log",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "command": "colcon test-result --all --verbose",
+      "log": "colcon-test-result.log",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "command": "/usr/bin/python3 -m pytest -q /home/fatbro/workspace/artifacts/week03-day7/clean-candidate-20261001-g/source/tests",
+      "log": "repository-tests.log",
+      "exit_code": 0,
+      "passed": true
+    }
+  ]
+}
