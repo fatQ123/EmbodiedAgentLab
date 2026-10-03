@@ -1,0 +1,18 @@
+# 仅作用于本项目；已有会话的显式设置可能覆盖这些默认值。
+model = "gpt-6-astra"
+model_reasoning_effort = "xhigh"
+
+[agents]
+enabled = true
+# 不包含主 agent：默认主 agent + 最多 3 个子 agent。
+# 扩容须先获得用户确认，验证运行时支持；任务结束后恢复为 3。
+max_concurrent_threads_per_session = 3
+default_subagent_model = "gpt-6.1-sol"
+default_subagent_reasoning_effort = "high"
+interrupt_message = true
+
+ros2_engineer = { description = "ROS 2 接口与系统集成", config_file = "agents/ros2_engineer.toml" }
+cpp_engineer = { description = "C++ 节点与执行逻辑", config_file = "agents/cpp_engineer.toml" }
+simulation_engineer = { description = "机器人描述、运动学与仿真", config_file = "agents/simulation_engineer.toml" }
+test_engineer = { description = "自动测试、复现与证据核验", config_file = "agents/test_engineer.toml" }
+reviewer = { description = "独立只读审查", config_file = "agents/reviewer.toml" }
