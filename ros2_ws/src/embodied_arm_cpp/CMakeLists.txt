@@ -1,0 +1,20 @@
+cmake_minimum_required(VERSION 3.8)
+project(embodied_arm_cpp)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(rcl_interfaces REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(urdf REQUIRED)
+
+add_executable(synthetic_joint_publisher src/synthetic_joint_publisher.cpp)
+target_compile_options(synthetic_joint_publisher PRIVATE -Wall -Wextra -Wpedantic)
+ament_target_dependencies(synthetic_joint_publisher rclcpp rcl_interfaces sensor_msgs urdf)
+install(TARGETS synthetic_joint_publisher DESTINATION lib/${PROJECT_NAME})
+install(PROGRAMS scripts/set_arm_positions.py DESTINATION lib/${PROJECT_NAME})
+install(DIRECTORY launch DESTINATION share/${PROJECT_NAME})
+install(FILES LICENSE DESTINATION share/${PROJECT_NAME})
+
+ament_package()

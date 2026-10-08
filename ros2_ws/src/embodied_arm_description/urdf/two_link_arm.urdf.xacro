@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="two_link_arm">
+  <!-- Educational planar model: lengths in m, masses in kg, angles in rad.
+       Geometry, mass, inertia, effort and velocity are design assumptions,
+       not measurements or evidence of physical/control performance. -->
+  <xacro:property name="arm_pi" value="3.141592653589793"/>
+  <xacro:property name="link1_length" value="0.4"/>
+  <xacro:property name="link2_length" value="0.3"/>
+  <xacro:property name="base_length" value="0.12"/>
+  <xacro:property name="base_width" value="0.12"/>
+  <xacro:property name="base_height" value="0.04"/>
+  <xacro:property name="link1_width" value="0.05"/>
+  <xacro:property name="link1_height" value="0.04"/>
+  <xacro:property name="link2_width" value="0.04"/>
+  <xacro:property name="link2_height" value="0.03"/>
+  <xacro:property name="tool_radius" value="0.015"/>
+  <xacro:property name="base_mass" value="1.0"/>
+  <xacro:property name="link1_mass" value="1.0"/>
+  <xacro:property name="link2_mass" value="0.75"/>
+  <xacro:property name="tool_mass" value="0.05"/>
+
+  <material name="base_gray"><color rgba="0.4 0.4 0.4 1"/></material>
+  <material name="link1_blue"><color rgba="0.1 0.4 0.9 1"/></material>
+  <material name="link2_orange"><color rgba="0.95 0.5 0.1 1"/></material>
+  <material name="tool_green"><color rgba="0.1 0.8 0.3 1"/></material>
+
+  <!-- Each link frame is at its proximal joint, not at the box center.
+       center is the visual/collision center and the assumed center of mass,
+       expressed in that link frame; all these frames have the same axes.
+       A uniform box has Ixx=m*(width^2+height^2)/12, etc., about its COM.
+       No parallel-axis term is needed because inertial origin is at COM. -->
+  <xacro:macro name="box_link" params="name length width height mass center material">
+    <link name="${name}">
+      <visual>
+        <origin xyz="${center}" rpy="0 0 0"/>
+        <geometry><box size="${length} ${width} ${height}"/></geometry>
+        <material name="${material}"/>
+      </visual>
+      <collision>
+        <origin xyz="${center}" rpy="0 0 0"/>
+        <geometry><box size="${length} ${width} ${height}"/></geometry>
+      </collision>
+      <inertial>
+        <origin xyz="${center}" rpy="0 0 0"/>
+        <mass value="${mass}"/>
+        <inertia ixx="${mass * (width * width + height * height) / 12.0}"
+                 ixy="0" ixz="0"
+                 iyy="${mass * (length * length + height * height) / 12.0}"
+                 iyz="0"
+                 izz="${mass * (length * length + width * width) / 12.0}"/>
+      </inertial>
+    </link>
+  </xacro:macro>
+
+  <!-- base_link is the fixed reference used for visualization, at joint1.
+       Its box and COM are lower at z=-0.04; this is not a joint offset.
+       Root inertia is intentionally retained: KDL may warn that root-link
+       inertia is unsupported. No extra root is added to the specified chain. -->
+  <xacro:box_link name="base_link" length="${base_length}" width="${base_width}"
+                  height="${base_height}" mass="${base_mass}"
+                  center="0 0 -0.04" material="base_gray"/>
+  <xacro:box_link name="link1" length="${link1_length}" width="${link1_width}"
+                  height="${link1_height}" mass="${link1_mass}"
+                  center="${link1_length / 2.0} 0 0" material="link1_blue"/>
+  <xacro:box_link name="link2" length="${link2_length}" width="${link2_width}"
+                  height="${link2_height}" mass="${link2_mass}"
+                  center="${link2_length / 2.0} 0 0" material="link2_orange"/>
+
+  <!-- tool0 is at the distal endpoint of link2, not its COM.
+       The endpoint sphere is centered on tool0; uniform sphere I=2*m*r^2/5. -->
+  <link name="tool0">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><sphere radius="${tool_radius}"/></geometry>
+      <material name="tool_green"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><sphere radius="${tool_radius}"/></geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="${tool_mass}"/>
+      <inertia ixx="${2.0 * tool_mass * tool_radius * tool_radius / 5.0}"
+               ixy="0" ixz="0"
+               iyy="${2.0 * tool_mass * tool_radius * tool_radius / 5.0}"
+               iyz="0"
+               izz="${2.0 * tool_mass * tool_radius * tool_radius / 5.0}"/>
+    </inertial>
+  </link>
+
+  <!-- joint origin is expressed in the parent link frame at zero angle.
+       Positive angles follow the right-hand rule about local +Z.
+       q2 is relative to link1; link2 heading in base_link is q1+q2.
+       effort=10 N*m and velocity=1 rad/s are description assumptions only. -->
+  <joint name="joint1" type="revolute">
+    <parent link="base_link"/>
+    <child link="link1"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="${-arm_pi / 2.0}" upper="${arm_pi / 2.0}" effort="10" velocity="1"/>
+  </joint>
+  <joint name="joint2" type="revolute">
+    <parent link="link1"/>
+    <child link="link2"/>
+    <origin xyz="${link1_length} 0 0" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="${-arm_pi / 2.0}" upper="${arm_pi / 2.0}" effort="10" velocity="1"/>
+  </joint>
+  <joint name="tool0_fixed" type="fixed">
+    <parent link="link2"/>
+    <child link="tool0"/>
+    <origin xyz="${link2_length} 0 0" rpy="0 0 0"/>
+  </joint>
+  <!-- Zero pose: tool0=(0.7,0,0) in base_link.
+       FK: x=0.4*cos(q1)+0.3*cos(q1+q2),
+           y=0.4*sin(q1)+0.3*sin(q1+q2), z=0, yaw=q1+q2. -->
+</robot>

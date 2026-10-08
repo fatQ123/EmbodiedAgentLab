@@ -23,6 +23,10 @@ ros2_ws/build/
 ros2_ws/install/
 ros2_ws/log/
 
+# 本地工具记忆与生成的源码阅读材料
+/ros2_ws/.workbuddy/
+/ros2_ws/docs/
+
 # 大型实验产物；只提交经过筛选的演示和报告
 artifacts/
 episodes/

@@ -1,0 +1,176 @@
+{
+  "date": "2026-10-03",
+  "timezone": "Asia/Shanghai",
+  "branch": "v0.4",
+  "base_commit": "4ec52fb80c4ad458c85ed38fe359a1aeee259f78",
+  "stage_status": "automatic_checks_passed_manual_rviz_pending",
+  "scope": "第四周第一阶段：两关节描述与运动学可视化基础",
+  "pytest": {
+    "tests": 53,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "ctest_wrapper_tests": 1,
+  "headless": {
+    "status": "passed",
+    "observed_at_utc": "2026-10-03T11:00:45.128892+00:00",
+    "sample_count": 42,
+    "sample_window_s": 2.049787275998824,
+    "joint_rate_hz": 20.002075571486532,
+    "joint_positions": [
+      0.0,
+      0.0
+    ],
+    "transforms": [
+      {
+        "parent": "base_link",
+        "child": "link1",
+        "translation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "quaternion_xyzw": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "stamp_ns": 1791025248139047748,
+        "age_s": 0.050779157
+      },
+      {
+        "parent": "link1",
+        "child": "link2",
+        "translation": [
+          0.4,
+          0.0,
+          0.0
+        ],
+        "quaternion_xyzw": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "stamp_ns": 1791025248139047748,
+        "age_s": 0.050779157
+      },
+      {
+        "parent": "link2",
+        "child": "tool0",
+        "translation": [
+          0.3,
+          0.0,
+          0.0
+        ],
+        "quaternion_xyzw": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "stamp_ns": 0
+      },
+      {
+        "parent": "base_link",
+        "child": "tool0",
+        "translation": [
+          0.7,
+          0.0,
+          0.0
+        ],
+        "quaternion_xyzw": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "stamp_ns": 1791025248139047748,
+        "age_s": 0.050779157
+      }
+    ],
+    "criteria": {
+      "minimum_samples": 10,
+      "minimum_window_s": 2.0,
+      "joint_zero_tolerance_rad": 1e-12,
+      "tf_tolerance": 1e-09,
+      "joint_frequency_hz_range": [
+        15.0,
+        25.0
+      ],
+      "maximum_dynamic_age_s": 1.0
+    },
+    "nodes": [
+      {
+        "name": "week04_description_observer_132723",
+        "namespace": "/"
+      },
+      {
+        "name": "robot_state_publisher",
+        "namespace": "/"
+      },
+      {
+        "name": "joint_state_publisher",
+        "namespace": "/"
+      }
+    ],
+    "observer_exit": 0,
+    "launch_exit": 0,
+    "own_process_group_gone": true
+  },
+  "model_match": {
+    "command": [
+      "/opt/ros/jazzy/bin/xacro",
+      "/home/fatbro/workspace/artifacts/week04/stage1-20261003/install/embodied_arm_description/share/embodied_arm_description/urdf/two_link_arm.urdf.xacro"
+    ],
+    "source_sha256": "31bb39f07b5dbe44dfc92ee45bf9f39c1ff4d7c4db9e4bcfc8bbe8d9fc165602",
+    "installed_sha256": "31bb39f07b5dbe44dfc92ee45bf9f39c1ff4d7c4db9e4bcfc8bbe8d9fc165602",
+    "expected_canonical_sha256": "3cad4a53f28e903fcbee2f5125f6362ffadc1d1bd11782b6a9fedd8ecac9b5ed",
+    "observed_canonical_sha256": [
+      "3cad4a53f28e903fcbee2f5125f6362ffadc1d1bd11782b6a9fedd8ecac9b5ed"
+    ],
+    "source_equals_installed": true,
+    "all_observed_equal_expected": true
+  },
+  "negative_checks": {
+    "no_source": {
+      "status": "failed",
+      "exit_code": 1,
+      "expected_exit_code": 1
+    },
+    "sigint_after_fix": {
+      "status": "interrupted",
+      "exit_code": 130,
+      "expected_exit_code": 130
+    }
+  },
+  "versions": {
+    "rclpy": "7.1.12",
+    "tf2_ros": "0.36.22",
+    "robot_state_publisher": "3.3.4",
+    "joint_state_publisher": "2.4.3"
+  },
+  "source_sha256": {
+    "ros2_ws/src/embodied_arm_description/CMakeLists.txt": "f0b7915828ca92753725affe8b387c128838034e464486831d3f4c2b24984cb5",
+    "ros2_ws/src/embodied_arm_description/LICENSE": "7626d9d9689470ae45bece35fdf9b2442ab61fc80eefd335e8099707a781e849",
+    "ros2_ws/src/embodied_arm_description/launch/display.launch.py": "c1d3f8866bef80b86fa994139b0f8db1365967cb72d35c3a8c23ff7d64cc788c",
+    "ros2_ws/src/embodied_arm_description/package.xml": "3ad2da845b63733411b9a4e72e1c341cb69852b82ba7e73937de2d0545a7ed64",
+    "ros2_ws/src/embodied_arm_description/rviz/two_link_arm.rviz": "3494772a202a689bbdf372d0b3c83db3e53f573bf93abaf2618a2e1e0d82fa7e",
+    "ros2_ws/src/embodied_arm_description/test/test_model.py": "b7636f19a0123610f01176a5922b034db971c144998689ab23ad42df1d7187ea",
+    "ros2_ws/src/embodied_arm_description/urdf/two_link_arm.urdf.xacro": "31bb39f07b5dbe44dfc92ee45bf9f39c1ff4d7c4db9e4bcfc8bbe8d9fc165602",
+    "scripts/verify_week04_description.py": "5b931d982a30b90372c17cae652d4bd2ff39b549d2ded12f904e45c03f77ee67"
+  },
+  "full_artifacts": "artifacts/week04/stage1-20261003",
+  "manual_acceptance": {
+    "rviz": "pending",
+    "joint_sliders": "pending",
+    "screenshots": "pending"
+  },
+  "limitations": [
+    "根惯性保留，KDL实际输出不支持root惯性的警告；本阶段不验证动力学。",
+    "非零姿态已做静态FK验证，RViz手动方向与限位待用户验收。",
+    "质量、惯性、effort和velocity为教学模型假设。"
+  ]
+}
